@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/mnt/homes/obouftou/Desktop/minishell/signals",
-      "program": "/mnt/homes/obouftou/Desktop/minishell/signals/build/Debug/outDebug"
+      "cwd": "/mnt/homes/yaboukir/Desktop/ms3/minishell",
+      "program": "/mnt/homes/yaboukir/Desktop/ms3/minishell/build/Debug/outDebug"
     }
   ]
 }

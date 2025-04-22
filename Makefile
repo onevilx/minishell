@@ -1,4 +1,4 @@
-SRCS_MINISHELL =    mian/main.c utils/utils.c
+SRCS_MINISHELL = main.c ft_helpers/utils_pars.c
 
 OBJS_MINISHELL = $(SRCS_MINISHELL:.c=.o)
 CC = cc

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/21 19:52:14 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:19:13 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/miniheader.h"
+# include "includes/miniheader.h"
 
 
 void print_welcome(void)
