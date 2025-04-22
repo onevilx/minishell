@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/22 15:31:25 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:34:50 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void print_welcome(void)
 int main (void)
 {
 	char	*input;
-	char	*cmd;
+	t_cmd	*cmd;
 
 	print_welcome();
+
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -40,7 +41,7 @@ int main (void)
 		}
 		if (*input)
 			add_history(input);
-		cmd = ft_input_process(input);
+		cmd = ft_input_process(input);// parcer o kolchi so cmd atkon m9adda
 		//hna action ghayw93 bchwya 3lina !!
 		free(input);
 	}
