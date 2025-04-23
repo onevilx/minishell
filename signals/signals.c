@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/miniheader."
+# include "../includes/miniheader.h"
 
 void	handle_signal(int sig_num)
 {
-	sigaction
 }

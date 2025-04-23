@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "includes/miniheader.h"
-
+# include "includes/protos.h"
 
 void print_welcome(void)
 {

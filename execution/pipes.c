@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "execution.h"
+#include "../includes/protos.h"
 
 void	handle_pipe(t_cmd *cmd)
 {
@@ -20,7 +20,12 @@ void	handle_pipe(t_cmd *cmd)
 
 	i = 0;
 	while (i < cmd->pipe_count)
-	{
+	{\\\\
+
+
+
+
+	
 		pipe(pipe_fd);
 		pid = fork();
 		if (pid == 0) // Child process

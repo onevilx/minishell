@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniheader.h"
+#include "../includes/protos.h"
 
 static void	*ft_free(char **arr, int count)
 {

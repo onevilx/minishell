@@ -13,7 +13,7 @@
 #ifndef PROTOS_H
 # define PROTOS_H
 
-#include "miniheader.h"
+# include "miniheader.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -25,7 +25,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
-t_cmd	*ft_inzput_proces(char *input);
+t_cmd	*ft_input_proces(char *input);
 int		ft_strcmp(const char *s1, const char *s2);
 bool	ft_isspace(char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

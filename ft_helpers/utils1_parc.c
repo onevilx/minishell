@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils1_parc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/23 15:26:14 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:54:39 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/protos.h"
+# include "../includes/miniheader.h"
 
 
 size_t	ft_strlen(const char *str)

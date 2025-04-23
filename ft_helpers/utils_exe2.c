@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniheader.h"
+#include "../includes/protos.h"
 
 char	***get_env(void)
 {

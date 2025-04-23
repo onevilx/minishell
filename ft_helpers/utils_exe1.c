@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniheader.h"
+#include "../includes/protos.h"
 
 size_t	ft_strlen(const char *s)
 {

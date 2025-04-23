@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "../includes/protos.h"
 
 void	handle_redirections(t_token **tokens)
 {
