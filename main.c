@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/23 15:29:29 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:43:00 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 void print_welcome(void)
 {
 	printf("🟢 Welcome to \033[1;32mminishell\033[0m, this project built by pinky and the brain!\n");
+}
+static void	free_args(char **args)
+{
+	int i;
+
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
 }
 
 int main(int argc, char **argv, char **envp)
