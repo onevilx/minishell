@@ -58,8 +58,6 @@ void add_token(t_token **head, t_token *new)
 
 t_token *parse_operator(const char *input, int *i)
 {
-	t_token *tok;
-
 	if (input[*i] == '>' && input[*i + 1] == '>')
 	{
 		*i += 2;
