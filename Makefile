@@ -1,5 +1,5 @@
 SRCS_MINISHELL = main.c ft_helpers/utils_pars1.c ft_helpers/utils_exe1.c ft_helpers/utils_exe2.c execution/builtins.c execution/init_builtins1.c execution/init_builtins2.c execution/init_builtins3.c \
-
+				ft_helpers/utils_pars2.c ft_helpers/utils_parc3.c ft_helpers/utils_pars4.c parsing/parser.c ft_helpers/ft_cutom_split.c \
 
 OBJS_MINISHELL = $(SRCS_MINISHELL:.c=.o)
 CC = cc

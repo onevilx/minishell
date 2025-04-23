@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/miniheader.h"
+#include "../includes/protos.h"
 
 
 size_t	ft_strlen(const char *str)
@@ -25,23 +25,6 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
-{
-	char	*tmp;
-	size_t	i;
-
-	i = 0;
-	tmp = (char *)malloc(ft_strlen(s1) + 1);
-	if (tmp == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		tmp[i] = s1[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
-}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -69,18 +52,4 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (s1);
 }
 
-char *strndup(const char *s, size_t n)
-{
-	size_t i;
-	char *dup;
 
-	dup = malloc(n + 1);
-	if (!dup)
-		return NULL;
-
-	for (i = 0; i < n && s[i]; i++)
-		dup[i] = s[i];
-
-	dup[i] = '\0';
-	return dup;
-}

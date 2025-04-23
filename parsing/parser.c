@@ -52,7 +52,7 @@ t_token *tokenizing(const char *input)
 
 	while (input[i])
 	{
-		if (is_whitespace(input[i]))
+		if (ft_isspace(input[i]))
 		{
 			i++;
 			continue;
@@ -72,20 +72,37 @@ t_token *tokenizing(const char *input)
 	return tokens;
 }
 
+void ft_print_tokens(t_token *tokens)
+{
+	t_token *cur = tokens;
+
+	printf("🔎 Token list:\n");
+	while (cur)
+	{
+		printf("  Type: %-10s | Value: \"%s\"\n",
+			cur->type == WORD ? "WORD" :
+			cur->type == PIPE ? "PIPE" :
+			cur->type == REDIR_IN ? "REDIR_IN" :
+			cur->type == REDIR_OUT ? "REDIR_OUT" :
+			cur->type == APPEND ? "APPEND" :
+			cur->type == HEREDOC ? "HEREDOC" : "UNKNOWN",
+			cur->value);
+		cur = cur->next;
+	}
+}
+
 t_cmd	*ft_input_proces(char *input)
 {
 	t_token	*tokens;
-	t_cmd	*cmd;
 
-	tokens = toknizing(input);
-	if(tokens)
-	{
-		santax_check();
-
-	}
-
-
-
-
-	return (cmd);
+	tokens = tokenizing(input);
+	if (!tokens)
+		return(NULL);
+	ft_print_tokens(tokens);
+	// if(tokens)
+	// {
+	// 	santax_check(tokens);
+	// }
+	// return (cmd);
+	return (NULL);
 }

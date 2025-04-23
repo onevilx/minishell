@@ -13,17 +13,6 @@
 #include "../includes/protos.h"
 
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
 
 char	*ft_strdup(const char *s1)
 {
@@ -41,32 +30,6 @@ char	*ft_strdup(const char *s1)
 	}
 	tmp[i] = '\0';
 	return (tmp);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*s1;
-	size_t	i;
-	size_t	slen;
-
-	if (!s)
-		return (NULL);
-	slen = ft_strlen(s);
-	i = 0;
-	if (slen <= start)
-		return (ft_strdup(""));
-	if (start + len > slen)
-		len = slen - start;
-	s1 = malloc((len + 1));
-	if (s1 == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		s1[i] = s[start + i];
-		i++;
-	}
-	s1[i] = '\0';
-	return (s1);
 }
 
 char *strndup(const char *s, size_t n)

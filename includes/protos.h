@@ -25,6 +25,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
+void	ft_print_tokens(t_token *tokens);
 int		ft_strcmp(const char *s1, const char *s2);
 int		execute_builtin(char **args);
 bool	ft_isspace(char c);

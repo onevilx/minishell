@@ -12,33 +12,8 @@
 
 #include "../includes/protos.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
 
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
-}
 
-char	*ft_strdup(const char *s1)
-{
-	char	*dest;
-	size_t	i;
-
-	dest = (char *) malloc(ft_strlen(s1) + 1);
-	if (!dest)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	dest[i] = 0;
-	return (dest);
-}
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -54,28 +29,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	char	*str;
-
-	if (!s)
-		return (NULL);
-	if (start > ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
-	str = ft_calloc(len + 1, sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		str[i] = s[start + i];
-		i++;
-	}
-	return (str);
-}
 
 int	ft_atoi(const char *str)
 {
