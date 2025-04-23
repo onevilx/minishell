@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/22 15:34:50 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:29:29 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,19 @@
 
 void print_welcome(void)
 {
-    printf("🟢 Welcome to \033[1;32mminishell\033[0m, this project built by pinky and the brain!\n");
+	printf("🟢 Welcome to \033[1;32mminishell\033[0m, this project built by pinky and the brain!\n");
 }
 
-int main (void)
+int main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_cmd	*cmd;
+	char	**args;
 
+	(void)argc;
+	(void)argv;
+	init_env(envp);
 	print_welcome();
-
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -33,16 +36,16 @@ int main (void)
 			printf("exit!\n");
 			break ;
 		}
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			printf("exit\n");
-			break ;
-		}
 		if (*input)
+		{
 			add_history(input);
-		cmd = ft_input_process(input);// parcer o kolchi so cmd atkon m9adda
-		//hna action ghayw93 bchwya 3lina !!
+		cmd = ft_input_process(input); // parcer o kolchi so cmd atkon m9adda
+		// hna khsna nlinkiw lkhdma binatna
+		args = ft_split(input, ' ');// execute part
+			if (!execute_builtin(args))
+				printf("minishell: command not found: %s\n", args[0]);
+			free_args(args);
+		}
 		free(input);
 	}
 	return (0);

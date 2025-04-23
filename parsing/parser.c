@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/22 20:57:12 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:04:16 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_cmd	*ft_input_proces(char *input)
 	t_token	*tokens;
 	t_cmd	*cmd;
 
-	tokens = toknizing(input);
+	tokens = tokenizing(input);
 	if(tokens)
 	{
 		santax_check();

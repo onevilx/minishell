@@ -6,8 +6,9 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-# include "protos.h"
 #include <limits.h>
+
+#include "protos.h"
 
 typedef enum	s_code
 {
@@ -40,8 +41,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 
 }		t_cmd;
-
-
 
 
 

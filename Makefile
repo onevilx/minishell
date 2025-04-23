@@ -1,11 +1,12 @@
-SRCS_MINISHELL = main.c ft_helpers/utils_pars.c
+SRCS_MINISHELL = main.c ft_helpers/utils_pars1.c ft_helpers/utils_exe1.c ft_helpers/utils_exe2.c execution/builtins.c execution/init_builtins1.c execution/init_builtins2.c execution/init_builtins3.c \
+
 
 OBJS_MINISHELL = $(SRCS_MINISHELL:.c=.o)
 CC = cc
 AR = ar r
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
-INCLUDE = includes/minishell.h
+INCLUDE = includes/minishell.h execution/execution.h
 NAME_MINISHELL = minishell
 
 all: $(NAME_MINISHELL)
