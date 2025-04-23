@@ -6,10 +6,8 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+# include "protos.h"
 #include <limits.h>
-
-#include "../execution/execution.h"
-#include "protos.h"
 
 typedef enum	s_code
 {
@@ -37,19 +35,13 @@ typedef struct	s_token
 
 typedef struct s_cmd
 {
-	int		pipe_count;
 	t_redirect	*red;
-	t_token		**token;
+	t_token		*token;
 	struct s_cmd	*next;
 
 }		t_cmd;
 
 
-typedef struct s_builtin
-{
-	char	*name;
-	void	(*func)(char **args);
-}				t_builtin;
 
 
 
