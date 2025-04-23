@@ -47,7 +47,7 @@ int main(int argc, char **argv, char **envp)
 		if (*input)
 		{
 			add_history(input);
-		cmd = ft_input_process(input); // parcer o kolchi so cmd atkon m9adda
+		cmd = ft_input_proces(input); // parcer o kolchi so cmd atkon m9adda
 		// hna khsna nlinkiw lkhdma binatna
 		args = ft_split(input, ' ');// execute part
 			if (!execute_builtin(args))
