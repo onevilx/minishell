@@ -35,14 +35,19 @@ typedef struct	s_token
 
 typedef struct s_cmd
 {
+	int		pipe_count;
 	t_redirect	*red;
-	t_token		*token;
+	t_token		**token;
 	struct s_cmd	*next;
 
 }		t_cmd;
 
 
-
+typedef struct s_builtin
+{
+	char	*name;
+	void	(*func)(char **args);
+}				t_builtin;
 
 
 #endif
