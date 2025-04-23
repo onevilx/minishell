@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/23 15:22:38 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:36:40 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
-t_cmd	*ft_input_proces(char *input);
+t_cmd	*ft_inzput_proces(char *input);
 int		ft_strcmp(const char *s1, const char *s2);
 bool	ft_isspace(char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

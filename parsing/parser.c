@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/23 15:04:16 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:37:16 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	is_operator_start(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }
+
 t_token *tokenizing(const char *input)
 {
 	int i = 0;
@@ -43,9 +44,6 @@ t_token *tokenizing(const char *input)
 	}
 	return tokens;
 }
-
-
-
 
 t_cmd	*ft_input_proces(char *input)
 {
