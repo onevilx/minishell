@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/23 16:43:00 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:38:20 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 		cmd = ft_input_proces(input); // parcer o kolchi so cmd atkon m9adda
+		printf("-----------------------------------\n");
 		// hna khsna nlinkiw lkhdma binatna
 		args = ft_split(input, ' ');// execute part
 			if (!execute_builtin(args))

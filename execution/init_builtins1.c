@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/23 00:22:19 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:44:57 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,19 @@ void	builtin_echo(char **args)
 
 void	builtin_cd(char **args)
 {
-	if (args[1] == NULL)
-		return ;
-	if (chdir(args[1]) != 0)
-		perror("cd");
+	char	*path;
+
+	if (!args[1])
+	{
+		path = get_env_value("HOME");
+		if (!path || chdir(path) != 0)
+			perror("cd");
+	}
+	else
+	{
+		if (chdir(args[1]) != 0)
+			perror("cd");
+	}
 }
 
 void	builtin_pwd(char **args)

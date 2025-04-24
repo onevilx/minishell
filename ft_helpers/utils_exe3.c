@@ -1,26 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_exe2.c                                       :+:      :+:    :+:   */
+/*   utils_exe3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/24 16:01:36 by yaboukir         ###   ########.fr       */
+/*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
+/*   Updated: 2025/04/24 16:01:40 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/protos.h"
+# include "../includes/protos.h"
 
-void	read_input(int fd, char *delimiter)
-{
-	char	*line;
-	while ((line = readline("> ")) != NULL)
-	{
-		if (ft_strcmp(line, delimiter) == 0)
-			break ;
-		write_line(fd, line);
-		free(line);
-	}
-	free(line);
-}

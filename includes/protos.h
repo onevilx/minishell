@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/23 16:39:06 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:48:20 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_cmd	*ft_input_proces(char *input);
 t_token	*new_token(t_code type, char *val);
 t_token *parse_operator(const char *input, int *i);
 char	*strndup(const char *s, size_t n);
+char	*get_env_value(char *key);
 int		ft_atoi(const char *str);
 int		open_tmpfile(void);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

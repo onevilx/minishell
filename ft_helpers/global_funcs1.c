@@ -1,17 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1_parc.c                                      :+:      :+:    :+:   */
+/*   global_funcs1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/22 20:54:39 by obouftou         ###   ########.fr       */
+/*   Created: 2025/04/24 15:55:46 by yaboukir          #+#    #+#             */
+/*   Updated: 2025/04/24 15:57:51 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] != '\0' || s2[i] != '\0')
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	unsigned char	*tmp;
+	size_t			i;
+
+	i = 0;
+	if (count != 0 && size > SIZE_MAX / count)
+		return (NULL);
+	tmp = malloc(count * size);
+	if (!tmp)
+		return (NULL);
+	while (i < count * size)
+		tmp[i++] = 0;
+	return (tmp);
+}
 
 size_t	ft_strlen(const char *str)
 {
@@ -24,7 +53,6 @@ size_t	ft_strlen(const char *str)
 	}
 	return (i);
 }
-
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -52,4 +80,20 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (s1);
 }
 
+char	*ft_strdup(const char *s1)
+{
+	char	*tmp;
+	size_t	i;
 
+	i = 0;
+	tmp = (char *)malloc(ft_strlen(s1) + 1);
+	if (tmp == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		tmp[i] = s1[i];
+		i++;
+	}
+	tmp[i] = '\0';
+	return (tmp);
+}
