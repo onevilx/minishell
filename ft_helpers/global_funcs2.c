@@ -6,16 +6,16 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:57:55 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/24 15:59:16 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/25 01:06:44 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-char *strndup(const char *s, size_t n)
+char	*strndup(const char *s, size_t n)
 {
-	size_t i;
-	char *dup;
+	size_t	i;
+	char	*dup;
 
 	dup = malloc(n + 1);
 	if (!dup)

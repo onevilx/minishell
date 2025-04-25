@@ -3,15 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:45:18 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/21 20:25:43 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/04/25 01:48:07 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/miniheader.h"
+#include "../includes/protos.h"
 
-void	handle_signal(int sig_num)
+#include <readline/readline.h>
+
+void	sigint_handler(int signum)
 {
+	(void)signum;
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	sigquit_handler(int signum)
+{
+	(void)signum;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	sigterm_handler(int signum)
+{
+	char	*prompt;
+
+	(void)signum;
+	prompt = "minishell$ ";
+	write(1, "\033[1A", 4);
+	write(1, "\033[2K", 4);
+	write(1, prompt, ft_strlen(prompt));
+	write(1, "exit\n", 5);
+	exit(0);
+}
+
+void	init_signals(void)
+{
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
+	signal(SIGTERM, sigterm_handler);
+}
+
+void	init_terminal(void)
+{
+	init_signals();
+	disable_echoctl();
 }

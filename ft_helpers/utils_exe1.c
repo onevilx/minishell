@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:47:14 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/24 16:00:54 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/25 01:21:07 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,31 @@ char	*get_env_value(char *key)
 	return (NULL);
 }
 
+void	update_env_var(int idx, char *arg)
+{
+	char	**env;
+
+	env = *get_env();
+	free(env[idx]);
+	env[idx] = ft_strdup(arg);
+}
+
+int	find_env_index(char **env, char *key)
+{
+	int		i;
+	size_t	len;
+
+	len = ft_strlen(key);
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], key, len) && env[i][len] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 void	init_env(char **envp)
 {
 	char	**new_env;
@@ -55,13 +80,3 @@ void	init_env(char **envp)
 	*get_env() = new_env;
 }
 
-int	open_tmpfile(void)
-{
-	return (open("/tmp/heredoc_input.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644));
-}
-
-void	write_line(int fd, char *line)
-{
-	write(fd, line, ft_strlen(line));
-	write(fd, "\n", 1);
-}

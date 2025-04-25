@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/22 23:38:03 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/25 01:29:58 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	handle_redirections(t_token **tokens)
 {
-	int i;
-	int fd;
+	int	i;
+	int	fd;
 
 	i = -1;
 	while (tokens[++i] != NULL)
@@ -41,17 +41,18 @@ void	handle_redirections(t_token **tokens)
 	}
 }
 
-void	handle_APPEND(t_token **tokens)
+void	handle_append(t_token **tokens)
 {
-	int i;
-	int fd;
+	int	i;
+	int	fd;
 
 	i = 0;
 	while (tokens[i] != NULL)
 	{
 		if (tokens[i]->type == APPEND)
 		{
-			fd = open(tokens[i + 1]->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			fd = open(tokens[i + 1]->value,
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
 				perror("Error opening file for append redirection");
 			else
