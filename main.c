@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/25 02:13:25 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:00:14 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	main(int argc, char **argv, char **envp)
 		// hna khsna nlinkiw lkhdma binatna
 		args = ft_split(input, ' ');// execute part
 			if (!execute_builtin(args))
+			{
+				if (!execute_external(args))
 				printf("minishell: command not found: %s\n", args[0]);
+			}
 			free_args(args);
 		}
 		free(input);

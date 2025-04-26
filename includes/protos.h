@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/25 02:13:17 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:19:21 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "miniheader.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
@@ -30,12 +31,16 @@
 int		ft_strcmp(const char *s1, const char *s2);
 int		find_env_index(char **env, char *key);
 int		execute_builtin(char **args);
+int		execute_external(char **args);
 bool	ft_isspace(char c);
 t_cmd	*ft_input_proces(char *input);
 t_token	*new_token(t_code type, char *val);
 t_token *parse_operator(const char *input, int *i);
 char	*strndup(const char *s, size_t n);
 char	*get_env_value(char *key);
+void	free_split(char **array);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_free(char *s1, const char *s2);
 int		ft_atoi(const char *str);
 int		open_tmpfile(void);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
