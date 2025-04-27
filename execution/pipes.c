@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:09:21 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/22 23:13:19 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:12:26 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,48 @@
 
 void	handle_pipe(t_cmd *cmd)
 {
-	int pipe_fd[2];
-	pid_t pid;
-	int i;
+	int		i;
+	int		pipe_fd[2];
+	int		prev_fd;
+	pid_t	pid;
 
 	i = 0;
+	prev_fd = -1;
 	while (i < cmd->pipe_count)
 	{
-		pipe(pipe_fd);
+		if (i < cmd->pipe_count - 1 && pipe(pipe_fd) == -1)
+			perror("pipe");
 		pid = fork();
-		if (pid == 0) // Child process
+		if (pid == -1)
+			perror("fork");
+		else if (pid == 0)
 		{
-			if (i > 0) // Not the first command
-				dup2(pipe_fd[0], STDIN_FILENO); // Take input from previous pipe
-			if (i < cmd->pipe_count - 1) // Not the last command
-				dup2(pipe_fd[1], STDOUT_FILENO); // Send output to the next pipe
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
-
-			// Execute the command here
-			// execve(...);
-		}
-		else // Parent process
-		{
-			close(pipe_fd[1]);
-			if (i > 0)
+			if (prev_fd != -1)
+			{
+				dup2(prev_fd, STDIN_FILENO);
+				close(prev_fd);
+			}
+			if (i < cmd->pipe_count - 1)
+			{
 				close(pipe_fd[0]);
-			waitpid(pid, NULL, 0);
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[1]);
+			}
+			// execve(cmd->args[i][0], cmd->args[i], *get_env()); <== handling I&O with each command (3afak dazai lama srbi hh)
+			exit(1);
+		}
+		else
+		{
+			if (prev_fd != -1)
+				close(prev_fd);
+			if (i < cmd->pipe_count - 1)
+			{
+				close(pipe_fd[1]);
+				prev_fd = pipe_fd[0];
+			}
 		}
 		i++;
 	}
+	while (wait(NULL) > 0)
+		;
 }

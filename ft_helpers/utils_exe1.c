@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:47:14 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/25 01:21:07 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:49:14 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,11 @@ int	find_env_index(char **env, char *key)
 
 void	init_env(char **envp)
 {
-	char	**new_env;
-	int		i;
+	char	**env_copy;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	new_env = malloc(sizeof(char *) * (i + 1));
-	if (!new_env)
+	env_copy = copy_env(envp);
+	if (!env_copy)
 		return ;
-	i = -1;
-	while (envp[++i])
-		new_env[i] = ft_strdup(envp[i]);
-	new_env[i] = NULL;
-	*get_env() = new_env;
+	*get_env() = env_copy;
+	update_shlvl();
 }
-

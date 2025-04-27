@@ -6,16 +6,11 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/25 18:00:14 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:10:22 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "includes/protos.h"
-
-static void	print_welcome(void)
-{
-	printf("🟢 Welcome to \033[1;32mminishell\033[0m, this project built by pinky and the brain!\n");
-}
 
 static void	free_args(char **args)
 {
@@ -36,8 +31,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_env(envp);
-	init_terminal();
-	print_welcome();
+	ft_launching();
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -46,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 		if (*input)
 		{
 			add_history(input);
-		cmd = ft_input_proces(input); // parcer o kolchi so cmd atkon m9adda
+		cmd = ft_input_proces(input); // parser o kolchi so cmd atkon m9adda
 		printf("------------------------------------------\n");
 		// hna khsna nlinkiw lkhdma binatna
 		args = ft_split(input, ' ');// execute part

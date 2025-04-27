@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:57:55 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/25 18:04:49 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:31:45 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ char	*strndup(const char *s, size_t n)
 
 	dup = malloc(n + 1);
 	if (!dup)
-		return NULL;
-
-	for (i = 0; i < n && s[i]; i++)
+		return (NULL);
+	i = 0;
+	while (i < n && s[i])
+	{
 		dup[i] = s[i];
-
+		i++;
+	}
 	dup[i] = '\0';
-	return dup;
+	return (dup);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -93,4 +95,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		res[j++] = s2[i++];
 	res[j] = '\0';
 	return (res);
+}
+
+void	disable_echoctl(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }

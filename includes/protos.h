@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/25 18:19:21 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:04:15 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ int		execute_external(char **args);
 bool	ft_isspace(char c);
 t_cmd	*ft_input_proces(char *input);
 t_token	*new_token(t_code type, char *val);
-t_token *parse_operator(const char *input, int *i);
+t_token	*parse_operator(const char *input, int *i);
+char	*ft_itoa(int n);
+char	**copy_env(char **envp);
+void	update_shlvl(void);
 char	*strndup(const char *s, size_t n);
 char	*get_env_value(char *key);
+void	print_welcome(void);
 void	free_split(char **array);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_free(char *s1, const char *s2);
@@ -50,6 +54,7 @@ char	*ft_strdup(const char *s1);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	init_signals(void);
+void	ft_launching(void);
 void	init_terminal(void);
 void	disable_echoctl(void);
 void	sigterm_handler(int signum);
@@ -72,7 +77,7 @@ void	handle_append(t_token **tokens);
 void	handle_heredoc(t_token **tokens);
 void	handle_redirections(t_token **tokens);
 void	builtin_export(char **args);
+void	update_or_add_env(const char *key, const char *full_var);
 size_t	ft_strlen(const char *s);
-
 
 #endif

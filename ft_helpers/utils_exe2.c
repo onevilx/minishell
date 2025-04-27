@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/25 18:08:26 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:33:38 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	write_line(int fd, char *line)
 void	read_input(int fd, char *delimiter)
 {
 	char	*line;
-	while ((line = readline("> ")) != NULL)
+
+	line = readline("> ");
+	while (line != NULL)
 	{
 		if (ft_strcmp(line, delimiter) == 0)
 			break ;
