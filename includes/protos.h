@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/27 18:04:15 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:19:34 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,8 @@ void	handle_redirections(t_token **tokens);
 void	builtin_export(char **args);
 void	update_or_add_env(const char *key, const char *full_var);
 size_t	ft_strlen(const char *s);
+void	free_tokens(t_token *token);
+bool are_quotes_closed(const char *input);
+bool	syntax_check(t_token *token);
 
 #endif

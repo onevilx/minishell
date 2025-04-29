@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/27 18:10:22 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:25:07 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 			if (!execute_builtin(args))
 			{
 				if (!execute_external(args))
-				printf("minishell: command not found: %s\n", args[0]);
+					printf("minishell: command not found: %s\n", args[0]);
 			}
 			free_args(args);
 		}

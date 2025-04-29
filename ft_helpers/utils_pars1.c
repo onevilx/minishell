@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:03:35 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/24 15:56:17 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:30:05 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,18 @@ t_token *parse_operator(const char *input, int *i)
 		return new_token(PIPE, strndup(&input[(*i)++], 1));
 	return NULL;
 }
+
+void	free_tokens(t_token *token)
+{
+	t_token	*tmp;
+
+	while (token)
+	{
+		tmp = token->next;
+		if (token->value)
+			free(token->value); 
+		free(token);
+		token = tmp;
+	}
+}
+

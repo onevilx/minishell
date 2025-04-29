@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/25 01:43:09 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:27:07 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,22 @@ void ft_print_tokens(t_token *tokens)
 t_cmd	*ft_input_proces(char *input)
 {
 	t_token	*tokens;
+	// t_cmd	*cmd;
 
+	if (!are_quotes_closed(input))
+	{
+		printf("Syntax error: unclosed quote\n");
+		return NULL;
+	}
 	tokens = tokenizing(input);
 	if (!tokens)
 		return(NULL);
 	ft_print_tokens(tokens);
-	// if(tokens)
-	// {
-	// 	santax_check(tokens);
-	// }
-	// return (cmd);
-	return (NULL);
+	if(!syntax_check(tokens))
+	{
+		free_tokens(tokens);
+		return (NULL);
+	}
+	//return (cmd);
+	return(NULL);
 }
