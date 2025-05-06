@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/29 18:19:34 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:41:22 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		execute_builtin(char **args);
 int		execute_external(char **args);
 bool	ft_isspace(char c);
 t_cmd	*ft_input_proces(char *input);
-t_token	*new_token(t_code type, char *val);
+t_token	*new_token(t_code type, char *val, char qoute_type);
 t_token	*parse_operator(const char *input, int *i);
 char	*ft_itoa(int n);
 char	**copy_env(char **envp);
@@ -80,7 +80,9 @@ void	builtin_export(char **args);
 void	update_or_add_env(const char *key, const char *full_var);
 size_t	ft_strlen(const char *s);
 void	free_tokens(t_token *token);
-bool are_quotes_closed(const char *input);
+bool 	are_quotes_closed(const char *input);
 bool	syntax_check(t_token *token);
+t_token	*parse_word(const char *input, int *i);
+int		is_operator_start(char c);
 
 #endif

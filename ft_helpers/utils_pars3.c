@@ -3,11 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/27 17:39:55 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/05 15:16:45 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
+

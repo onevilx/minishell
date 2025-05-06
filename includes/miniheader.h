@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniheader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/27 18:02:02 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:27:40 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_redirect
 typedef struct s_token
 {
 	t_code			type;
+	char			quote_type; // i will set this var to '\0' if no quotes are spotted or to '\'' || '"'
 	char			*value;
 	struct s_token	*next;
 }				t_token;
