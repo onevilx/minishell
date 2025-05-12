@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/05 18:27:40 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:14:01 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_redirect
 {
 	t_code				type;
 	char				*val;
-	struct t_redirect	*next;
+	struct s_redirect	*next;
 }				t_redirect;
 
 typedef struct s_token

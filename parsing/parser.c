@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/05 20:43:20 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:57:33 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,96 @@ void	ft_print_tokens(t_token *tokens)
 {
 	t_token	*cur;
 
-	cur = tokens;
 	printf("🔎 Token list:\n");
+	cur = tokens;
 	while (cur)
 	{
-		printf("  Type: %-10s | Quote: %s | Value: \"%s\"\n",
+		const char *type_str = (
 			cur->type == WORD ? "WORD" :
 			cur->type == PIPE ? "PIPE" :
 			cur->type == REDIR_IN ? "REDIR_IN" :
 			cur->type == REDIR_OUT ? "REDIR_OUT" :
 			cur->type == APPEND ? "APPEND" :
-			cur->type == HEREDOC ? "HEREDOC" : "UNKNOWN",
+			cur->type == HEREDOC ? "HEREDOC" : "UNKNOWN");
+
+		const char *quote_str = (
 			cur->quote_type == '\'' ? "SINGLE" :
-			cur->quote_type == '"' ? "DOUBLE" : "NONE",
-			cur->value);
+			cur->quote_type == '"' ? "DOUBLE" : "NONE");
+
+		printf("  Type: %-10s | Quote: %-6s | Value: \"%s\"\n",
+			type_str, quote_str, cur->value);
+
+		// If it's a redirection operator, try to print its target
+		if ((cur->type == REDIR_IN || cur->type == REDIR_OUT ||
+			 cur->type == APPEND || cur->type == HEREDOC)
+			&& cur->next && cur->next->type == WORD)
+		{
+			printf("    ↪ Redirects to: \"%s\"\n", cur->next->value);
+		}
 		cur = cur->next;
 	}
 }
 
+static const char *redir_type_str(t_code type)
+{
+	if (type == REDIR_IN) return "<";
+	if (type == REDIR_OUT) return ">";
+	if (type == APPEND) return ">>";
+	if (type == HEREDOC) return "<<";
+	return "UNKNOWN";
+}
+
+void	ft_print_cmd(t_cmd *cmd)
+{
+	int i;
+	t_redirect *redir;
+	int cmd_index;
+
+	cmd_index = 0;
+	while (cmd)
+	{
+		printf("🔹 Command %d:\n", cmd_index++);
+
+		// Print tokens
+		printf("  🧾 Tokens:\n");
+		if (cmd->token)
+		{
+			i = 0;
+			while (cmd->token[i])
+			{
+				printf("    - [%d] \"%s\"\n", i, cmd->token[i]->value);
+				i++;
+			}
+		}
+		else
+			printf("    (no tokens)\n");
+
+		// Print redirections
+		printf("  🔁 Redirections:\n");
+		redir = cmd->red;
+		if (!redir)
+			printf("    (no redirections)\n");
+		while (redir)
+		{
+			printf("    - Type: %-3s | Target: \"%s\"\n",
+				redir_type_str(redir->type), redir->val);
+			redir = redir->next;
+		}
+
+		// Pipe count
+		printf("  🔗 Pipe count after this command: %d\n", cmd->pipe_count);
+
+		// Next command
+		cmd = cmd->next;
+		if (cmd)
+			printf("  ↓\n");
+	}
+}
 
 t_cmd	*ft_input_proces(char *input)
 {
 	t_token	*tokens;
-	// t_cmd	*cmd;
+	t_cmd	*cmd;
 
 	if (!are_quotes_closed(input))
 	{
@@ -89,6 +156,8 @@ t_cmd	*ft_input_proces(char *input)
 		free_tokens(tokens);
 		return (NULL);
 	}
-	//return (cmd);
-	return(NULL);
+	// ft_expand_tokens(tokens); // to do 
+	cmd = ft_parse_commands(tokens);
+	ft_print_cmd(cmd);
+	return(cmd);
 }
