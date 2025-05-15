@@ -6,18 +6,18 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:09:21 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/27 18:12:26 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:04:27 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-void	handle_pipe(t_cmd *cmd)
+void handle_pipe(t_cmd *cmd)
 {
-	int		i;
-	int		pipe_fd[2];
-	int		prev_fd;
-	pid_t	pid;
+	int i;
+	int pipe_fd[2];
+	int prev_fd;
+	pid_t pid;
 
 	i = 0;
 	prev_fd = -1;
@@ -41,7 +41,7 @@ void	handle_pipe(t_cmd *cmd)
 				dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[1]);
 			}
-			// execve(cmd->args[i][0], cmd->args[i], *get_env()); <== handling I&O with each command (3afak dazai lama srbi hh)
+			execve(cmd->args[i][0], cmd->args[i], *get_env());
 			exit(1);
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/08 19:57:33 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:02:25 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ t_cmd	*ft_input_proces(char *input)
 		free_tokens(tokens);
 		return (NULL);
 	}
-	// ft_expand_tokens(tokens); // to do 
+	// ft_expand_tokens(tokens); // to do
 	cmd = ft_parse_commands(tokens);
 	ft_print_cmd(cmd);
 	return(cmd);

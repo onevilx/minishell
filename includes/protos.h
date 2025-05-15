@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/07 17:54:28 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:12:24 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 
 int			ft_strcmp(const char *s1, const char *s2);
 int			find_env_index(char **env, char *key);
-int			execute_builtin(char **args);
-int			execute_external(char **args);
+int			execute_builtin(t_cmd *cmd);
+int			execute_external(t_cmd *cmd);
 bool		ft_isspace(char c);
 t_cmd		*ft_input_proces(char *input);
 t_token		*new_token(t_code type, char *val, char qoute_type);
@@ -43,6 +43,7 @@ char		*strndup(const char *s, size_t n);
 char		*get_env_value(char *key);
 void		print_welcome(void);
 void		free_split(char **array);
+t_arg *token_to_args(t_token *start, t_token *end);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strjoin_free(char *s1, const char *s2);
 int			ft_atoi(const char *str);
@@ -67,25 +68,27 @@ void		read_input(int fd, char *delimiter);
 void		add_token(t_token **head, t_token *new);
 void		ft_print_tokens(t_token *tokens);
 void		*ft_calloc(size_t count, size_t size);
-void		builtin_cd(char **args);
-void		builtin_pwd(char **args);
-void		builtin_env(char **args);
-void		builtin_exit(char **args);
-void		builtin_echo(char **args);
-void		builtin_unset(char **args);
+void		builtin_cd(t_arg *args);
+void		builtin_echo(t_arg *args);
+void		builtin_pwd(t_arg *args);
+void		builtin_env(t_arg *args);
+void		builtin_exit(t_arg *args);
+void		builtin_unset(t_arg *args);
 void		handle_append(t_token **tokens);
 void		handle_heredoc(t_token **tokens);
-void		handle_redirections(t_token **tokens);
-void		builtin_export(char **args);
+void		free_cmd(t_cmd *cmd);
+void		handle_redirections(t_cmd *cmd);
+void		builtin_export(t_arg *args);
 void		update_or_add_env(const char *key, const char *full_var);
 size_t		ft_strlen(const char *s);
 void		free_tokens(t_token *token);
-bool 		are_quotes_closed(const char *input);
+bool		are_quotes_closed(const char *input);
 bool		syntax_check(t_token *token);
 t_token		*parse_word(const char *input, int *i);
 int			is_operator_start(char c);
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val);
 t_cmd		*ft_parse_commands(t_token *tokens);
+t_token		*copy_args_from_tokens(t_token *tokens);
 int			count_pipes(t_token *tokens);
 
 #endif

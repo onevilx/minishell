@@ -6,32 +6,32 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/25 01:29:58 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:21:57 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-void	handle_redirections(t_token **tokens)
+void handle_redirections(t_cmd *cmd)
 {
-	int	i;
-	int	fd;
+	int i;
+	int fd;
 
 	i = -1;
-	while (tokens[++i] != NULL)
+	while (cmd->token[++i] != NULL)
 	{
-		if (tokens[i]->type == REDIR_IN)
+		if (cmd->token[i]->type == REDIR_IN)
 		{
-			fd = open(tokens[i + 1]->value, O_RDONLY);
+			fd = open(cmd->token[i + 1]->value, O_RDONLY);
 			if (fd == -1)
 				perror("Error opening file for input redirection");
 			else
 				dup2(fd, STDIN_FILENO);
 			close(fd);
 		}
-		else if (tokens[i]->type == REDIR_OUT)
+		else if (cmd->token[i]->type == REDIR_OUT)
 		{
-			fd = open(tokens[i + 1]->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(cmd->token[i + 1]->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
 				perror("Error opening file for output redirection");
 			else

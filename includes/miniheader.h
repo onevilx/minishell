@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniheader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/07 16:14:01 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:20:25 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,16 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
+typedef struct s_arg
+{
+    char            *value;
+    struct s_arg    *next;
+} t_arg;
+
 typedef struct s_cmd
 {
 	int				pipe_count;
+	t_arg			*args;
 	t_redirect		*red;
 	t_token			**token;
 	struct s_cmd	*next;

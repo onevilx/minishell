@@ -6,54 +6,58 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:14:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/22 22:29:53 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:16:40 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-static int	is_builtin(char *cmd)
+static int is_builtin(t_cmd *cmd)
 {
-	if (ft_strcmp(cmd, "echo") == 0)
-		return (1);
-	if (ft_strcmp(cmd, "cd") == 0)
-		return (1);
-	if (ft_strcmp(cmd, "pwd") == 0)
-		return (1);
-	if (ft_strcmp(cmd, "export") == 0)
-		return (1);
-	if (ft_strcmp(cmd, "unset") == 0)
-		return (1);
-	if (ft_strcmp(cmd, "env") == 0)
-		return (1);
-	if (ft_strcmp(cmd, "exit") == 0)
-		return (1);
-	return (0);
+    if (cmd->args == NULL || cmd->args->value == NULL) // Check for NULL
+        return (0);
+    if (ft_strcmp(cmd->args->value, "echo") == 0)
+        return (1);
+    if (ft_strcmp(cmd->args->value, "cd") == 0)
+        return (1);
+    if (ft_strcmp(cmd->args->value, "pwd") == 0)
+        return (1);
+    if (ft_strcmp(cmd->args->value, "export") == 0)
+        return (1);
+    if (ft_strcmp(cmd->args->value, "unset") == 0)
+        return (1);
+    if (ft_strcmp(cmd->args->value, "env") == 0)
+        return (1);
+    if (ft_strcmp(cmd->args->value, "exit") == 0)
+        return (1);
+    return (0);
 }
 
-static void	handle_builtin(char **args)
+
+
+static void handle_builtin(t_cmd *cmd)
 {
-	if (ft_strcmp(args[0], "echo") == 0)
-		builtin_echo(args);
-	else if (ft_strcmp(args[0], "cd") == 0)
-		builtin_cd(args);
-	else if (ft_strcmp(args[0], "pwd") == 0)
-		builtin_pwd(args);
-	else if (ft_strcmp(args[0], "export") == 0)
-		builtin_export(args);
-	else if (ft_strcmp(args[0], "unset") == 0)
-		builtin_unset(args);
-	else if (ft_strcmp(args[0], "env") == 0)
-		builtin_env(args);
-	else if (ft_strcmp(args[0], "exit") == 0)
-		builtin_exit(args);
+    if (ft_strcmp(cmd->args->value, "echo") == 0)
+        builtin_echo(cmd->args);
+    else if (ft_strcmp(cmd->args->value, "cd") == 0)
+        builtin_cd(cmd->args);
+    else if (ft_strcmp(cmd->args->value, "pwd") == 0)
+        builtin_pwd(cmd->args);
+    else if (ft_strcmp(cmd->args->value, "export") == 0)
+        builtin_export(cmd->args);
+    else if (ft_strcmp(cmd->args->value, "unset") == 0)
+        builtin_unset(cmd->args);
+    else if (ft_strcmp(cmd->args->value, "env") == 0)
+        builtin_env(cmd->args);
+    else if (ft_strcmp(cmd->args->value, "exit") == 0)
+        builtin_exit(cmd->args);
 }
 
-int	execute_builtin(char **args)
+int execute_builtin(t_cmd *cmd)
 {
-	if (is_builtin(args[0]))
+	if (is_builtin(cmd))
 	{
-		handle_builtin(args);
+		handle_builtin(cmd);
 		return (1);
 	}
 	return (0);

@@ -6,68 +6,84 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/24 23:52:01 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:28:07 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-void	builtin_echo(char **args)
+void	builtin_echo(t_arg *args)
 {
-	int	i;
-	int	no_newline;
+	int		no_newline;
+	t_arg	*current;
 
-	i = 1;
+	current = args->next;
 	no_newline = 0;
-	if (args[i] && ft_strcmp(args[i], "-n") == 0)
+	while (current && current->value && ft_strncmp(current->value, "-n", 2) == 0)
 	{
+		int i = 2;
+		while (current->value[i] == 'n')
+			i++;
+		if (current->value[i] != '\0')
+			break;
 		no_newline = 1;
-		i++;
+		current = current->next;
 	}
-	while (args[i])
+	while (current)
 	{
-		printf("%s", args[i]);
-		if (args[i + 1])
+		printf("%s", current->value);
+		if (current->next)
 			printf(" ");
-		i++;
+		current = current->next;
 	}
 	if (!no_newline)
 		printf("\n");
 }
 
-void	builtin_cd(char **args)
+// CD command
+void	builtin_cd(t_arg *args)
 {
 	char	*path;
+	t_arg	*current;
 
-	if (!args[1])
+	current = args->next; // Skip the "cd" command itself
+
+	if (!current) // No argument given
 	{
 		path = get_env_value("HOME");
 		if (!path || chdir(path) != 0)
 			perror("cd");
 	}
-	else
+	else if (current && !current->next) // Single argument
 	{
-		if (chdir(args[1]) != 0)
+		if (chdir(current->value) != 0)
 			perror("cd");
+	}
+	else // More than one argument
+	{
+		write(2, "cd: too many arguments\n", 24);
 	}
 }
 
-void	builtin_pwd(char **args)
+
+// PWD command
+void	builtin_pwd(t_arg *args)
 {
 	char	*cwd;
 
-	(void) args;
+	(void) args;  // args are unused
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
-		write(1, cwd, ft_strlen(cwd));
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
+		write(STDOUT_FILENO, "\n", 1);
 		free(cwd);
 	}
 	else
 		perror("pwd");
 }
 
+// Helper function to check if a string is numeric (for exit)
 static int	is_numeric(const char *str)
 {
 	int	i;
@@ -86,20 +102,32 @@ static int	is_numeric(const char *str)
 	return (1);
 }
 
-void	builtin_exit(char **args)
+void	builtin_exit(t_arg *args)
 {
-	write(1, "exit\n", 5);
-	if (!args[1])
+	t_arg	*current;
+	int		exit_status;
+
+	current = args->next;
+	exit_status = 0;
+	if (!current)
+	{
+		write(1, "exit\n", 5);
 		exit(0);
-	if (!is_numeric(args[1]))
-	{
-		write(2, "exit: numeric argument required\n", 32);
-		exit(255);
 	}
-	if (args[2])
+	if (current && !current->next)
 	{
-		write(2, "exit: too many arguments\n", 25);
-		return ;
+		if (is_numeric(current->value))
+		{
+			exit_status = ft_atoi(current->value);
+			write(1, "exit\n", 5);
+			exit(exit_status);
+		}
+		else
+		{
+			write(2, "exit: numeric argument required\n", 32);
+			return;
+		}
 	}
-	exit(ft_atoi(args[1]) % 256);
+	write(2, "exit: too many arguments\n", 25);
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:57:06 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/07 20:53:46 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:32:40 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ static t_cmd *parse_command_node(t_token *start, t_token *end)
 	init_command(&cmd);
 	if (!cmd)
 		return NULL;
+	cmd->args = token_to_args(start, end);
+	if (!cmd->args)
+	{
+		free(cmd);
+		return (NULL);
+	}
 	if (!fill_command_data(cmd, start, end))
 	{
 		free(cmd);

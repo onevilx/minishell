@@ -6,12 +6,13 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:53:54 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/25 01:20:57 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:08:02 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
+// Check if the export argument is valid (contains a key-value pair)
 static int	is_valid_export(char *arg)
 {
 	int	i;
@@ -30,6 +31,7 @@ static int	is_valid_export(char *arg)
 	return (1);
 }
 
+// Add a new environment variable
 static void	add_env_var(char *arg)
 {
 	char	**env;
@@ -52,6 +54,7 @@ static void	add_env_var(char *arg)
 	*get_env() = new_env;
 }
 
+// Print all exported variables in the format 'declare -x key=value'
 static void	print_export_vars(void)
 {
 	char	**env;
@@ -68,37 +71,42 @@ static void	print_export_vars(void)
 	}
 }
 
-static void	handle_export_arg(char *arg)
+// Handle each export argument, ensuring it's valid and add it to the environment
+static void	handle_export_arg(t_arg *arg)
 {
 	char	*key;
 	char	**env;
 	int		idx;
 	int		pos;
 
-	if (!is_valid_export(arg))
+	if (!is_valid_export(arg->value))
 		return ((void)write(2, "export: not a valid identifier\n", 31));
 	pos = 0;
-	while (arg[pos] && arg[pos] != '=')
+	while (arg->value[pos] && arg->value[pos] != '=')
 		pos++;
 	if (pos == 0)
 		return ((void)write(2, "export: not a valid identifier\n", 31));
-	key = ft_substr(arg, 0, pos);
+	key = ft_substr(arg->value, 0, pos);
 	env = *get_env();
 	idx = find_env_index(env, key);
 	free(key);
 	if (idx >= 0)
-		update_env_var(idx, arg);
+		update_env_var(idx, arg->value);
 	else
-		add_env_var(arg);
+		add_env_var(arg->value);
 }
 
-void	builtin_export(char **args)
+// Builtin export command
+void	builtin_export(t_arg *args)
 {
-	int	i;
+	t_arg	*current;
 
-	if (!args[1])
+	if (!args || args->next == NULL) // Fix: also check if there are no arguments after "export"
 		return (print_export_vars());
-	i = 1;
-	while (args[i])
-		handle_export_arg(args[i++]);
+	current = args->next;  // Skip the command itself
+	while (current)
+	{
+		handle_export_arg(current);
+		current = current->next;
+	}
 }

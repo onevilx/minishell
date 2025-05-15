@@ -6,12 +6,13 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:20:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/22 23:43:43 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:18:52 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
+// Check if the key is a valid environment variable identifier
 static int	is_valid_key(char *key)
 {
 	int	i;
@@ -30,6 +31,7 @@ static int	is_valid_key(char *key)
 	return (1);
 }
 
+// Remove an environment variable by its key
 static void	remove_env_var(char *key)
 {
 	int		i;
@@ -59,21 +61,23 @@ static void	remove_env_var(char *key)
 	*get_env() = new_env;
 }
 
-void	builtin_unset(char **args)
+// Builtin unset command: remove environment variables specified in the arguments
+void	builtin_unset(t_arg *args)
 {
-	int	i;
+	t_arg	*current;
 
-	i = 1;
-	while (args[i])
+	current = args->next;  // Skip the first argument which is the command name
+	while (current)
 	{
-		if (is_valid_key(args[i]))
-			remove_env_var(args[i]);
+		if (is_valid_key(current->value))
+			remove_env_var(current->value);
 		else
 			write(2, "unset: not a valid identifier\n", 31);
-		i++;
+		current = current->next;
 	}
 }
 
+// Print all environment variables
 static void	print_env(void)
 {
 	int		i;
@@ -91,20 +95,23 @@ static void	print_env(void)
 	}
 }
 
-void	builtin_env(char **args)
+// Builtin env command: print the environment or execute a command with the environment
+void	builtin_env(t_arg *args)
 {
+	t_arg	*current;
 	char	*path;
 	char	**envp;
 
-	if (args[1] == NULL)
+	current = args->next;  // Skip the first argument which is the command name
+	if (!current)  // If no additional arguments are provided, print the environment
 		print_env();
 	else
 	{
-		path = args[1];
+		path = current->value;  // The first argument after the command is the path
 		envp = *get_env();
 		if (fork() == 0)
 		{
-			if (execve(path, args + 1, envp) == -1)
+			if (execve(path, (char **)(current->next), envp) == -1)
 			{
 				write(2, "env: command not found\n", 23);
 				exit(1);

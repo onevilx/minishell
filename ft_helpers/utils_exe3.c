@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/27 18:49:21 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:20:42 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,37 @@ void	update_or_add_env(const char *key, const char *full_var)
 		return ;
 	free(env);
 	*get_env() = new_env;
+}
+
+void	free_cmd(t_cmd *cmd)
+{
+    t_cmd *tmp;
+    t_token *token;
+    t_redirect *redir;
+
+    while (cmd)
+    {
+        tmp = cmd;
+        if (cmd->token)
+        {
+            int i = 0;
+            while (cmd->token[i])
+            {
+                token = cmd->token[i];
+                free(token->value);
+                free(token);
+                i++;
+            }
+            free(cmd->token);
+        }
+        redir = cmd->red;
+        while (redir)
+        {
+            free(redir->val);
+            free(redir);
+            redir = redir->next;
+        }
+        free(cmd);
+        cmd = tmp->next;
+    }
 }
