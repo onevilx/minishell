@@ -6,13 +6,11 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:45:18 by obouftou          #+#    #+#             */
-/*   Updated: 2025/04/27 18:06:30 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:22:37 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
-
-#include <readline/readline.h>
 
 void	sigint_handler(int signum)
 {

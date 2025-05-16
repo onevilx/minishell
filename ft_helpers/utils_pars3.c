@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/07 17:54:52 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/16 01:13:38 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val)
 {
-	t_redirect *new;
+	t_redirect	*new;
+	t_redirect	*cur;
 
 	new = malloc(sizeof(t_redirect));
 	if (!new)
@@ -24,16 +25,18 @@ t_redirect	*add_redirect(t_redirect *head, t_code type, char *val)
 	new->next = NULL;
 	if (!head)
 		return (new);
-	t_redirect *cur = head;
+	cur = head;
 	while (cur->next)
 		cur = cur->next;
 	cur->next = new;
 	return (head);
 }
 
-int count_pipes(t_token *tokens)
+int	count_pipes(t_token *tokens)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (tokens)
 	{
 		if (tokens->type == PIPE)
@@ -41,4 +44,25 @@ int count_pipes(t_token *tokens)
 		tokens = tokens->next;
 	}
 	return (count);
+}
+
+void	free_command_list(t_cmd *head)
+{
+	t_cmd	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->token);
+		free(tmp);
+	}
+}
+
+void	init_for_norm(t_cmd	**head, t_cmd **last,
+		int *total_pipes, t_token *tokens)
+{
+	*head = NULL;
+	*last = NULL;
+	*total_pipes = count_pipes(tokens);
 }

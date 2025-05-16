@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/27 17:33:38 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:27:15 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,26 @@ void	write_line(int fd, char *line)
 	write(fd, "\n", 1);
 }
 
-void	read_input(int fd, char *delimiter)
+char	*read_input(const char *delimiter)
 {
 	char	*line;
+	char	*buffer;
+	char	*tmp;
 
-	line = readline("> ");
-	while (line != NULL)
+	buffer = ft_strdup("");
+	while (1)
 	{
-		if (ft_strcmp(line, delimiter) == 0)
+		line = readline("> ");
+		if (!line || ft_strcmp(line, delimiter) == 0)
 			break ;
-		write_line(fd, line);
+		tmp = ft_strjoin(buffer, line);
+		free(buffer);
+		buffer = tmp;
+		buffer = ft_strjoin(buffer, "\n");
 		free(line);
 	}
 	free(line);
+	return (buffer);
 }
 
 void	free_split(char **array)

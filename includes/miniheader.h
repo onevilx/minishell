@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/14 16:20:25 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/16 01:07:15 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ typedef struct s_redirect
 typedef struct s_token
 {
 	t_code			type;
-	char			quote_type; // i will set this var to '\0' if no quotes are spotted or to '\'' || '"'
+	char			quote_type;
 	char			*value;
 	struct s_token	*next;
 }				t_token;
 
 typedef struct s_arg
 {
-    char            *value;
-    struct s_arg    *next;
-} t_arg;
+	char			*value;
+	struct s_arg	*next;
+}				t_arg;
 
 typedef struct s_cmd
 {
@@ -53,11 +53,5 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 
 }				t_cmd;
-
-typedef struct s_builtin
-{
-	char	*name;
-	void	(*func)(char **args);
-}				t_builtin;
 
 #endif

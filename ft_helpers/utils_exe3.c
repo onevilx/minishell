@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/14 16:20:42 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/16 01:35:15 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,33 +99,15 @@ void	update_or_add_env(const char *key, const char *full_var)
 
 void	free_cmd(t_cmd *cmd)
 {
-    t_cmd *tmp;
-    t_token *token;
-    t_redirect *redir;
+	t_cmd	*tmp;
 
-    while (cmd)
-    {
-        tmp = cmd;
-        if (cmd->token)
-        {
-            int i = 0;
-            while (cmd->token[i])
-            {
-                token = cmd->token[i];
-                free(token->value);
-                free(token);
-                i++;
-            }
-            free(cmd->token);
-        }
-        redir = cmd->red;
-        while (redir)
-        {
-            free(redir->val);
-            free(redir);
-            redir = redir->next;
-        }
-        free(cmd);
-        cmd = tmp->next;
-    }
+	while (cmd)
+	{
+		tmp = cmd->next;
+		if (cmd->token)
+			free_tokensexe(cmd->token);
+		free_redirections(cmd->red);
+		free(cmd);
+		cmd = tmp;
+	}
 }

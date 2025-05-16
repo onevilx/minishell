@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:20:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/14 13:18:52 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:59:58 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,11 @@ static void	remove_env_var(char *key)
 	*get_env() = new_env;
 }
 
-// Builtin unset command: remove environment variables specified in the arguments
 void	builtin_unset(t_arg *args)
 {
 	t_arg	*current;
 
-	current = args->next;  // Skip the first argument which is the command name
+	current = args->next;
 	while (current)
 	{
 		if (is_valid_key(current->value))
@@ -95,19 +94,18 @@ static void	print_env(void)
 	}
 }
 
-// Builtin env command: print the environment or execute a command with the environment
 void	builtin_env(t_arg *args)
 {
 	t_arg	*current;
 	char	*path;
 	char	**envp;
 
-	current = args->next;  // Skip the first argument which is the command name
-	if (!current)  // If no additional arguments are provided, print the environment
+	current = args->next;
+	if (!current)
 		print_env();
 	else
 	{
-		path = current->value;  // The first argument after the command is the path
+		path = current->value;
 		envp = *get_env();
 		if (fork() == 0)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:03:35 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/07 16:31:47 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/16 01:42:32 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,26 @@ bool	ft_isspace(char c)
 
 t_token	*new_token(t_code type, char *val, char quote_type)
 {
-	t_token	*tok = malloc(sizeof(t_token));
+	t_token	*tok;
+
+	tok = malloc(sizeof(t_token));
 	if (!tok)
 		return (NULL);
-	tok->type = type,
+	tok->type = type;
 	tok->value = val;
 	tok->quote_type = quote_type;
 	tok->next = NULL;
 	return (tok);
 }
-void add_token(t_token **head, t_token *new)
+
+void	add_token(t_token **head, t_token *new)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	if (!*head)
 	{
 		*head = new;
-		return;
+		return ;
 	}
 	tmp = *head;
 	while (tmp->next)
@@ -43,7 +46,7 @@ void add_token(t_token **head, t_token *new)
 	tmp->next = new;
 }
 
-t_token *parse_operator(const char *input, int *i)
+t_token	*parse_operator(const char *input, int *i)
 {
 	if (input[*i] == '>' && input[*i + 1] == '>')
 	{
@@ -61,7 +64,7 @@ t_token *parse_operator(const char *input, int *i)
 		return (new_token(REDIR_IN, strndup(&input[(*i)++], 1), '\0'));
 	if (input[*i] == '|')
 		return (new_token(PIPE, strndup(&input[(*i)++], 1), '\0'));
-	return NULL;
+	return (NULL);
 }
 
 void	free_tokens(t_token *token)
@@ -77,4 +80,3 @@ void	free_tokens(t_token *token)
 		token = tmp;
 	}
 }
-

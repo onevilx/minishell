@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/14 19:28:07 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/16 00:56:10 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,7 @@ void	builtin_echo(t_arg *args)
 	int		no_newline;
 	t_arg	*current;
 
-	current = args->next;
-	no_newline = 0;
-	while (current && current->value && ft_strncmp(current->value, "-n", 2) == 0)
-	{
-		int i = 2;
-		while (current->value[i] == 'n')
-			i++;
-		if (current->value[i] != '\0')
-			break;
-		no_newline = 1;
-		current = current->next;
-	}
+	current = check_n_flag(args, &no_newline);
 	while (current)
 	{
 		printf("%s", current->value);
@@ -46,32 +35,28 @@ void	builtin_cd(t_arg *args)
 	char	*path;
 	t_arg	*current;
 
-	current = args->next; // Skip the "cd" command itself
-
-	if (!current) // No argument given
+	current = args->next;
+	if (!current)
 	{
 		path = get_env_value("HOME");
 		if (!path || chdir(path) != 0)
 			perror("cd");
 	}
-	else if (current && !current->next) // Single argument
+	else if (current && !current->next)
 	{
 		if (chdir(current->value) != 0)
 			perror("cd");
 	}
-	else // More than one argument
-	{
+	else
 		write(2, "cd: too many arguments\n", 24);
-	}
 }
-
 
 // PWD command
 void	builtin_pwd(t_arg *args)
 {
 	char	*cwd;
 
-	(void) args;  // args are unused
+	(void) args;
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
@@ -125,9 +110,8 @@ void	builtin_exit(t_arg *args)
 		else
 		{
 			write(2, "exit: numeric argument required\n", 32);
-			return;
+			return ;
 		}
 	}
 	write(2, "exit: too many arguments\n", 25);
 }
-

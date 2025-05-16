@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:53:54 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/14 19:08:02 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:58:12 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	print_export_vars(void)
 	}
 }
 
-// Handle each export argument, ensuring it's valid and add it to the environment
 static void	handle_export_arg(t_arg *arg)
 {
 	char	*key;
@@ -101,9 +100,9 @@ void	builtin_export(t_arg *args)
 {
 	t_arg	*current;
 
-	if (!args || args->next == NULL) // Fix: also check if there are no arguments after "export"
+	if (!args || args->next == NULL)
 		return (print_export_vars());
-	current = args->next;  // Skip the command itself
+	current = args->next;
 	while (current)
 	{
 		handle_export_arg(current);

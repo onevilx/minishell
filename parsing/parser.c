@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/14 18:02:25 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/16 01:24:21 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	is_operator_start(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }
+
 int	is_meta(char c)
 {
 	return (c == ' ' || c == '\t'
@@ -35,12 +36,12 @@ t_token	*tokenizing(const char *input)
 		if (ft_isspace(input[i]))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (is_operator_start(input[i]))
 		{
 			add_token(&tokens, parse_operator(input, &i));
-			continue;
+			continue ;
 		}
 		add_token(&tokens, parse_word(input, &i));
 	}

@@ -74,6 +74,7 @@
     "string_view": "c",
     "unordered_map": "c",
     "vector": "c",
-    "sstream": "c"
+    "sstream": "c",
+    "atomic": "c"
   }
 }
