@@ -1,0 +1,10 @@
+execution
+file
+ft_helpers
+includes
+main.c
+main.o
+Makefile
+minishell
+parsing
+signals
