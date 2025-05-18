@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 05:32:44 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:37:05 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	execute_external(t_cmd *cmd)
 		return (perror("fork"), 0);
 	else if (pid == 0)
 	{
+		reset_signal();
 		args_array = args_to_array(cmd->args);
 		if (!args_array)
 			exit(1);
@@ -95,7 +96,11 @@ int	execute_external(t_cmd *cmd)
 		free(args_array);
 	}
 	else
+	{
+		ignore_signal();
 		waitpid(pid, &status, 0);
+		reset_init_signals();
+	}
 	return (1);
 }
 

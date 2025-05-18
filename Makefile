@@ -2,7 +2,7 @@ SRCS_MINISHELL = main.c parsing/parser.c execution/builtins.c execution/init_bui
 				ft_helpers/utils_pars1.c ft_helpers/utils_pars2.c ft_helpers/utils_pars3.c ft_helpers/utils_exe1.c ft_helpers/utils_exe2.c ft_helpers/utils_exe3.c \
 				ft_helpers/global_funcs1.c ft_helpers/global_funcs2.c ft_helpers/global_funcs3.c signals/signals.c execution/execution.c parsing/syntax.c \
 				parsing/ft_parse_commands.c execution/redirections.c execution/pipes.c ft_helpers/utils_exe4.c ft_helpers/utils_exe5.c ft_helpers/utils_exe6.c ft_helpers/utils_exe7.c \
-				ft_helpers/utils_pars4.c
+				ft_helpers/utils_pars4.c ft_helpers/utils_signals.c
 
 OBJS_MINISHELL = $(SRCS_MINISHELL:.c=.o)
 CC = cc

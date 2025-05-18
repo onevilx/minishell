@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 05:35:16 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:34:46 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ int			execute_command(t_cmd *cmd);
 void		builtin_unset(t_arg *args);
 void		remove_heredoc_tokens(t_cmd *cmd);
 void		handle_append(t_cmd *cmd);
+void		reset_init_signals(void);
+void		reset_signal(void);
+void		ignore_signal(void);
 void		sanitize_args(t_cmd *cmd);
 void		handle_pipe(t_cmd *cmd);
 void		handle_heredoc(t_cmd *cmd);

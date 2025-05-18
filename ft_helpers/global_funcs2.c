@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:57:55 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/04/27 17:31:45 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:41:04 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-void	disable_echoctl(void)
+char	*ft_strchr(const char *s, int c)
 {
-	struct termios	term;
+	unsigned int	i;
+	char			y;
 
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	y = (char) c;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == y)
+			return ((char *) &s[i]);
+		i++;
+	}
+	if (s[i] == y)
+		return ((char *) &s[i]);
+	return (NULL);
 }

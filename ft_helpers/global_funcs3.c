@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:59:36 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 04:27:16 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:40:58 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,6 @@ char	*ft_itoa(int n)
 		nb = nb / 10;
 	}
 	return (str);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	unsigned int	i;
-	char			y;
-
-	y = (char) c;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == y)
-			return ((char *) &s[i]);
-		i++;
-	}
-	if (s[i] == y)
-		return ((char *) &s[i]);
-	return (NULL);
 }
 
 void	print_welcome(void)
