@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/15 23:47:54 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/18 05:32:44 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static void	try_exec_paths(t_cmd *cmd)
 		i++;
 	}
 	free_split(paths);
-	free(args_array);
 	printf("minishell: command not found: %s\n", args_array[0]);
+	free(args_array);
 	exit(127);
 }
 

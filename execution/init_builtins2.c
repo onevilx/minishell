@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:53:54 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/15 23:58:12 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/18 04:57:18 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,28 @@ static void	print_export_vars(void)
 {
 	char	**env;
 	int		i;
+	char	*equal_pos;
 
 	env = *get_env();
 	i = 0;
-	while (env[i])
+	while (env[i] != NULL)
 	{
+		if (env[i][0] == '\0') // skip empty strings
+		{
+			i++;
+			continue ;
+		}
 		write(1, "declare -x ", 11);
-		write(1, env[i], ft_strlen(env[i]));
+		equal_pos = ft_strchr(env[i], '=');
+		if (equal_pos)
+		{
+			write(1, env[i], equal_pos - env[i] + 1);
+			write(1, "\"", 1);
+			write(1, equal_pos + 1, ft_strlen(equal_pos + 1));
+			write(1, "\"", 1);
+		}
+		else
+			write(1, env[i], ft_strlen(env[i]));
 		write(1, "\n", 1);
 		i++;
 	}

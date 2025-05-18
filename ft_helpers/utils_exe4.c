@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/16 01:00:37 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/18 05:20:45 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,32 @@ static void	setup_child_fds(t_cmd *cmd, int prev_fd, int *pipe_fd)
 void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 {
 	char	**argv;
-	char	*cmd_path;
 
 	setup_child_fds(cmd, prev_fd, pipe_fd);
 	argv = convert_args(cmd->args);
-	cmd_path = find_command_path(argv[0], *get_env());
+	if (!argv || !argv[0])
+	{
+		ft_free_split(argv);
+		exit(1);
+	}
+	// If builtin, execute it and exit child process
+	if (execute_builtin(cmd))
+	{
+		ft_free_split(argv);
+		exit(EXIT_SUCCESS);
+	}
+	// Otherwise try exec external
+	char *cmd_path = find_command_path(argv[0], *get_env());
 	handle_execve_or_exit(argv, cmd_path);
 }
 
-void	handle_parent_process(t_cmd *cmd, int *prev_fd, int *pipe_fd)
+void	handle_parent_process(t_cmd *cmd, int *prev_fd, int pipe_fd[2])
 {
 	if (*prev_fd != -1)
+	{
 		close(*prev_fd);
+		*prev_fd = -1;
+	}
 	if (cmd->next)
 	{
 		close(pipe_fd[1]);

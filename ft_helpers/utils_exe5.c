@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/16 01:01:47 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/18 03:30:57 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	sanitize_args(t_cmd *cmd)
 			if (tok)
 				tok = tok->next;
 		}
+		else if (tok->type == PIPE)
+			break ;
 		else
 		{
 			args[i++] = tok->value;

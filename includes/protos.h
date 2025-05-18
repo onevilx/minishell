@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/16 01:36:29 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/18 05:35:16 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <termios.h>
 # include <unistd.h>
+# include <stdint.h>
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <signal.h>
@@ -76,9 +77,10 @@ void		write_line(int fd, char *line);
 void		update_env_var(int idx, char *arg);
 char		*read_input(const char *delimiter);
 void		handling_cmdops(t_cmd *cmd);
+char		*ft_strchr(const char *s, int c);
 void		free_command_list(t_cmd *head);
 void		handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd);
-void		handle_parent_process(t_cmd *cmd, int *prev_fd, int *pipe_fd);
+void		handle_parent_process(t_cmd *cmd, int *prev_fd, int pipe_fd[2]);
 char		*find_command_path(char *cmd, char **env);
 void		add_token(t_token **head, t_token *new);
 int			is_redirection(t_token *tok);
