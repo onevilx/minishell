@@ -29,6 +29,7 @@
 # include <signal.h>
 # include <stdbool.h>
 
+char		**ft_split_once(const char *s, char c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			find_env_index(char **env, char *key);
 int			parse_commands_loop(t_token *tokens, t_cmd **head,

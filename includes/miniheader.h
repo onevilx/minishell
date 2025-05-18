@@ -44,6 +44,14 @@ typedef struct s_arg
 	struct s_arg	*next;
 }				t_arg;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prev;
+}			t_env;
+
 typedef struct s_cmd
 {
 	int				pipe_count;
