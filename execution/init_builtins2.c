@@ -3,32 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:53:54 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 04:57:18 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:53:42 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-// Check if the export argument is valid (contains a key-value pair)
-static int	is_valid_export(char *arg)
+char	***get_export_list(void)
 {
-	int	i;
+	static char	**export_list = NULL;
 
-	if (!arg || !arg[0] || arg[0] == '=')
-		return (0);
-	i = 0;
-	while (arg[i] && arg[i] != '=')
-	{
-		if (!(arg[i] == '_' || (arg[i] >= 'A' && arg[i] <= 'Z')
-				|| (arg[i] >= 'a' && arg[i] <= 'z')
-				|| (i > 0 && arg[i] >= '0' && arg[i] <= '9')))
-			return (0);
-		i++;
-	}
-	return (1);
+	return (&export_list);
 }
 
 // Add a new environment variable
@@ -54,42 +42,23 @@ static void	add_env_var(char *arg)
 	*get_env() = new_env;
 }
 
-// Print all exported variables in the format 'declare -x key=value'
+// Main print_export_vars function
 static void	print_export_vars(void)
 {
 	char	**env;
-	int		i;
-	char	*equal_pos;
+	char	**export;
 
 	env = *get_env();
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (env[i][0] == '\0') // skip empty strings
-		{
-			i++;
-			continue ;
-		}
-		write(1, "declare -x ", 11);
-		equal_pos = ft_strchr(env[i], '=');
-		if (equal_pos)
-		{
-			write(1, env[i], equal_pos - env[i] + 1);
-			write(1, "\"", 1);
-			write(1, equal_pos + 1, ft_strlen(equal_pos + 1));
-			write(1, "\"", 1);
-		}
-		else
-			write(1, env[i], ft_strlen(env[i]));
-		write(1, "\n", 1);
-		i++;
-	}
+	export = *get_export_list();
+	print_export_only_vars(export);
+	print_env_vars(env);
 }
 
 static void	handle_export_arg(t_arg *arg)
 {
 	char	*key;
 	char	**env;
+	char	**export_list;
 	int		idx;
 	int		pos;
 
@@ -98,16 +67,20 @@ static void	handle_export_arg(t_arg *arg)
 	pos = 0;
 	while (arg->value[pos] && arg->value[pos] != '=')
 		pos++;
-	if (pos == 0)
-		return ((void)write(2, "export: not a valid identifier\n", 31));
 	key = ft_substr(arg->value, 0, pos);
 	env = *get_env();
-	idx = find_env_index(env, key);
+	export_list = *get_export_list();
+	if (!str_in_array(export_list, key))
+		add_to_array(get_export_list(), key);
+	if (arg->value[pos] == '=')
+	{
+		idx = find_env_index(env, key);
+		if (idx >= 0)
+			update_env_var(idx, arg->value);
+		else
+			add_env_var(arg->value);
+	}
 	free(key);
-	if (idx >= 0)
-		update_env_var(idx, arg->value);
-	else
-		add_env_var(arg->value);
 }
 
 // Builtin export command

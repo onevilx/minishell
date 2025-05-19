@@ -7,33 +7,33 @@
 // costume split in the way same concept but the delimiter will be the = ;
 //and so on till i get all the envirement stored in my linnked list;;
 
-#include "../includes/protos.h"
+// #include "../includes/protos.h"
 
 
 
 
-char	*expand_value(char *value, t_env *env)
-{
+// char	*expand_value(char *value, t_env *env)
+// {
 
 
 
 
-}
+// }
 
 
-void	ft_expand_tokens(t_token *tokens, t_env *env)
-{
-	char	*expanded;
-	//how i could do this ??
-	while (tokens)
-	{
-		if (tokens->quote_type == '\'')
-			tokens = tokens->next;
-		else if (ft_s trchr(tokens->value, '$')
-			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
-			{
-				expanded = expand_value(tokens->value, env);
-			}
-		tokens = tokens->next;
-	}
-}
+// void	ft_expand_tokens(t_token *tokens, t_env *env)
+// {
+// 	char	*expanded;
+// 	//how i could do this ??
+// 	while (tokens)
+// 	{
+// 		if (tokens->quote_type == '\'')
+// 			tokens = tokens->next;
+// 		else if (ft_s trchr(tokens->value, '$')
+// 			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
+// 			{
+// 				expanded = expand_value(tokens->value, env);
+// 			}
+// 		tokens = tokens->next;
+// 	}
+// }

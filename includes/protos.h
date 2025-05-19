@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 17:43:41 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:19:52 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ void		disable_echoctl(void);
 void		sigterm_handler(int signum);
 void		sigquit_handler(int signum);
 void		sigint_handler(int signum);
+void		print_env_vars(char **env);
+int			str_in_array(char **arr, char *str);
+void		builtin_exit(t_arg *args);
+char		*expand_exit_status(void);
+void		print_export_only_vars(char **export);
+void		add_to_array(char ***arr_ptr, char *str);
+int			is_valid_export(char *arg);
 void		init_env(char **envp);
 void		write_line(int fd, char *line);
 void		update_env_var(int idx, char *arg);
@@ -91,12 +98,13 @@ void		ft_print_tokens(t_token *tokens);
 void		save_word(t_token *cur, t_token **args, int *i);
 void		*ft_calloc(size_t count, size_t size);
 void		builtin_cd(t_arg *args);
+int			is_builtin(t_cmd *cmd);
+int			*get_exit_status(void);
 void		builtin_echo(t_arg *args);
 void		builtin_pwd(t_arg *args);
 void		sanitize_args(t_cmd *cmd);
 void		free_redirections(t_redirect *redir);
 void		builtin_env(t_arg *args);
-void		builtin_exit(t_arg *args);
 t_token		*get_next_command_tokens(t_token *cur);
 t_cmd		*parse_command_node(t_token *start, t_token *end);
 int			do_append_fd(char *filename);

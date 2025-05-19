@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 16:37:05 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:16:34 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ int	execute_external(t_cmd *cmd)
 	{
 		ignore_signal();
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			*get_exit_status() = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			*get_exit_status() = 128 + WTERMSIG(status);
+		else
+			*get_exit_status() = 1;
 		reset_init_signals();
 	}
 	return (1);
@@ -137,6 +143,7 @@ int	execute_command(t_cmd *cmd)
 	int		stdin_copy;
 	int		stdout_copy;
 	t_cmd	*cur;
+	int		exit_status = 0;
 
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
@@ -151,12 +158,14 @@ int	execute_command(t_cmd *cmd)
 	else
 	{
 		handling_cmdops(cmd);
-		if (!execute_builtin(cmd))
+		if (is_builtin(cmd))
+			*get_exit_status() = execute_builtin(cmd);
+		else
 			execute_external(cmd);
 	}
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
 	close(stdin_copy);
 	close(stdout_copy);
-	return (0);
+	return (exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 03:30:57 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:52:37 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	sanitize_args(t_cmd *cmd)
 		}
 	}
 	args[i] = NULL;
+	handling_cmdops(cmd);
 	cmd->args = char_array_to_args_list(args);
 }
 

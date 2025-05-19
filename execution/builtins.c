@@ -6,13 +6,13 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:14:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/15 23:42:47 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:14:31 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-static int	is_builtin(t_cmd *cmd)
+int	is_builtin(t_cmd *cmd)
 {
 	if (cmd->args == NULL || cmd->args->value == NULL)
 		return (0);

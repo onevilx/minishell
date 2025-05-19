@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/16 00:56:10 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:14:17 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,12 @@ static int	is_numeric(const char *str)
 	return (1);
 }
 
-void	builtin_exit(t_arg *args)
+void builtin_exit(t_arg *args)
 {
 	t_arg	*current;
 	int		exit_status;
 
 	current = args->next;
-	exit_status = 0;
 	if (!current)
 	{
 		write(1, "exit\n", 5);
@@ -110,7 +109,7 @@ void	builtin_exit(t_arg *args)
 		else
 		{
 			write(2, "exit: numeric argument required\n", 32);
-			return ;
+			exit(2);
 		}
 	}
 	write(2, "exit: too many arguments\n", 25);

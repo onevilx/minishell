@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:47:14 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 05:09:40 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:55:37 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	init_env(char **envp)
 {
 	char	**env_copy;
 
+	ft_launching();
 	env_copy = copy_env(envp);
 	if (!env_copy)
 		return ;

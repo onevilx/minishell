@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/18 17:42:31 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:20:32 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_cmd	*cmd;
+	int		exit_status;
 
+	exit_status = 0;
 	(void)argc;
 	(void)argv;
 	init_env(envp);
-	ft_launching();
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -30,12 +31,13 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			cmd = ft_input_proces(input, envp);
+			// cmd = ft_input_proces(input, envp, exit_status); exit status should now work, try a dazai tkhdm hh !!
 			printf("------------------------------------------\n");
 			if (cmd)
-				execute_command(cmd);
+				exit_status = execute_command(cmd);
 			free_cmd(cmd);
 		}
 		free(input);
 	}
-	return (0);
+	return (exit_status);
 }
