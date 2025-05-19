@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/18 05:19:05 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/18 17:43:06 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,11 @@ void	ft_print_cmd(t_cmd *cmd)
 	}
 }
 
-t_cmd	*ft_input_proces(char *input)
+t_cmd	*ft_input_proces(char *input, char **envp)
 {
 	t_token	*tokens;
 	t_cmd	*cmd;
+	t_env	*env;
 
 	if (!are_quotes_closed(input))
 	{
@@ -157,7 +158,8 @@ t_cmd	*ft_input_proces(char *input)
 		free_tokens(tokens);
 		return (NULL);
 	}
-	// ft_expand_tokens(tokens); // to do
+	env = ft_init_env_list(envp);
+	ft_expand_tokens(tokens, env); // to do
 	cmd = ft_parse_commands(tokens);
 	ft_print_cmd(cmd);
 	return(cmd);

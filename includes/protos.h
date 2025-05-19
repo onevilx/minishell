@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 16:34:46 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/18 17:43:41 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <signal.h>
 # include <stdbool.h>
 
+void		ft_expand_tokens(t_token *tokens, t_env *env);
+t_env		*ft_init_env_list(char **env);
 char		**ft_split_once(const char *s, char c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			find_env_index(char **env, char *key);
@@ -41,7 +43,7 @@ void		init_for_norm(t_cmd	**head, t_cmd **last,
 int			execute_builtin(t_cmd *cmd);
 int			execute_external(t_cmd *cmd);
 bool		ft_isspace(char c);
-t_cmd		*ft_input_proces(char *input);
+t_cmd		*ft_input_proces(char *input, char **envp);
 int			is_valid_n_flag(char *str);
 t_token		*new_token(t_code type, char *val, char qoute_type);
 t_token		*parse_operator(const char *input, int *i);

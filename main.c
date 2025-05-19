@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/18 03:10:55 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/18 17:42:31 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		if (*input)
 		{
 			add_history(input);
-			cmd = ft_input_proces(input);
+			cmd = ft_input_proces(input, envp);
 			printf("------------------------------------------\n");
 			if (cmd)
 				execute_command(cmd);

@@ -9,14 +9,31 @@
 
 #include "../includes/protos.h"
 
-void	ft_expand_tokens(t_token *tokens)
+
+
+
+char	*expand_value(char *value, t_env *env)
 {
-	t_token	*tmp;
 
-	tmp = tokens;
-	while (tmp)
+
+
+
+}
+
+
+void	ft_expand_tokens(t_token *tokens, t_env *env)
+{
+	char	*expanded;
+	//how i could do this ??
+	while (tokens)
 	{
-		tmp->value = ()
+		if (tokens->quote_type == '\'')
+			tokens = tokens->next;
+		else if (ft_s trchr(tokens->value, '$')
+			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
+			{
+				expanded = expand_value(tokens->value, env);
+			}
+		tokens = tokens->next;
 	}
-
 }
