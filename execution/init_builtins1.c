@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/19 20:14:17 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:51:59 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	is_numeric(const char *str)
 	return (1);
 }
 
-void builtin_exit(t_arg *args)
+void	builtin_exit(t_arg *args)
 {
 	t_arg	*current;
 	int		exit_status;

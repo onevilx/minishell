@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 15:03:21 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:50:02 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <stdbool.h>
-
 
 void		ft_bzero(void *s, size_t n);
 int			ft_isalpha(int x);
@@ -60,6 +59,8 @@ void		update_shlvl(void);
 char		*strndup(const char *s, size_t n);
 char		*get_env_value(char *key);
 void		print_welcome(void);
+void		try_exec_paths(t_cmd *cmd);
+char		**args_to_array(t_arg *args);
 void		free_split(char **array);
 t_arg		*token_to_args(t_token *start, t_token *end);
 char		*ft_strjoin(char const *s1, char const *s2);
@@ -83,6 +84,8 @@ void		print_env_vars(char **env);
 int			str_in_array(char **arr, char *str);
 void		builtin_exit(t_arg *args);
 char		*expand_exit_status(void);
+void		sanitize_all_args(t_cmd *cmd);
+char		**extract_args(t_token *tok);
 void		print_export_only_vars(char **export);
 void		add_to_array(char ***arr_ptr, char *str);
 int			is_valid_export(char *arg);

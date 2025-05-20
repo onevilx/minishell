@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_costume_split.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 17:53:01 by yaboukir          #+#    #+#             */
+/*   Updated: 2025/05/20 17:56:08 by yaboukir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/protos.h"
 
 static char	*ft_substr1(const char *s, unsigned int start, size_t len)
@@ -25,6 +37,7 @@ static char	*ft_substr1(const char *s, unsigned int start, size_t len)
 	s1[i] = '\0';
 	return (s1);
 }
+
 static void	*ft_calloc1(size_t count, size_t size)
 {
 	unsigned char	*tmp;
@@ -38,7 +51,9 @@ static void	*ft_calloc1(size_t count, size_t size)
 
 static void	*ft_free(char **arr, int count)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (i < count)
 	{
 		free(arr[i]);
@@ -63,12 +78,12 @@ char	**ft_split_once(const char *s, char c)
 	if (!sep)
 	{
 		result[0] = ft_substr(s, 0, strlen(s));
-		return result;
+		return (result);
 	}
 	len = sep - s;
 	result[0] = ft_substr1(s, 0, len);
 	result[1] = ft_substr1(s, len + 1, strlen(s) - len - 1);
 	if (!result[0] || !result[1])
 		return (ft_free(result, 2));
-	return result;
+	return (result);
 }

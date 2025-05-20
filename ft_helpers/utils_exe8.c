@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:46:01 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/19 18:54:47 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:01:38 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	str_in_array(char **arr, char *str)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (arr && arr[i])
 	{
 		if (!ft_strcmp(arr[i], str))
@@ -26,16 +28,24 @@ int	str_in_array(char **arr, char *str)
 
 void	add_to_array(char ***arr_ptr, char *str)
 {
-	char	**arr = *arr_ptr;
-	int		i = 0;
+	int		i;
+	int		j;
+	char	**arr;
+	char	**new_arr;
 
+	i = 0;
+	arr = *arr_ptr;
 	while (arr && arr[i])
 		i++;
-	char **new_arr = malloc(sizeof(char *) * (i + 2));
+	new_arr = malloc(sizeof(char *) * (i + 2));
 	if (!new_arr)
 		return ;
-	for (int j = 0; j < i; j++)
+	j = 0;
+	while (j < i)
+	{
 		new_arr[j] = arr[j];
+		j++;
+	}
 	new_arr[i] = ft_strdup(str);
 	new_arr[i + 1] = NULL;
 	free(arr);

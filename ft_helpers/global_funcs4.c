@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 15:34:29 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:54:55 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,16 @@ void	ft_bzero(void *s, size_t n)
 		p++;
 		n--;
 	}
+}
+
+int	*get_exit_status(void)
+{
+	static int	status = 0;
+
+	return (&status);
+}
+
+char	*expand_exit_status(void)
+{
+	return (ft_itoa(*get_exit_status()));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:38:21 by onevil_x          #+#    #+#             */
-/*   Updated: 2025/05/18 16:39:40 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:50:39 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	disable_echoctl(void)
 
 void	reset_signal(void)
 {
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	ignore_signal(void)
 {
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	reset_init_signals(void)

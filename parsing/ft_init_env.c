@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init_env.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 18:50:50 by yaboukir          #+#    #+#             */
+/*   Updated: 2025/05/20 18:51:26 by yaboukir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/protos.h"
 
 t_env	*ft_lstnew(void *key, char *value)
@@ -26,7 +38,7 @@ static t_env	*add_to_env_list(char *str1)
 	free(splited[0]);
 	free(splited[1]);
 	free(splited);
-	return(node);
+	return (node);
 }
 
 t_env	*ft_init_env_list(char **env)
@@ -39,7 +51,7 @@ t_env	*ft_init_env_list(char **env)
 	i = 0;
 	head = NULL;
 	last = NULL;
-	while(env[i])
+	while (env[i])
 	{
 		new = add_to_env_list(env[i]);
 		if (!head)
@@ -54,4 +66,3 @@ t_env	*ft_init_env_list(char **env)
 	}
 	return (head);
 }
-

@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:59:36 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/19 20:19:32 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:54:36 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,4 @@ void	ft_launching(void)
 {
 	init_terminal();
 	print_welcome();
-}
-
-int	*get_exit_status(void)
-{
-	static int	status = 0;
-	return (&status);
-}
-
-char *expand_exit_status(void)
-{
-	return ft_itoa(*get_exit_status());
 }

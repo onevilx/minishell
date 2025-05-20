@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/19 16:52:37 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:49:48 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,16 @@ t_arg	*char_array_to_args_list(char **array)
 
 void	sanitize_args(t_cmd *cmd)
 {
-	int		i;
 	char	**args;
 	t_token	*tok;
 
-	i = 0;
 	tok = *(cmd->token);
-	args = malloc(sizeof(char *) * 100);
-	while (tok)
-	{
-		if (tok->type == REDIR_IN || tok->type == REDIR_OUT
-			|| tok->type == APPEND || tok->type == HEREDOC)
-		{
-			tok = tok->next;
-			if (tok)
-				tok = tok->next;
-		}
-		else if (tok->type == PIPE)
-			break ;
-		else
-		{
-			args[i++] = tok->value;
-			tok = tok->next;
-		}
-	}
-	args[i] = NULL;
+	args = extract_args(tok);
+	if (!args)
+		return ;
 	handling_cmdops(cmd);
 	cmd->args = char_array_to_args_list(args);
+	free(args);
 }
 
 void	remove_heredoc_tokens(t_cmd *cmd)
