@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 14:37:58 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:03:21 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@
 # include <signal.h>
 # include <stdbool.h>
 
-void		ft_expand_tokens(t_token *tokens, t_env *env);
+
+void		ft_bzero(void *s, size_t n);
+int			ft_isalpha(int x);
+int			ft_isalnum(int x);
+void		ft_expand_tokens(t_token *tokens, t_env *env, int exit_status);
 t_env		*ft_init_env_list(char **env);
 char		**ft_split_once(const char *s, char c);
 int			ft_strcmp(const char *s1, const char *s2);

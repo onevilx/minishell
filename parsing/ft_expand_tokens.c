@@ -7,33 +7,90 @@
 // costume split in the way same concept but the delimiter will be the = ;
 //and so on till i get all the envirement stored in my linnked list;;
 
-// #include "../includes/protos.h"
+#include "../includes/protos.h"
+
+static char	*get_env_val_list(t_env *env, const char *key)
+{
+	while(env)
+	{
+		if (ft_strcmp(env->key, key) == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return ("");
+}
+
+static char	*extract_plain(char *input, int *i)
+{
+	int	start;
+
+	start = *i;
+	while (input[*i] && input[*i] != '$')
+		(*i)++;
+	return (ft_substr(input, start, *i - start));
+}
 
 
+static char	*handle_dollar(char *input, int *i, t_env *env, int status)
+{
+	int		start;
+	char	*name;
+
+	(*i)++;
+	if (input[*i] == '?')
+		return (ft_itoa(((*i)++, status)));
+	if (!ft_isalpha(input[*i]) && input[*i] != '_')
+		return (ft_strdup(""));
+
+	start = *i;
+	while (ft_isalnum(input[*i]) || input[*i] == '_')
+		(*i)++;
+	name = ft_substr(input, start, *i - start);
+	return (ft_strdup(get_env_val_list(env, name)));
+}
+
+static char	*ft_expand_value(char *input, t_env *env, int exit_status)
+{
+	int		i;
+	char	*result;
+	char	*tmp;
+
+	i = 0;
+	result = ft_strdup("");
+	while (input[i])
+	{
+		if (input[i] == '$')
+			tmp = handle_dollar(input, &i, env, exit_status);
+		else
+			tmp = extract_plain(input, &i);
+		if (!tmp)
+			return (free(result), NULL);
+		result = ft_strjoin_free(result, tmp);
+	}
+	return (result);
+}
 
 
-// char	*expand_value(char *value, t_env *env)
-// {
+void	ft_expand_tokens(t_token *tokens, t_env *env, int exit_status)
+{
+	char	*expanded;
 
-
-
-
-// }
-
-
-// void	ft_expand_tokens(t_token *tokens, t_env *env)
-// {
-// 	char	*expanded;
-// 	//how i could do this ??
-// 	while (tokens)
-// 	{
-// 		if (tokens->quote_type == '\'')
-// 			tokens = tokens->next;
-// 		else if (ft_s trchr(tokens->value, '$')
-// 			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
-// 			{
-// 				expanded = expand_value(tokens->value, env);
-// 			}
-// 		tokens = tokens->next;
-// 	}
-// }
+	while (tokens)
+	{
+		if (tokens->quote_type == '\'')
+			tokens = tokens->next;
+		else if (ft_strchr(tokens->value, '$')
+			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
+			{
+				expanded = ft_expand_value(tokens->value, env, exit_status);
+				if (!expanded)
+				{
+					tokens = tokens->next;
+					continue ;
+				}
+				free(tokens->value);
+				tokens->value = expanded;
+			}
+		tokens = tokens->next;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/20 14:37:45 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:48:53 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
 {
 	t_token	*tokens;
 	t_cmd	*cmd;
-	// t_env	*env;
+	t_env	*env;
 
 	(void)	envp;
 	if (!are_quotes_closed(input))
@@ -159,8 +159,8 @@ t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
 		free_tokens(tokens);
 		return (NULL);
 	}
-	// env = ft_init_env_list(envp);
-	// ft_expand_tokens(tokens, env); // to do
+	env = ft_init_env_list(envp);
+	ft_expand_tokens(tokens, env, exit_status); // to do
 	cmd = ft_parse_commands(tokens);
 	ft_print_cmd(cmd);
 	return(cmd);

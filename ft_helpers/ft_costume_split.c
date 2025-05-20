@@ -1,6 +1,6 @@
 #include "../includes/protos.h"
 
-static char	*ft_substr(const char *s, unsigned int start, size_t len)
+static char	*ft_substr1(const char *s, unsigned int start, size_t len)
 {
 	char	*s1;
 	size_t	i;
@@ -25,7 +25,7 @@ static char	*ft_substr(const char *s, unsigned int start, size_t len)
 	s1[i] = '\0';
 	return (s1);
 }
-static void	*ft_calloc(size_t count, size_t size)
+static void	*ft_calloc1(size_t count, size_t size)
 {
 	unsigned char	*tmp;
 
@@ -56,7 +56,7 @@ char	**ft_split_once(const char *s, char c)
 
 	if (!s)
 		return (NULL);
-	result = ft_calloc(3, sizeof(char *));
+	result = ft_calloc1(3, sizeof(char *));
 	if (!result)
 		return (NULL);
 	sep = strchr(s, c);
@@ -66,8 +66,8 @@ char	**ft_split_once(const char *s, char c)
 		return result;
 	}
 	len = sep - s;
-	result[0] = ft_substr(s, 0, len);
-	result[1] = ft_substr(s, len + 1, strlen(s) - len - 1);
+	result[0] = ft_substr1(s, 0, len);
+	result[1] = ft_substr1(s, len + 1, strlen(s) - len - 1);
 	if (!result[0] || !result[1])
 		return (ft_free(result, 2));
 	return result;
