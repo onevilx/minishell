@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/19 20:19:52 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:37:58 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		init_for_norm(t_cmd	**head, t_cmd **last,
 int			execute_builtin(t_cmd *cmd);
 int			execute_external(t_cmd *cmd);
 bool		ft_isspace(char c);
-t_cmd		*ft_input_proces(char *input, char **envp);
+t_cmd		*ft_input_proces(char *input, char **envp, int exit_status);
 int			is_valid_n_flag(char *str);
 t_token		*new_token(t_code type, char *val, char qoute_type);
 t_token		*parse_operator(const char *input, int *i);
