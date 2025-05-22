@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 18:50:02 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:44:33 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ t_token		*new_token(t_code type, char *val, char qoute_type);
 t_token		*parse_operator(const char *input, int *i);
 char		*ft_itoa(int n);
 char		**copy_env(char **envp);
-int			write_heredoc_tmp(char *content);
+int			write_heredoc_tmp(char *filename, char *content);
 t_arg		*check_n_flag(t_arg *args, int *no_newline);
-int			read_heredoc_tmp(void);
+int			read_heredoc_tmp(char *filename);
 void		update_shlvl(void);
 char		*strndup(const char *s, size_t n);
 char		*get_env_value(char *key);
@@ -119,7 +119,7 @@ int			do_append_redirection(t_token *curr);
 t_arg		*char_array_to_args_list(char **array);
 int			execute_command(t_cmd *cmd);
 void		builtin_unset(t_arg *args);
-void		remove_heredoc_tokens(t_cmd *cmd);
+void		cleanup_cmdops_files(t_cmd *cmd);
 void		handle_append(t_cmd *cmd);
 void		reset_init_signals(void);
 void		reset_signal(void);
@@ -129,7 +129,7 @@ void		handle_pipe(t_cmd *cmd);
 void		handle_heredoc(t_cmd *cmd);
 char		**convert_args(t_arg *args);
 void		free_cmd(t_cmd *cmd);
-void		handle_redirections(t_cmd *cmd);
+int			handle_redirections(t_cmd *cmd);
 void		ft_free_split(char **arr);
 void		builtin_export(t_arg *args);
 void		update_or_add_env(const char *key, const char *full_var);

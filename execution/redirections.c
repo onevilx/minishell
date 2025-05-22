@@ -6,63 +6,45 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/16 00:54:07 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:43:42 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-static int	redirect_out(t_token *token)
+int	handle_redirections(t_cmd *cmd)
 {
-	int	fd;
+	t_redirect	*redir;
+	int			fd;
 
-	fd = open(token->next->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
+	redir = cmd->red;
+	while (redir)
 	{
-		perror("open (output redir)");
-		return (0);
-	}
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
-	return (1);
-}
-
-static int	redirect_in(t_token *token)
-{
-	int	fd;
-
-	fd = open(token->next->value, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("open (input redir)");
-		return (0);
-	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	return (1);
-}
-
-void	handle_redirections(t_cmd *cmd)
-{
-	t_token	*curr;
-
-	curr = *(cmd->token);
-	while (curr)
-	{
-		if (curr->type == REDIR_OUT && curr->next)
+		if (redir->type == REDIR_IN)
 		{
-			if (!redirect_out(curr))
-				return ;
-			curr = curr->next;
+			fd = open(redir->val, O_RDONLY);
+			if (fd == -1)
+			{
+				perror("open (REDIR_IN)");
+				return (0);
+			}
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 		}
-		else if (curr->type == REDIR_IN && curr->next)
+		else if (redir->type == REDIR_OUT)
 		{
-			if (!redirect_in(curr))
-				return ;
-			curr = curr->next;
+			fd = open(redir->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			if (fd == -1)
+			{
+				perror("open (REDIR_OUT)");
+				return (0);
+			}
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 		}
-		curr = curr->next;
+		redir = redir->next;
 	}
+	return (1);
 }
 
 void	handle_append(t_cmd *cmd)
@@ -85,21 +67,29 @@ void	handle_append(t_cmd *cmd)
 void	handle_heredoc(t_cmd *cmd)
 {
 	t_redirect	*redir;
+	char		*filename;
 	char		*content;
+	int			i;
 
+	i = 0;
 	redir = cmd->red;
 	while (redir)
 	{
 		if (redir->type == HEREDOC)
 		{
 			content = read_input(redir->val);
-			if (!content || write_heredoc_tmp(content) == -1)
-				return (free(content), (void)0);
-			free(content);
-			if (read_heredoc_tmp() == -1)
+			filename = ft_strjoin(".heredoc_", ft_itoa(i++));
+			if (!content || write_heredoc_tmp(filename, content) == -1)
+			{
+				free(filename);
+				free(content);
 				return ;
+			}
+			free(content);
+			free(redir->val);
+			redir->val = filename;
+			redir->type = REDIR_IN;
 		}
 		redir = redir->next;
-		unlink(".heredoc_tmp");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 17:50:12 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:39:42 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	handling_cmdops(t_cmd *cmd)
 {
 	(void) cmd;
 	handle_heredoc(cmd);
-	remove_heredoc_tokens(cmd);
 	handle_redirections(cmd);
 	handle_append(cmd);
 }

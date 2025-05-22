@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 18:49:48 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:45:40 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,59 +53,37 @@ void	sanitize_args(t_cmd *cmd)
 	free(args);
 }
 
-void	remove_heredoc_tokens(t_cmd *cmd)
+void cleanup_cmdops_files(t_cmd *cmd)
 {
-	int		i;
-	int		j;
-	t_token	**tokens;
+	t_redirect *redir;
 
-	i = 0;
-	tokens = cmd->token;
-	while (tokens[i])
+	redir = cmd->red;
+	while (redir)
 	{
-		if (tokens[i]->type == HEREDOC)
-		{
-			free(tokens[i]);
-			free(tokens[i + 1]);
-			j = i;
-			while (tokens[j + 2])
-			{
-				tokens[j] = tokens[j + 2];
-				j++;
-			}
-			tokens[j] = NULL;
-			tokens[j + 1] = NULL;
-		}
-		else
-			i++;
+		if (redir->type == REDIR_IN && redir->val && ft_strncmp(redir->val, ".heredoc_", 9) == 0)
+			unlink(redir->val);
+		redir = redir->next;
 	}
 }
 
-int	write_heredoc_tmp(char *content)
+int	write_heredoc_tmp(char *filename, char *content)
 {
 	int	fd;
 
-	fd = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-	{
-		perror("minishell: open heredoc tmp file");
-		return (-1);
-	}
+		return (perror("heredoc write"), -1);
 	write(fd, content, ft_strlen(content));
 	close(fd);
 	return (0);
 }
-
-int	read_heredoc_tmp(void)
+int	read_heredoc_tmp(char *filename)
 {
 	int	fd;
 
-	fd = open(".heredoc_tmp", O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-	{
-		perror("minishell: open heredoc tmp file for reading");
-		return (-1);
-	}
+		return (perror("heredoc read"), -1);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (0);
