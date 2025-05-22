@@ -78,7 +78,10 @@ void	ft_expand_tokens(t_token *tokens, t_env *env, int exit_status)
 	while (tokens)
 	{
 		if (tokens->quote_type == '\'')
-			tokens = tokens->next;
+		{
+			if (tokens->next)
+				tokens = tokens->next;
+		}
 		else if (ft_strchr(tokens->value, '$')
 			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
 			{

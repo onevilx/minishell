@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:03:35 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/05 21:03:33 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:08:30 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init(char *quote_type, int *buff_i)
 
 t_token	*parse_word(const char *input, int *i)
 {
-	char	buffer[1024];
+	char	buffer[1000000];
 	int		buf_i;
 	char	*quoted;
 	char	quote_type;
@@ -93,7 +93,7 @@ t_token	*parse_word(const char *input, int *i)
 		else
 		{
 			buffer[buf_i++] = input[(*i)++];
-			if (buf_i >= 1023)
+			if (buf_i >= 1000000)
 				break ;
 		}
 	}
