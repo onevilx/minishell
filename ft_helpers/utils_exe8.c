@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:46:01 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 18:01:38 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:43:53 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ int	is_valid_export(char *arg)
 {
 	int	i;
 
+	i = 0;
 	if (!arg || !arg[0] || arg[0] == '=')
 		return (0);
-	i = 0;
-	while (arg[i] && arg[i] != '=')
+	while (arg[i] && arg[i] != '=' && !(arg[i] == '+' && arg[i + 1] == '='))
 	{
 		if (!(arg[i] == '_' || (arg[i] >= 'A' && arg[i] <= 'Z')
 				|| (arg[i] >= 'a' && arg[i] <= 'z')

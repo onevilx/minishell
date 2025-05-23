@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/22 19:45:40 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:43:19 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ void	sanitize_args(t_cmd *cmd)
 	free(args);
 }
 
-void cleanup_cmdops_files(t_cmd *cmd)
+void	cleanup_cmdops_files(t_cmd *cmd)
 {
-	t_redirect *redir;
+	t_redirect	*redir;
 
 	redir = cmd->red;
 	while (redir)
 	{
-		if (redir->type == REDIR_IN && redir->val && ft_strncmp(redir->val, ".heredoc_", 9) == 0)
+		if (redir->type == REDIR_IN && redir->val
+			&& ft_strncmp(redir->val, ".heredoc_", 9) == 0)
 			unlink(redir->val);
 		redir = redir->next;
 	}
@@ -77,6 +78,7 @@ int	write_heredoc_tmp(char *filename, char *content)
 	close(fd);
 	return (0);
 }
+
 int	read_heredoc_tmp(char *filename)
 {
 	int	fd;

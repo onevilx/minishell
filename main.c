@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/20 16:51:42 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:32:48 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		if (*input)
 		{
 			add_history(input);
-			cmd = ft_input_proces(input, envp, exit_status);
+			cmd = ft_input_proces(input, *get_env(), exit_status);
 			printf("------------------------------------------\n");
 			if (cmd)
 				exit_status = execute_command(cmd);

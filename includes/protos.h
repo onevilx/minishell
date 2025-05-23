@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/22 19:44:33 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:01:48 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,25 @@ void		print_env_vars(char **env);
 int			str_in_array(char **arr, char *str);
 void		builtin_exit(t_arg *args);
 char		*expand_exit_status(void);
+char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void		sanitize_all_args(t_cmd *cmd);
 char		**extract_args(t_token *tok);
 void		print_export_only_vars(char **export);
+char		*ft_strjoin3(char *s1, char *s2, char *s3);
 void		add_to_array(char ***arr_ptr, char *str);
 int			is_valid_export(char *arg);
+int			is_append_mode(char *value, int *pos);
+void		append_to_env(char *key, char *value, int idx);
+void		handle_export_logic(t_arg *arg, char *key, int append, int pos);
 void		init_env(char **envp);
+void		add_env_var(char *arg);
+t_env		*env_array_to_list(char **env);
+void		append_to_env(char *key, char *value, int idx);
 void		write_line(int fd, char *line);
 void		update_env_var(int idx, char *arg);
+char		*generate_tmp_filename(int index);
 char		*read_input(const char *delimiter);
+int			process_heredoc(t_redirect *redir, int index);
 void		handling_cmdops(t_cmd *cmd);
 char		*ft_strchr(const char *s, int c);
 void		free_command_list(t_cmd *head);
