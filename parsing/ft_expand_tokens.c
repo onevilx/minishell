@@ -49,51 +49,111 @@ static char	*handle_dollar(char *input, int *i, t_env *env, int status)
 	return (ft_strdup(get_env_val_list(env, name)));
 }
 
-static char	*ft_expand_value(char *input, t_env *env, int exit_status)
+static char	*ft_expand_value(char *input, t_env *env, int status)
 {
-	int		i;
 	char	*result;
 	char	*tmp;
+	int		i;
 
 	i = 0;
 	result = ft_strdup("");
 	while (input[i])
 	{
 		if (input[i] == '$')
-			tmp = handle_dollar(input, &i, env, exit_status);
+			tmp = handle_dollar(input, &i, env, status);
 		else
 			tmp = extract_plain(input, &i);
 		if (!tmp)
-			return (free(result), NULL);
+		{
+			free(result);
+			return (ft_strdup(""));
+		}
 		result = ft_strjoin_free(result, tmp);
 	}
 	return (result);
 }
 
+static bool	is_localized_string(t_token *prev)
+{
+	return (prev && prev->quote_type == '"'
+		&& ft_strcmp(prev->value, "$") == 0);
+}
 
-void	ft_expand_tokens(t_token *tokens, t_env *env, int exit_status)
+
+static void	expand_token(t_token *tok, t_env *env, int status)
 {
 	char	*expanded;
 
+	if (ft_strcmp(tok->value, "$") == 0)
+		return ;
+	expanded = ft_expand_value(tok->value, env, status);
+	if (!expanded)
+	{
+		free(tok->value);
+		tok->value = ft_strdup("");
+		return ;
+	}
+	free(tok->value);
+	tok->value = expanded;
+}
+
+
+
+void	ft_expand_tokens(t_token *tokens, t_env *env, int status)
+{
+	t_token	*prev;
+
+	prev = NULL;
 	while (tokens)
 	{
-		if (tokens->quote_type == '\'')
+		if (is_localized_string(prev) || tokens->quote_type == '\'')
 		{
+			prev = tokens;
 			if (tokens->next)
 				tokens = tokens->next;
 		}
-		else if (ft_strchr(tokens->value, '$')
+		if (ft_strchr(tokens->value, '$')
 			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
-			{
-				expanded = ft_expand_value(tokens->value, env, exit_status);
-				if (!expanded)
-				{
-					tokens = tokens->next;
-					continue ;
-				}
-				free(tokens->value);
-				tokens->value = expanded;
-			}
+			expand_token(tokens, env, status);
+		prev = tokens;
 		tokens = tokens->next;
 	}
 }
+
+
+
+
+// void	ft_expand_tokens(t_token *tokens, t_env *env, int exit_status)
+// {
+// 	t_token	*prev;
+// 	char	*expanded;
+
+// 	prev = NULL;
+// 	while (tokens)
+// 	{
+// 		if ((prev && prev->quote_type == '"' && ft_strcmp(prev->value, "$") == 0)
+// 			|| tokens->quote_type == '\'')
+// 		{
+// 			prev = tokens;
+// 			tokens = tokens->next;
+// 			continue ;
+// 		}
+
+// 		if (ft_strchr(tokens->value, '$')
+// 			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
+// 		{
+// 			expanded = ft_expand_value(tokens->value, env, exit_status);
+// 			if (!expanded)
+// 			{
+// 				prev = tokens;
+// 				tokens = tokens->next;
+// 				continue ;
+// 			}
+// 			free(tokens->value);
+// 			tokens->value = expanded;
+// 		}
+// 		prev = tokens;
+// 		tokens = tokens->next;
+// 	}
+// }
+

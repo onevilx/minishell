@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/23 19:33:13 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/25 04:17:41 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,51 @@ int	is_meta(char c)
 		|| c == '\'' || c == '"');
 }
 
+t_token	*parse_quoted_word(const char *input, int *i)
+{
+	char	quote;
+	char	buffer[1024];
+	int		buf_i;
+
+	buf_i = 0;
+	quote = input[(*i)++];
+	while (input[*i] && input[*i] != quote && buf_i < 1023)
+		buffer[buf_i++] = input[(*i)++];
+	if (input[*i] == quote)
+		(*i)++;
+	buffer[buf_i] = '\0';
+	return (new_token(WORD, strdup(buffer), quote));
+}
+
+
 t_token	*tokenizing(const char *input)
 {
-	int		i;
 	t_token	*tokens;
+	int		i;
 
 	tokens = NULL;
 	i = 0;
 	while (input[i])
 	{
 		if (ft_isspace(input[i]))
-		{
 			i++;
-			continue ;
-		}
-		if (is_operator_start(input[i]))
-		{
+		else if (is_operator_start(input[i]))
 			add_token(&tokens, parse_operator(input, &i));
-			continue ;
+		else if (input[i] == '$' && input[i + 1] == '"')
+		{
+			add_token(&tokens, new_token(WORD, strdup("$"), '"'));
+			i++;
+			add_token(&tokens, parse_quoted_word(input, &i));
 		}
-		add_token(&tokens, parse_word(input, &i));
+		else if (input[i] == '"' || input[i] == '\'')
+			add_token(&tokens, parse_quoted_word(input, &i));
+		else
+			add_token(&tokens, parse_word(input, &i));
 	}
 	return (tokens);
 }
+
+
 
 void	ft_print_tokens(t_token *tokens)
 {
