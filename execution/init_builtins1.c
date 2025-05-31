@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/25 14:49:40 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:38:16 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-void	builtin_echo(t_arg *args)
+int	builtin_echo(t_arg *args)
 {
 	int		no_newline;
 	t_arg	*current;
@@ -27,6 +27,7 @@ void	builtin_echo(t_arg *args)
 	}
 	if (!no_newline)
 		printf("\n");
+	return (0);
 }
 
 // CD command
@@ -87,23 +88,20 @@ static int	is_numeric(const char *str)
 	return (1);
 }
 
-void	builtin_exit(t_arg *args)
+int	builtin_exit(t_arg *args)
 {
 	t_arg	*current;
 	int		exit_status;
 
 	current = args->next;
+	write(1, "exit\n", 5);
 	if (!current)
-	{
-		write(1, "exit\n", 5);
 		exit(0);
-	}
 	if (current && !current->next)
 	{
 		if (is_numeric(current->value))
 		{
 			exit_status = ft_atoi(current->value);
-			write(1, "exit\n", 5);
 			exit(exit_status);
 		}
 		else
@@ -113,4 +111,5 @@ void	builtin_exit(t_arg *args)
 		}
 	}
 	write(2, "exit: too many arguments\n", 25);
+	return (1);
 }

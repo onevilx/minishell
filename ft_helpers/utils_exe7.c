@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe7.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:58:58 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 19:45:44 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 16:51:30 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,20 @@ void	free_tokensexe(t_token **tokens)
 	free(tokens);
 }
 
-int	is_append_mode(char *value, int *pos)
+int	is_append_mode(char *arg, int *pos)
 {
-	char	*append_pos;
+	int	i = 0;
 
-	append_pos = ft_strnstr(value, "+=", ft_strlen(value));
-	if (append_pos)
+	while (arg[i] && arg[i] != '=')
 	{
-		*pos = append_pos - value;
-		return (1);
+		if (arg[i] == '+' && arg[i + 1] == '=')
+		{
+			*pos = i;
+			return (1);
+		}
+		i++;
 	}
-	*pos = 0;
-	while (value[*pos] && value[*pos] != '=')
-		(*pos)++;
+	*pos = i;
 	return (0);
 }
 

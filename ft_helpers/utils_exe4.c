@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/22 19:39:42 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 19:24:07 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,13 @@ void	handle_parent_process(t_cmd *cmd, int *prev_fd, int pipe_fd[2])
 	}
 }
 
-void	handling_cmdops(t_cmd *cmd)
+int	handling_cmdops(t_cmd *cmd)
 {
-	(void) cmd;
-	handle_heredoc(cmd);
-	handle_redirections(cmd);
-	handle_append(cmd);
+	if (!handle_heredoc(cmd))
+		return (0);
+	if (!handle_redirections(cmd))
+		return (0);
+	if (!handle_append(cmd))
+		return (0);
+	return (1);
 }

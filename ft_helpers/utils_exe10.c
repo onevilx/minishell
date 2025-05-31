@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe10.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:44:17 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 20:01:41 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 16:13:50 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*generate_tmp_filename(int index)
 	index_str = ft_itoa(index);
 	if (!index_str)
 		return (NULL);
-	filename = ft_strjoin(".heredoc_", index_str);
+	filename = ft_strjoin("/tmp/.heredoc_", index_str);
 	free(index_str);
 	return (filename);
 }

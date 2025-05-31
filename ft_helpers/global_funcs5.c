@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:30:43 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 19:43:32 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:07:13 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,26 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	res = ft_strjoin(tmp, s3);
 	free(tmp);
 	return (res);
+}
+
+void	*ft_free(char **arr, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (arr[i])
+			free(arr[i]);
+		i++;
+	}
+	free(arr);
+	return (NULL);
+}
+
+size_t	get_len(char const *s, char c)
+{
+	if (strchr(s, c))
+		return (strchr(s, c) - s);
+	return (ft_strlen(s));
 }

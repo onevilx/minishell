@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 19:43:19 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 19:38:31 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ void	sanitize_args(t_cmd *cmd)
 	args = extract_args(tok);
 	if (!args)
 		return ;
-	handling_cmdops(cmd);
+	if (!handling_cmdops(cmd))
+	{
+		*get_exit_status() = 1;
+		return ;
+	}
 	cmd->args = char_array_to_args_list(args);
 	free(args);
 }
@@ -61,7 +65,7 @@ void	cleanup_cmdops_files(t_cmd *cmd)
 	while (redir)
 	{
 		if (redir->type == REDIR_IN && redir->val
-			&& ft_strncmp(redir->val, ".heredoc_", 9) == 0)
+			&& ft_strncmp(redir->val, "/tmp/.heredoc_", 9) == 0)
 			unlink(redir->val);
 		redir = redir->next;
 	}

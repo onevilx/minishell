@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:14:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 19:30:07 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:34:50 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	execute_builtin(t_cmd *cmd)
 	if (is_builtin(cmd))
 	{
 		handle_builtin(cmd);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }

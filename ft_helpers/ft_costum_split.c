@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_costume_split.c                                 :+:      :+:    :+:   */
+/*   ft_costum_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:53:01 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 17:56:08 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:10:22 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,27 @@ static void	*ft_calloc1(size_t count, size_t size)
 	return (tmp);
 }
 
-static void	*ft_free(char **arr, int count)
+static size_t	ft_countword(char const *s, char c)
 {
-	int	i;
+	size_t	i;
+	size_t	count;
 
+	count = 0;
 	i = 0;
-	while (i < count)
+	if (!s[i])
+		return (0);
+	while (s[i])
 	{
-		free(arr[i]);
-		i++;
+		if (s[i] == c)
+			i++;
+		else
+		{
+			count++;
+			while (s[i] != c && s[i])
+				i++;
+		}
 	}
-	free(arr);
-	return (NULL);
+	return (count);
 }
 
 char	**ft_split_once(const char *s, char c)
@@ -86,4 +95,33 @@ char	**ft_split_once(const char *s, char c)
 	if (!result[0] || !result[1])
 		return (ft_free(result, 2));
 	return (result);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**arr;
+	size_t	len;
+	size_t	i;
+
+	if (s == NULL)
+		return (NULL);
+	i = 0;
+	arr = ft_calloc((ft_countword(s, c) + 1), sizeof(char *));
+	if (arr == NULL)
+		return (NULL);
+	while (*s)
+	{
+		while (*s == c)
+			s++;
+		if (*s)
+		{
+			len = get_len(s, c);
+			arr[i] = ft_substr(s, 0, len);
+			if (arr[i] == NULL)
+				return (ft_free(arr, i));
+			s = s + len;
+			i++;
+		}
+	}
+	return (arr);
 }

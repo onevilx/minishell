@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe9.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 19:45:12 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:50:54 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	try_exec_paths(t_cmd *cmd)
 	int		i;
 	char	**args_array;
 
-	paths = ft_split(getenv("PATH"), ':');
+	paths = ft_split(get_env_value("PATH"), ':');
 	if (!paths)
-		exit(1);
+		return(perror("PATH"), exit(127));
 	args_array = args_to_array(cmd->args);
 	if (!args_array)
 		exit(1);

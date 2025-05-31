@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:20:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/19 18:32:13 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:39:11 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-// Check if the key is a valid environment variable identifier
 static int	is_valid_key(char *key)
 {
 	int	i;

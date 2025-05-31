@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe6.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:48:22 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 18:22:32 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 19:07:42 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_arg	*check_n_flag(t_arg *args, int *no_newline)
 	t_arg	*current;
 
 	current = args->next;
+	if (current->value[0] == '\0')
+		current = current->next;
 	*no_newline = 0;
 	while (current && is_valid_n_flag(current->value))
 	{

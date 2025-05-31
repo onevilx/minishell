@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 20:01:48 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:38:27 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		sigquit_handler(int signum);
 void		sigint_handler(int signum);
 void		print_env_vars(char **env);
 int			str_in_array(char **arr, char *str);
-void		builtin_exit(t_arg *args);
+int			builtin_exit(t_arg *args);
 char		*expand_exit_status(void);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void		sanitize_all_args(t_cmd *cmd);
@@ -96,14 +96,13 @@ void		append_to_env(char *key, char *value, int idx);
 void		handle_export_logic(t_arg *arg, char *key, int append, int pos);
 void		init_env(char **envp);
 void		add_env_var(char *arg);
-t_env		*env_array_to_list(char **env);
 void		append_to_env(char *key, char *value, int idx);
 void		write_line(int fd, char *line);
 void		update_env_var(int idx, char *arg);
 char		*generate_tmp_filename(int index);
 char		*read_input(const char *delimiter);
 int			process_heredoc(t_redirect *redir, int index);
-void		handling_cmdops(t_cmd *cmd);
+int			handling_cmdops(t_cmd *cmd);
 char		*ft_strchr(const char *s, int c);
 void		free_command_list(t_cmd *head);
 void		handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd);
@@ -117,7 +116,7 @@ void		*ft_calloc(size_t count, size_t size);
 void		builtin_cd(t_arg *args);
 int			is_builtin(t_cmd *cmd);
 int			*get_exit_status(void);
-void		builtin_echo(t_arg *args);
+int			builtin_echo(t_arg *args);
 void		builtin_pwd(t_arg *args);
 void		sanitize_args(t_cmd *cmd);
 void		free_redirections(t_redirect *redir);
@@ -130,18 +129,20 @@ t_arg		*char_array_to_args_list(char **array);
 int			execute_command(t_cmd *cmd);
 void		builtin_unset(t_arg *args);
 void		cleanup_cmdops_files(t_cmd *cmd);
-void		handle_append(t_cmd *cmd);
+int			handle_append(t_cmd *cmd);
 void		reset_init_signals(void);
 void		reset_signal(void);
 void		ignore_signal(void);
 void		sanitize_args(t_cmd *cmd);
 void		handle_pipe(t_cmd *cmd);
-void		handle_heredoc(t_cmd *cmd);
+int			handle_heredoc(t_cmd *cmd);
 char		**convert_args(t_arg *args);
 void		free_cmd(t_cmd *cmd);
 int			handle_redirections(t_cmd *cmd);
+void		*ft_free(char **arr, int count);
 void		ft_free_split(char **arr);
-void		builtin_export(t_arg *args);
+size_t		get_len(char const *s, char c);
+int			builtin_export(t_arg *args);
 void		update_or_add_env(const char *key, const char *full_var);
 size_t		ft_strlen(const char *s);
 void		free_tokens(t_token *token);

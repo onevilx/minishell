@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 19:56:21 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/05/31 19:27:42 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	handle_redirections(t_cmd *cmd)
 	return (1);
 }
 
-void	handle_append(t_cmd *cmd)
+int	handle_append(t_cmd *cmd)
 {
 	t_token	*curr;
 
@@ -74,14 +74,14 @@ void	handle_append(t_cmd *cmd)
 		if (curr->type == APPEND)
 		{
 			if (!do_append_redirection(curr))
-				return ;
-			curr = curr->next;
+				return (0);
 		}
 		curr = curr->next;
 	}
+	return (1);
 }
 
-void	handle_heredoc(t_cmd *cmd)
+int	handle_heredoc(t_cmd *cmd)
 {
 	t_redirect	*redir;
 	int			index;
@@ -93,8 +93,9 @@ void	handle_heredoc(t_cmd *cmd)
 		if (redir->type == HEREDOC)
 		{
 			if (!process_heredoc(redir, index++))
-				return ;
+				return (0);
 		}
 		redir = redir->next;
 	}
+	return (1);
 }
