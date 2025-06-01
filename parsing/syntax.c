@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:50:10 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/29 15:56:59 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/01 01:10:17 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ static bool	check_semicolon(t_token *token)
 {
 	while (token)
 	{
-		if (token->type == WORD && strchr(token->value, ';'))
+		if (token->quote_type == '\0')
 		{
-			printf("minishell: syntax error near unexpected token `;'\n");
-			return (false);
+
+			if (token->type == WORD && strchr(token->value, ';'))
+			{
+				printf("minishell: syntax error near unexpected token `;'\n");
+				return (false);
+			}
 		}
 		token = token->next;
 	}
