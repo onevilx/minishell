@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 20:38:16 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:49:31 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 int	builtin_echo(t_arg *args)
 {
 	int		no_newline;
+	int		first;
 	t_arg	*current;
 
 	current = check_n_flag(args, &no_newline);
+	first = 1;
 	while (current)
 	{
-		printf("%s", current->value);
-		if (current->next)
+		if (!first)
 			printf(" ");
+		printf("%s", current->value);
+		first = 0;
 		current = current->next;
 	}
 	if (!no_newline)
@@ -31,7 +34,7 @@ int	builtin_echo(t_arg *args)
 }
 
 // CD command
-void	builtin_cd(t_arg *args)
+int	builtin_cd(t_arg *args)
 {
 	char	*path;
 	t_arg	*current;
@@ -41,19 +44,20 @@ void	builtin_cd(t_arg *args)
 	{
 		path = get_env_value("HOME");
 		if (!path || chdir(path) != 0)
-			perror("cd");
+			return (perror("cd"), 1);
 	}
 	else if (current && !current->next)
 	{
 		if (chdir(current->value) != 0)
-			perror("cd");
+			return (perror("cd"), 1);
 	}
 	else
-		write(2, "cd: too many arguments\n", 24);
+		return (write(2, "cd: too many arguments\n", 24), 1);
+	return (0);
 }
 
 // PWD command
-void	builtin_pwd(t_arg *args)
+int	builtin_pwd(t_arg *args)
 {
 	char	*cwd;
 
@@ -64,9 +68,10 @@ void	builtin_pwd(t_arg *args)
 		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
 		write(STDOUT_FILENO, "\n", 1);
 		free(cwd);
+		return (0);
 	}
-	else
-		perror("pwd");
+	perror("pwd");
+	return (1);
 }
 
 // Helper function to check if a string is numeric (for exit)

@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:14:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 20:34:50 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:03:46 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_builtin(t_cmd *cmd)
 	return (0);
 }
 
-static void	handle_builtin(t_cmd *cmd)
+static int	handle_builtin(t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->args->value, "echo") == 0)
 		builtin_echo(cmd->args);
@@ -49,14 +49,12 @@ static void	handle_builtin(t_cmd *cmd)
 		builtin_env(cmd->args);
 	else if (ft_strcmp(cmd->args->value, "exit") == 0)
 		builtin_exit(cmd->args);
+	return (1);
 }
 
 int	execute_builtin(t_cmd *cmd)
 {
 	if (is_builtin(cmd))
-	{
 		handle_builtin(cmd);
-		return (0);
-	}
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:48:22 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 19:07:42 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:49:18 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ t_arg	*check_n_flag(t_arg *args, int *no_newline)
 	t_arg	*current;
 
 	current = args->next;
-	if (current->value[0] == '\0')
-		current = current->next;
 	*no_newline = 0;
+	while (current && current->value && current->value[0] == '\0')
+		current = current->next;
 	while (current && is_valid_n_flag(current->value))
 	{
 		*no_newline = 1;

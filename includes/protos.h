@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 20:38:27 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:01:19 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ int			is_redirection(t_token *tok);
 void		ft_print_tokens(t_token *tokens);
 void		save_word(t_token *cur, t_token **args, int *i);
 void		*ft_calloc(size_t count, size_t size);
-void		builtin_cd(t_arg *args);
+int			builtin_cd(t_arg *args);
 int			is_builtin(t_cmd *cmd);
 int			*get_exit_status(void);
 int			builtin_echo(t_arg *args);
-void		builtin_pwd(t_arg *args);
+int			builtin_pwd(t_arg *args);
 void		sanitize_args(t_cmd *cmd);
 void		free_redirections(t_redirect *redir);
 void		builtin_env(t_arg *args);
