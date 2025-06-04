@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 20:01:52 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/04 03:01:52 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
-
-int	open_tmpfile(void)
-{
-	return (open("/tmp/heredoc_input.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644));
-}
-
-void	write_line(int fd, char *line)
-{
-	write(fd, line, ft_strlen(line));
-	write(fd, "\n", 1);
-}
 
 char	*read_input(const char *delimiter)
 {

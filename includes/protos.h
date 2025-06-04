@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/02 18:01:19 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/04 03:01:46 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char		*ft_itoa(int n);
 char		**copy_env(char **envp);
 int			write_heredoc_tmp(char *filename, char *content);
 t_arg		*check_n_flag(t_arg *args, int *no_newline);
-int			read_heredoc_tmp(char *filename);
 void		update_shlvl(void);
 char		*strndup(const char *s, size_t n);
 char		*get_env_value(char *key);
@@ -66,7 +65,6 @@ t_arg		*token_to_args(t_token *start, t_token *end);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strjoin_free(char *s1, const char *s2);
 int			ft_atoi(const char *str);
-int			open_tmpfile(void);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		***get_env(void);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
@@ -97,7 +95,6 @@ void		handle_export_logic(t_arg *arg, char *key, int append, int pos);
 void		init_env(char **envp);
 void		add_env_var(char *arg);
 void		append_to_env(char *key, char *value, int idx);
-void		write_line(int fd, char *line);
 void		update_env_var(int idx, char *arg);
 char		*generate_tmp_filename(int index);
 char		*read_input(const char *delimiter);

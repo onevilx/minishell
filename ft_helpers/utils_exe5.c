@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 19:38:31 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/04 03:00:14 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,6 @@ int	write_heredoc_tmp(char *filename, char *content)
 	if (fd == -1)
 		return (perror("heredoc write"), -1);
 	write(fd, content, ft_strlen(content));
-	close(fd);
-	return (0);
-}
-
-int	read_heredoc_tmp(char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return (perror("heredoc read"), -1);
-	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (0);
 }
