@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/02 18:57:07 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/04 00:05:16 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,103 @@ t_token	*parse_quoted_word(const char *input, int *i)
 	return (new_token(WORD, strdup(buffer), quote));
 }
 
+// static t_token	*last_token(t_token *head)
+// {
+// 	t_token	*cur = head;
+// 	if (!cur)
+// 		return (NULL);
+// 	while (cur->next)
+// 		cur = cur->next;
+// 	return (cur);
+// }
+
+
+// t_token	*tokenizing(const char *input)
+// {
+// 	t_token	*tokens;
+// 	int		i;
+// 	t_token	*last;
+
+// 	tokens = NULL;
+// 	i = 0;
+// 	while (input[i])
+// 	{
+// 		if (ft_isspace(input[i]))
+// 			i++;
+// 		else if (is_operator_start(input[i]))
+// 			add_token(&tokens, parse_operator(input, &i));
+// 		else if (input[i] == '$' && input[i + 1] == '"')
+// 		{
+// 			add_token(&tokens, new_token(WORD, strdup("$"), '"'));
+// 			i++;
+// 			add_token(&tokens, parse_quoted_word(input, &i));
+// 		}
+// 		else if (input[i] == '"' || input[i] == '\'')
+// 			add_token(&tokens, parse_quoted_word(input, &i));
+// 		else
+// 			add_token(&tokens, parse_word(input, &i));
+// 		last = last_token(tokens);
+// 		if (input[i] && ft_isspace(input[i]))
+// 			last->space_after = true;
+// 		else
+// 			last->space_after = false;
+// 	}
+// 	return (tokens);
+// }
+
+static void	skip_spaces(const char *input, int *i)
+{
+	while (input[*i] && ft_isspace(input[*i]))
+		(*i)++;
+}
+
+static bool	has_space_after(const char *input, int i)
+{
+	while (input[i])
+	{
+		if (ft_isspace(input[i]))
+			return (true);
+		if (!ft_isspace(input[i]))
+			break ;
+		i++;
+	}
+	return (false);
+}
 
 t_token	*tokenizing(const char *input)
 {
 	t_token	*tokens;
+	t_token	*new;
 	int		i;
 
 	tokens = NULL;
 	i = 0;
 	while (input[i])
 	{
-		if (ft_isspace(input[i]))
-			i++;
-		else if (is_operator_start(input[i]))
-			add_token(&tokens, parse_operator(input, &i));
+		skip_spaces(input, &i);
+		new = NULL;
+		if (is_operator_start(input[i]))
+			new = parse_operator(input, &i);
 		else if (input[i] == '$' && input[i + 1] == '"')
 		{
-			add_token(&tokens, new_token(WORD, strdup("$"), '"'));
+			new = new_token(WORD, strdup("$"), '"');
+			add_token(&tokens, new);
 			i++;
-			add_token(&tokens, parse_quoted_word(input, &i));
+			new = parse_quoted_word(input, &i);
 		}
 		else if (input[i] == '"' || input[i] == '\'')
-			add_token(&tokens, parse_quoted_word(input, &i));
+			new = parse_quoted_word(input, &i);
 		else
-			add_token(&tokens, parse_word(input, &i));
+			new = parse_word(input, &i);
+		if (new)
+		{
+			new->space_after = has_space_after(input, i);
+			add_token(&tokens, new);
+		}
 	}
 	return (tokens);
 }
+
 
 void	ft_print_tokens(t_token *tokens)
 {
@@ -158,6 +228,34 @@ void	ft_print_cmd(t_cmd *cmd)
 	}
 }
 
+
+void	merge_tokens(t_token *head)
+{
+	t_token	*cur;
+	t_token	*next;
+	char	*joined;
+
+	cur = head;
+	while (cur && cur->next)
+	{
+		next = cur->next;
+		if (cur->type == WORD && next->type == WORD
+			&& !cur->space_after)
+		{
+			joined = ft_strjoin(cur->value, next->value);
+			free(cur->value);
+			cur->value = joined;
+
+			cur->space_after = next->space_after;
+			cur->next = next->next;
+			free(next->value);
+			free(next);
+			continue;
+		}
+		cur = cur->next;
+	}
+}
+
 t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
 {
 	t_token	*tokens;
@@ -173,7 +271,6 @@ t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
 	tokens = tokenizing(input);
 	if (!tokens)
 		return(NULL);
-	ft_print_tokens(tokens);
 	if(!syntax_check(tokens))
 	{
 		free_tokens(tokens);
@@ -181,6 +278,8 @@ t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
 	}
 	env = ft_init_env_list(envp);
 	ft_expand_tokens(tokens, env, exit_status); // to do
+	merge_tokens(tokens);
+	ft_print_tokens(tokens);
 	cmd = ft_parse_commands(tokens);
 	ft_print_cmd(cmd);
 	return(cmd);

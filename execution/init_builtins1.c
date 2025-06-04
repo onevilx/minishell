@@ -3,53 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/02 19:48:33 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/04 00:59:40 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-int builtin_echo(t_arg *args)
+int	builtin_echo(t_arg *args)
 {
-    int no_newline;
-    int first;
-    t_arg *current;
-    t_arg *prev;
+	int		no_newline;
+	t_arg	*current;
 
-    current = check_n_flag(args, &no_newline);
-    first = 1;
-    prev = NULL;
-
-    while (current)
-    {
-        if (current->value[0] == '\0')
-        {
-            current = current->next;
-            continue;
-        }
-
-        if (!first)
-        {
-            // print space only if either prev or current is unquoted
-            if (prev && (prev->quote_type == '\0' || current->quote_type == '\0'))
-                printf(" ");
-        }
-
-        printf("%s", current->value);
-
-        first = 0;
-        prev = current;
-        current = current->next;
-    }
-
-    if (!no_newline)
-        printf("\n");
-
-    return (0);
+	current = check_n_flag(args, &no_newline);
+	while (current)
+	{
+		printf("%s", current->value);
+		if (current->next)
+			printf(" ");
+		current = current->next;
+	}
+	if (!no_newline)
+		printf("\n");
+	return (0);
 }
+
+
+
 
 // CD command
 int	builtin_cd(t_arg *args)

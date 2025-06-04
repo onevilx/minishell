@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe9.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 18:50:54 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:59:54 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_arg	*token_to_args(t_token *start, t_token *end)
 			if (!new_arg)
 				return (NULL);
 			new_arg->value = ft_strdup(start->value);
+			new_arg->quote_type = start->quote_type;
 			new_arg->next = NULL;
 			if (!head)
 				head = new_arg;

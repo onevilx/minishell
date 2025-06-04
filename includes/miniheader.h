@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   miniheader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/02 19:49:02 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/03 23:08:05 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHEADER_H
 # define MINIHEADER_H
+
+#include <stdbool.h>
 
 typedef enum s_code
 {
@@ -35,6 +37,7 @@ typedef struct s_token
 	t_code			type;
 	char			quote_type;
 	char			*value;
+	bool			space_after;
 	struct s_token	*next;
 }				t_token;
 
