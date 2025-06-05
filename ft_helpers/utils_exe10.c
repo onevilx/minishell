@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:44:17 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 16:13:50 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 01:17:01 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,26 @@ char	*generate_tmp_filename(int index)
 	filename = ft_strjoin("/tmp/.heredoc_", index_str);
 	free(index_str);
 	return (filename);
+}
+
+int	count_heredocs(t_cmd *cmd)
+{
+	t_cmd *cur = cmd;
+	t_redirect *redir;
+	int count = 0;
+
+	while (cur)
+	{
+		redir = cur->red;
+		while (redir)
+		{
+			if (redir->type == HEREDOC)
+				count++;
+			redir = redir->next;
+		}
+		cur = cur->next;
+	}
+	return (count);
 }
 
 int	process_heredoc(t_redirect *redir, int index)

@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/04 03:01:46 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 01:48:06 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char		*ft_strjoin_free(char *s1, const char *s2);
 int			ft_atoi(const char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		***get_env(void);
+int			count_heredocs(t_cmd *cmd);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strdup(const char *s1);
 char		**ft_split(char const *s, char c);
@@ -83,7 +84,7 @@ int			str_in_array(char **arr, char *str);
 int			builtin_exit(t_arg *args);
 char		*expand_exit_status(void);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
-void		sanitize_all_args(t_cmd *cmd);
+int			sanitize_all_args(t_cmd *cmd);
 char		**extract_args(t_token *tok);
 void		print_export_only_vars(char **export);
 char		*ft_strjoin3(char *s1, char *s2, char *s3);
@@ -115,23 +116,22 @@ int			is_builtin(t_cmd *cmd);
 int			*get_exit_status(void);
 int			builtin_echo(t_arg *args);
 int			builtin_pwd(t_arg *args);
-void		sanitize_args(t_cmd *cmd);
+int			sanitize_args(t_cmd *cmd);
 void		free_redirections(t_redirect *redir);
-void		builtin_env(t_arg *args);
+int			builtin_env(t_arg *args);
 t_token		*get_next_command_tokens(t_token *cur);
 t_cmd		*parse_command_node(t_token *start, t_token *end);
 int			do_append_fd(char *filename);
 int			do_append_redirection(t_token *curr);
 t_arg		*char_array_to_args_list(char **array);
 int			execute_command(t_cmd *cmd);
-void		builtin_unset(t_arg *args);
+int			builtin_unset(t_arg *args);
 void		cleanup_cmdops_files(t_cmd *cmd);
 int			handle_append(t_cmd *cmd);
 void		reset_init_signals(void);
 void		reset_signal(void);
 void		ignore_signal(void);
-void		sanitize_args(t_cmd *cmd);
-void		handle_pipe(t_cmd *cmd);
+void			handle_pipe(t_cmd *cmd);
 int			handle_heredoc(t_cmd *cmd);
 char		**convert_args(t_arg *args);
 void		free_cmd(t_cmd *cmd);

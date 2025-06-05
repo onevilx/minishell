@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe9.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/02 19:59:54 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/05 01:17:46 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,21 @@ char	**extract_args(t_token *tok)
 	return (args);
 }
 
-void	sanitize_all_args(t_cmd *cmd)
+int sanitize_all_args(t_cmd *cmd)
 {
-	t_cmd	*cur;
+	t_cmd *cur;
 
+	if (count_heredocs(cmd) > 16)
+	{
+		write(2, "minishell: too many heredocs (max 16)\n", 39);
+		return (0);
+	}
 	cur = cmd;
 	while (cur)
 	{
-		sanitize_args(cur);
+		if (!sanitize_args(cur))
+			return (0);
 		cur = cur->next;
 	}
+	return (1);
 }

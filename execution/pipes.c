@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:09:21 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/18 04:09:16 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 02:30:44 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	handle_pipe(t_cmd *cmd)
 	int		prev_fd;
 	pid_t	pid;
 	t_cmd	*current;
+	pid_t	last_pid;
+	int		status;
 
 	prev_fd = -1;
 	current = cmd;
@@ -101,9 +103,16 @@ void	handle_pipe(t_cmd *cmd)
 		else if (pid == 0)
 			handle_child_process(current, prev_fd, pipe_fd);
 		else
+		{
+			if (!current->next)
+				last_pid = pid;
 			handle_parent_process(current, &prev_fd, pipe_fd);
+		}
 		current = current->next;
 	}
-	while (wait(NULL) > 0)
-		;
+	while (waitpid(-1, &status, 0) > 0)
+	{
+		if (WIFEXITED(status) && last_pid != 0)
+			*get_exit_status() = WEXITSTATUS(status);
+	}
 }

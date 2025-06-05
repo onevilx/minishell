@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 19:24:07 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 04:02:02 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	handle_execve_or_exit(char **argv, char *cmd_path)
 	exit(127);
 }
 
-static void	setup_child_fds(t_cmd *cmd, int prev_fd, int *pipe_fd)
+static void setup_child_fds(t_cmd *cmd, int prev_fd, int *pipe_fd)
 {
 	if (prev_fd != -1)
 	{
@@ -40,6 +40,8 @@ static void	setup_child_fds(t_cmd *cmd, int prev_fd, int *pipe_fd)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
+	if (!handle_redirections(cmd))
+		exit(1);
 }
 
 void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
@@ -54,9 +56,10 @@ void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 		ft_free_split(argv);
 		exit(1);
 	}
-	if (execute_builtin(cmd))
+	if (is_builtin(cmd))
 	{
-		ft_free_split(argv);
+		if (execute_builtin(cmd))
+			ft_free_split(argv);
 		exit(EXIT_SUCCESS);
 	}
 	cmd_path = find_command_path(argv[0], *get_env());

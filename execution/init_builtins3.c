@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:20:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/02 18:57:51 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 03:56:12 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,25 @@ static void	remove_env_var(char *key)
 	*get_env() = new_env;
 }
 
-void	builtin_unset(t_arg *args)
+int	builtin_unset(t_arg *args)
 {
 	t_arg	*current;
+	int		status;
 
+	status = 0;
 	current = args->next;
 	while (current)
 	{
 		if (is_valid_key(current->value))
 			remove_env_var(current->value);
 		else
+		{
 			write(2, "unset: not a valid identifier\n", 31);
+			status = 1;
+		}
 		current = current->next;
 	}
+	return (status);
 }
 
 // Print all environment variables
@@ -93,27 +99,30 @@ static void	print_env(void)
 	}
 }
 
-void	builtin_env(t_arg *args)
+int	builtin_env(t_arg *args)
 {
 	t_arg	*current;
 	char	*path;
 	char	**envp;
+	pid_t	pid;
+	int		status;
 
 	current = args->next;
 	if (!current)
-		print_env();
-	else
+		return (print_env(), 0);
+	path = current->value;
+	envp = *get_env();
+	pid = fork();
+	if (pid == 0)
 	{
-		path = current->value;
-		envp = *get_env();
-		if (fork() == 0)
+		if (execve(path, (char **)(current->next), envp) == -1)
 		{
-			if (execve(path, (char **)(current->next), envp) == -1)
-			{
-				write(2, "env: command not found\n", 23);
-				exit(1);
-			}
+			write(2, "env: command not found\n", 23);
+			exit(1);
 		}
-		wait(NULL);
 	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (1);
 }

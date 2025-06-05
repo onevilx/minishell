@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:45:18 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/18 16:00:10 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 04:09:37 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	sigterm_handler(int signum)
 	write(1, "\033[2K", 4);
 	write(1, prompt, ft_strlen(prompt));
 	write(1, "exit\n", 5);
-	exit(0);
+	exit (*get_exit_status());
 }
 
 void	init_signals(void)

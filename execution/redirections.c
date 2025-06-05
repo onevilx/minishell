@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 19:27:42 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 03:28:56 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 static int	handle_redir_in(t_redirect *redir)
 {
 	int	fd;
+	int	devnull;
 
 	fd = open(redir->val, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("open (REDIR_IN)");
-		return (0);
+		devnull = open("/dev/null", O_RDONLY);
+		if (devnull >= 0)
+			dup2(devnull, STDIN_FILENO);
+		close(devnull);
+		return (1);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);

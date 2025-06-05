@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/04 03:00:14 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 02:47:41 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_arg	*char_array_to_args_list(char **array)
 	return (head);
 }
 
-void	sanitize_args(t_cmd *cmd)
+int	sanitize_args(t_cmd *cmd)
 {
 	char	**args;
 	t_token	*tok;
@@ -47,14 +47,15 @@ void	sanitize_args(t_cmd *cmd)
 	tok = *(cmd->token);
 	args = extract_args(tok);
 	if (!args)
-		return ;
+		return (0);
 	if (!handling_cmdops(cmd))
 	{
 		*get_exit_status() = 1;
-		return ;
+		return (0);
 	}
 	cmd->args = char_array_to_args_list(args);
 	free(args);
+	return (1);
 }
 
 void	cleanup_cmdops_files(t_cmd *cmd)

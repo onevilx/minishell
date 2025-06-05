@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 20:33:42 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 03:57:04 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,16 @@ int	execute_command(t_cmd *cmd)
 
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
-	sanitize_all_args(cmd);
+	if (!sanitize_all_args(cmd))
+	{
+		*get_exit_status() = 1;
+		dup2(stdin_copy, STDIN_FILENO);
+		dup2(stdout_copy, STDOUT_FILENO);
+		close(stdin_copy);
+		close(stdout_copy);
+		cleanup_cmdops_files(cmd);
+		return (*get_exit_status());
+	}
 	if (cmd->next)
 		handle_pipe(cmd);
 	else
