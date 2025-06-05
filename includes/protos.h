@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 01:48:06 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:49:43 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void		sigint_handler(int signum);
 void		print_env_vars(char **env);
 int			str_in_array(char **arr, char *str);
 int			builtin_exit(t_arg *args);
-char		*expand_exit_status(void);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int			sanitize_all_args(t_cmd *cmd);
 char		**extract_args(t_token *tok);
@@ -101,6 +100,8 @@ char		*generate_tmp_filename(int index);
 char		*read_input(const char *delimiter);
 int			process_heredoc(t_redirect *redir, int index);
 int			handling_cmdops(t_cmd *cmd);
+void		update_pwd_vars(char *oldpwd);
+void		free_env(char **env);
 char		*ft_strchr(const char *s, int c);
 void		free_command_list(t_cmd *head);
 void		handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd);

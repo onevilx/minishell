@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 01:26:45 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:49:51 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,4 @@ int	*get_exit_status(void)
 	static int	status = 0;
 
 	return (&status);
-}
-
-char	*expand_exit_status(void)
-{
-	return (ft_itoa(*get_exit_status()));
 }

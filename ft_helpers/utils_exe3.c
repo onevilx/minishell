@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/16 01:35:15 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:53:16 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,29 @@ void	update_shlvl(void)
 	free(shlvl_str);
 }
 
-static char	**copy_env_and_add(char **env, const char *full_var, int i)
+static char	**copy_env_and_add(char **env, const char *full_var, int count)
 {
 	char	**new_env;
-	int		j;
+	int		i;
 
-	new_env = malloc(sizeof(char *) * (i + 2));
+	new_env = malloc(sizeof(char *) * (count + 2));
 	if (!new_env)
 		return (NULL);
-	j = 0;
-	while (j < i)
+	i = 0;
+	while (i < count)
 	{
-		new_env[j] = env[j];
-		j++;
+		new_env[i] = ft_strdup(env[i]);
+		if (!new_env[i])
+		{
+			while (i--)
+				free(new_env[i]);
+			free(new_env);
+			return (NULL);
+		}
+		i++;
 	}
-	new_env[i] = ft_strdup(full_var);
-	new_env[i + 1] = NULL;
+	new_env[i++] = ft_strdup(full_var);
+	new_env[i] = NULL;
 	return (new_env);
 }
 
@@ -93,7 +100,7 @@ void	update_or_add_env(const char *key, const char *full_var)
 	new_env = copy_env_and_add(env, full_var, i);
 	if (!new_env)
 		return ;
-	free(env);
+	free_env(env);
 	*get_env() = new_env;
 }
 

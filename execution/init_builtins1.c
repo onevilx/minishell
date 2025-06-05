@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 00:11:05 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:59:03 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,31 @@ int	builtin_echo(t_arg *args)
 	return (0);
 }
 
-// CD command
 int	builtin_cd(t_arg *args)
 {
-	char	*path;
+	char	*home;
+	char	*oldpwd;
 	t_arg	*current;
 
 	current = args->next;
+	oldpwd = getcwd(NULL, 0);
+	if (!oldpwd)
+		oldpwd = ft_strdup("");
 	if (!current)
 	{
-		path = get_env_value("HOME");
-		if (!path || chdir(path) != 0)
-			return (perror("cd"), 1);
+		home = get_env_value("HOME");
+		if (!home || chdir(home) != 0)
+			return (free(oldpwd), perror("cd"), 1);
 	}
-	else if (current && !current->next)
-	{
-		if (chdir(current->value) != 0)
-			return (perror("cd"), 1);
-	}
-	else
-		return (write(2, "cd: too many arguments\n", 24), 1);
+	else if (current && current->next)
+		return (free(oldpwd), write(2, "cd: too many arguments\n", 24), 1);
+	else if (chdir(current->value) != 0)
+		return (free(oldpwd), perror("cd"), 1);
+	update_pwd_vars(oldpwd);
+	free(oldpwd);
 	return (0);
 }
 
-// PWD command
 int	builtin_pwd(t_arg *args)
 {
 	char	*cwd;
@@ -71,7 +72,6 @@ int	builtin_pwd(t_arg *args)
 	return (1);
 }
 
-// Helper function to check if a string is numeric (for exit)
 static int	is_numeric(const char *str)
 {
 	int	i;

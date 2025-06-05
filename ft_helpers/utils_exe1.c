@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:47:14 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 18:55:42 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:09:52 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*get_env_value(char *key)
 	int		len;
 
 	env = *get_env();
+	if (!env)
+		return (NULL);
 	len = ft_strlen(key);
 	i = 0;
 	while (env && env[i])
@@ -65,11 +67,24 @@ int	find_env_index(char **env, char *key)
 void	init_env(char **envp)
 {
 	char	**env_copy;
+	char	cwd[PATH_MAX];
+	char	*pwd_var;
 
 	ft_launching();
 	env_copy = copy_env(envp);
 	if (!env_copy)
 		return ;
 	*get_env() = env_copy;
+	if (!get_env_value("_"))
+	update_or_add_env("_", "/usr/bin/env");
+	if (!get_env_value("PWD"))
+	{
+		if (getcwd(cwd, sizeof(cwd)))
+		{
+			pwd_var = ft_strjoin("PWD=", cwd);
+			update_or_add_env("PWD", pwd_var);
+			free(pwd_var);
+		}
+	}
 	update_shlvl();
 }
