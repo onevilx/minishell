@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/05 16:55:25 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/05 23:24:08 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,84 @@ static bool	has_space_after(const char *input, int i)
 	return (false);
 }
 
+// t_token	*tokenizing(const char *input)
+// {
+// 	t_token	*tokens;
+// 	t_token	*new;
+// 	int		i;
+
+// 	tokens = NULL;
+// 	i = 0;
+// 	while (input[i])
+// 	{
+// 		skip_spaces(input, &i);
+// 		new = NULL;
+// 		if (is_operator_start(input[i]))
+// 			new = parse_operator(input, &i);
+// 		else if (input[i] == '$' && input[i + 1] == '"')
+// 		{
+// 			new = new_token(WORD, strdup("$"), '"');
+// 			add_token(&tokens, new);
+// 			i++;
+// 			new = parse_quoted_word(input, &i);
+// 		}
+// 		else if (input[i] == '"' || input[i] == '\'')
+// 			new = parse_quoted_word(input, &i);
+// 		else
+// 	{
+// 		new = parse_word(input, &i);
+// 		if (new && new->value && new->value[0] == '\0')
+// 		{
+// 			free(new->value);
+// 			free(new);
+// 			new = NULL;
+// 		}
+// 	}
+// 		if (new)
+// 		{
+// 			new->space_after = has_space_after(input, i);
+// 			add_token(&tokens, new);
+// 		}
+// 	}
+// 	return (tokens);
+// }
+
+t_token	*parse_non_empty_word(const char *input, int *i)
+{
+	t_token	*new;
+
+	new = parse_word(input, i);
+	if (new && new->value && new->value[0] == '\0')
+	{
+		free(new->value);
+		free(new);
+		return (NULL);
+	}
+	return (new);
+}
+
+t_token	*parse_token(const char *input, int *i, t_token **tokens)
+{
+	t_token	*new;
+
+	new = NULL;
+	if (is_operator_start(input[0]))
+		new = parse_operator(input, i);
+	else if (input[0] == '$' && input[1] == '"')
+	{
+		new = new_token(WORD, strdup("$"), '"');
+		add_token(tokens, new);
+		(*i)++;
+		new = parse_quoted_word(input, i);
+	}
+	else if (input[0] == '"' || input[0] == '\'')
+		new = parse_quoted_word(input, i);
+	else
+		new = parse_non_empty_word(input, i);
+	return (new);
+}
+
+
 t_token	*tokenizing(const char *input)
 {
 	t_token	*tokens;
@@ -114,20 +192,7 @@ t_token	*tokenizing(const char *input)
 	while (input[i])
 	{
 		skip_spaces(input, &i);
-		new = NULL;
-		if (is_operator_start(input[i]))
-			new = parse_operator(input, &i);
-		else if (input[i] == '$' && input[i + 1] == '"')
-		{
-			new = new_token(WORD, strdup("$"), '"');
-			add_token(&tokens, new);
-			i++;
-			new = parse_quoted_word(input, &i);
-		}
-		else if (input[i] == '"' || input[i] == '\'')
-			new = parse_quoted_word(input, &i);
-		else
-			new = parse_word(input, &i);
+		new = parse_token(&input[i], &i, &tokens);
 		if (new)
 		{
 			new->space_after = has_space_after(input, i);
