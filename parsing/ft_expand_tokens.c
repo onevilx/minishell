@@ -112,6 +112,11 @@ void	ft_expand_tokens(t_token *tokens, t_env *env, int status)
 			if (tokens->next)
 				tokens = tokens->next;
 		}
+		if (ft_strcmp(tokens->value, "~") == 0)
+		{
+			free(tokens->value);
+			tokens->value = ft_strdup("$HOME");
+		}
 		if (ft_strchr(tokens->value, '$')
 			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
 			expand_token(tokens, env, status);
