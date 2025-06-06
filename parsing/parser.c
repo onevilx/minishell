@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/06 00:28:34 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:53:44 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void	merge_tokens(t_token *head)
 	{
 		next = cur->next;
 		if (cur->type == WORD && next->type == WORD
-			&& !cur->space_after)
+			&& !cur->space_after && (cur->quote_type == '\'' || cur->quote_type == '"') )
 		{
 			joined = ft_strjoin(cur->value, next->value);
 			free(cur->value);
