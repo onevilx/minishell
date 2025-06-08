@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/05 16:55:39 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/07 23:18:38 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char **argv, char **envp)
 	t_cmd	*cmd;
 	int		exit_status;
 
+	// if (!isatty(1) || !isatty(0))
+		// return (1);
 	exit_status = 0;
 	(void)argc;
 	(void)argv;
@@ -31,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			cmd = ft_input_proces(input, *get_env(), exit_status);
-			printf("------------------------------------------\n");
+			// printf("------------------------------------------\n");
 			if (cmd)
 				exit_status = execute_command(cmd);
 			free_cmd(cmd);

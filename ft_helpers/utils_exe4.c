@@ -6,7 +6,7 @@
 /*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 04:02:02 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/08 17:03:10 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void setup_child_fds(t_cmd *cmd, int prev_fd, int *pipe_fd)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
-	if (!handle_redirections(cmd))
-		exit(1);
 }
 
 void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)

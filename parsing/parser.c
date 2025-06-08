@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/06 15:53:44 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:55:29 by onevil_x         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,8 +261,8 @@ t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
 	env = ft_init_env_list(envp);
 	ft_expand_tokens(tokens, env, exit_status); // to do
 	merge_tokens(tokens);
-	ft_print_tokens(tokens);
+	// ft_print_tokens(tokens);
 	cmd = ft_parse_commands(tokens);
-	ft_print_cmd(cmd);
+	// ft_print_cmd(cmd);
 	return(cmd);
 }
