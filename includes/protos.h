@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/17 22:35:44 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:45:24 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int			process_heredoc(t_redirect *redir, int index);
 int			handling_cmdops(t_cmd *cmd);
 void		update_pwd_vars(char *oldpwd);
 void		free_env(char **env);
+t_token	*tokenizing(const char *input);
+void	merge_tokens(t_token *head);
 char		*ft_strchr(const char *s, int c);
 char	*ft_expand_value(char *input, t_env *env, int status);
 void		free_command_list(t_cmd *head);

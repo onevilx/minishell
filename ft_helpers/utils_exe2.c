@@ -6,18 +6,41 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/17 22:40:49 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/17 23:01:35 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
+
+char	*join_token_values(t_token *tokens)
+{
+	char	*result = ft_strdup("");
+	char	*tmp;
+
+	while (tokens)
+	{
+		tmp = result;
+		result = ft_strjoin(result, tokens->value);
+		free(tmp);
+		if (tokens->space_after)
+		{
+			tmp = result;
+			result = ft_strjoin(result, " ");
+			free(tmp);
+		}
+		tokens = tokens->next;
+	}
+	return (result);
+}
+
 
 char	*read_input(const char *delimiter, t_env *env, int exit_status)
 {
 	char	*line;
 	char	*buffer;
 	char	*tmp;
-	char	*expanded;
+	t_token *token;
+	char	*j_line;
 
 	buffer = ft_strdup("");
 	while (1)
@@ -26,10 +49,16 @@ char	*read_input(const char *delimiter, t_env *env, int exit_status)
 		if (!line || ft_strcmp(line, delimiter) == 0)
 			break ;
 		if (ft_strchr(delimiter, '\'') && ft_strchr(delimiter, '"'))
-			expanded = ft_strdup(line);
+			j_line = ft_strdup(line);
 		else
-			expanded = ft_expand_value(line, env, exit_status);
-		tmp = ft_strjoin(buffer, expanded);
+		{
+			token = tokenizing(line);
+			ft_expand_tokens(token, env, exit_status);
+			merge_tokens(token);
+			j_line = join_token_values(token);
+			free_tokens(token); 
+		}
+		tmp = ft_strjoin(buffer, j_line);
 		free(buffer);
 		buffer = tmp;
 		buffer = ft_strjoin(buffer, "\n");
