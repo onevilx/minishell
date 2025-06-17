@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 16:49:43 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:35:44 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,13 @@ void		add_env_var(char *arg);
 void		append_to_env(char *key, char *value, int idx);
 void		update_env_var(int idx, char *arg);
 char		*generate_tmp_filename(int index);
-char		*read_input(const char *delimiter);
+char	*read_input(const char *delimiter, t_env *env, int exit_status);
 int			process_heredoc(t_redirect *redir, int index);
 int			handling_cmdops(t_cmd *cmd);
 void		update_pwd_vars(char *oldpwd);
 void		free_env(char **env);
 char		*ft_strchr(const char *s, int c);
+char	*ft_expand_value(char *input, t_env *env, int status);
 void		free_command_list(t_cmd *head);
 void		handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd);
 void		handle_parent_process(t_cmd *cmd, int *prev_fd, int pipe_fd[2]);

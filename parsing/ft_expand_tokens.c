@@ -49,7 +49,7 @@ static char	*handle_dollar(char *input, int *i, t_env *env, int status)
 	return (ft_strdup(get_env_val_list(env, name)));
 }
 
-static char	*ft_expand_value(char *input, t_env *env, int status)
+char	*ft_expand_value(char *input, t_env *env, int status)
 {
 	char	*result;
 	char	*tmp;

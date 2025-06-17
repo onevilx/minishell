@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe10.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:44:17 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 01:17:01 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:33:48 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,13 @@ int	process_heredoc(t_redirect *redir, int index)
 {
 	char	*content;
 	char	*filename;
+	// t_token	*herdoc_content;
+	t_env	*env;
 
-	content = read_input(redir->val);
+	env = ft_init_env_list(*get_env());
+	content = read_input(redir->val, env, 0);
+	// herdoc_content = tokenizing(content);
+	// ft_expand_tokens(herdoc_content, env, 0);
 	filename = generate_tmp_filename(index);
 	if (!content || !filename || write_heredoc_tmp(filename, content) == -1)
 	{

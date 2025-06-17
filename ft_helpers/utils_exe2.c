@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 16:45:48 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:40:49 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-char	*read_input(const char *delimiter)
+char	*read_input(const char *delimiter, t_env *env, int exit_status)
 {
 	char	*line;
 	char	*buffer;
 	char	*tmp;
+	char	*expanded;
 
 	buffer = ft_strdup("");
 	while (1)
@@ -24,7 +25,11 @@ char	*read_input(const char *delimiter)
 		line = readline("> ");
 		if (!line || ft_strcmp(line, delimiter) == 0)
 			break ;
-		tmp = ft_strjoin(buffer, line);
+		if (ft_strchr(delimiter, '\'') && ft_strchr(delimiter, '"'))
+			expanded = ft_strdup(line);
+		else
+			expanded = ft_expand_value(line, env, exit_status);
+		tmp = ft_strjoin(buffer, expanded);
 		free(buffer);
 		buffer = tmp;
 		buffer = ft_strjoin(buffer, "\n");
