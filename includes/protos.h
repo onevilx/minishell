@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/18 19:55:28 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:16:20 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		init_for_norm(t_cmd	**head, t_cmd **last,
 int			execute_builtin(t_cmd *cmd);
 int			execute_external(t_cmd *cmd);
 bool		ft_isspace(char c);
-t_cmd		*ft_input_proces(char *input, char **envp, int exit_status);
+t_cmd		*ft_input_proces(char *input, char **envp, int *exit_status);
 int			is_valid_n_flag(char *str);
 t_token		*new_token(t_code type, char *val, char qoute_type);
 t_token		*parse_operator(const char *input, int *i);
@@ -149,7 +149,7 @@ size_t		ft_strlen(const char *s);
 void		free_tokens(t_token *token);
 void		free_tokensexe(t_token **tokens);
 bool		are_quotes_closed(const char *input);
-bool		syntax_check(t_token *token);
+bool		syntax_check(t_token *token, int *exit_status);
 t_token		*parse_word(const char *input, int *i);
 int			is_operator_start(char c);
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val);

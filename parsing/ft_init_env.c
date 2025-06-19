@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:50:50 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/20 18:51:26 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:41:56 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_env	*add_to_env_list(char *str1)
 	splited = ft_split_once(str1, '=');
 	if (!splited || !splited[0] || !splited[1])
 		return (NULL);
-	node = ft_lstnew(strdup(splited[0]), strdup(splited[1]));
+	node = ft_lstnew(ft_strdup(splited[0]), ft_strdup(splited[1]));
 	free(splited[0]);
 	free(splited[1]);
 	free(splited);

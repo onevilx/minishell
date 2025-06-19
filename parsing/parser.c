@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/18 19:45:54 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:18:45 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ void	merge_tokens(t_token *head)
 	}
 }
 
-t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
+t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 {
 	t_token	*tokens;
 	t_cmd	*cmd;
@@ -248,18 +248,19 @@ t_cmd	*ft_input_proces(char *input, char **envp, int exit_status)
 	if (!are_quotes_closed(input))
 	{
 		printf("Syntax error: unclosed quote\n");
+		*exit_status = 100;
 		return (NULL);
 	}
 	tokens = tokenizing(input);
 	if (!tokens)
 		return(NULL);
-	if(!syntax_check(tokens))
+	if(!syntax_check(tokens, exit_status))
 	{
 		free_tokens(tokens);
 		return (NULL);
 	}
 	env = ft_init_env_list(envp);
-	ft_expand_tokens(tokens, env, exit_status); // to do
+	ft_expand_tokens(tokens, env, *exit_status); // to do
 	merge_tokens(tokens);
 	// ft_print_tokens(tokens);
 	cmd = ft_parse_commands(tokens);
