@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:45:18 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/05 04:09:37 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/19 22:06:17 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	sigint_handler(int signum)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
+	*get_exit_status() = 130;
 }
 
 void	sigquit_handler(int signum)
