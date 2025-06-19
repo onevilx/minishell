@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe9.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 01:17:46 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:45:02 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**args_to_array(t_arg *args)
 	}
 	arr = malloc(sizeof(char *) * (count + 1));
 	if (!arr)
-		return (NULL);
+		return (free(arr), NULL);
 	current = args;
 	i = 0;
 	while (current)
@@ -67,7 +67,7 @@ void	try_exec_paths(t_cmd *cmd)
 	}
 	free_split(paths);
 	printf("minishell: command not found: %s\n", args_array[0]);
-	free(args_array);
+	free_split(args_array);
 	exit(127);
 }
 
@@ -97,6 +97,7 @@ t_arg	*token_to_args(t_token *start, t_token *end)
 		}
 		start = start->next;
 	}
+	free_args_list(new_arg);
 	return (head);
 }
 

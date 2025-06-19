@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 02:47:41 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:28:06 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_arg	*char_array_to_args_list(char **array)
 		new = malloc(sizeof(t_arg));
 		if (!new)
 			return (NULL);
-		new->value = array[i];
+		new->value = ft_strdup(array[i]);
 		new->next = NULL;
 		if (!head)
 			head = new;
@@ -54,7 +54,7 @@ int	sanitize_args(t_cmd *cmd)
 		return (0);
 	}
 	cmd->args = char_array_to_args_list(args);
-	free(args);
+	ft_free_split(args);
 	return (1);
 }
 

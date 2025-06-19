@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 03:57:04 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:28:29 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int	execute_command(t_cmd *cmd)
 	dup2(stdout_copy, STDOUT_FILENO);
 	close(stdin_copy);
 	close(stdout_copy);
+	cleanup_cmd(cmd);
 	cleanup_cmdops_files(cmd);
 	return (*get_exit_status());
 }

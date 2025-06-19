@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe7.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:58:58 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 16:51:30 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:40:22 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	free_tokensexe(t_token **tokens)
 	i = 0;
 	while (tokens[i])
 	{
-		free(tokens[i]->value);
 		free(tokens[i]);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/19 17:18:45 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:25:42 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static bool	has_space_after(const char *input, int i)
 static t_token	*parse_dollar_quote_case(const char *input, int *i, t_token **tokens)
 {
 	t_token	*new;
-	
+
 	new = new_token(WORD, strdup("$"), '"');
 	add_token(tokens, new);
 	(*i)++;
