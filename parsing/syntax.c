@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:50:10 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/01 01:10:17 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:45:37 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ static bool	check_pipe_sequence(t_token *cur)
 static bool	check_redirections(t_token *cur)
 {
 	t_token	*next;
+	t_env	*env;
+	char	*filename;
+	char	*content;
+	static int	heredoc_index = 0;
 
 	if (cur->type == REDIR_IN || cur->type == REDIR_OUT
 		|| cur->type == APPEND || cur->type == HEREDOC)
@@ -67,17 +71,33 @@ static bool	check_redirections(t_token *cur)
 			printf("Syntax error: redirection without target\n");
 			return (false);
 		}
+		if (cur->type == HEREDOC)
+		{
+			env = ft_init_env_list(*get_env());
+			content = read_input(next->value, env, next->quote_type ,0);
+			if (!content)
+				return (false);
+			filename = generate_tmp_filename(heredoc_index++);
+			if (!filename || write_heredoc_tmp(filename, content) == -1)
+			{
+				free(filename);
+				free(content);
+				return (false);
+			}
+			free(content);
+			free(next->value);
+			next->value = filename;
+			cur->type = REDIR_IN; // convert HEREDOC to normal redirection
+		}
 	}
 	if (!cur->next && (cur->type == PIPE || cur->type == REDIR_IN
-			|| cur->type == REDIR_OUT
-			|| cur->type == APPEND || cur->type == HEREDOC))
+			|| cur->type == REDIR_OUT || cur->type == APPEND || cur->type == HEREDOC))
 	{
 		printf("Syntax error: unexpected end after '%s'\n", cur->value);
 		return (false);
 	}
 	return (true);
 }
-
 
 bool	syntax_check(t_token *token)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/08 16:57:27 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:08:00 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,15 @@ int	handle_append(t_cmd *cmd)
 int	handle_heredoc(t_cmd *cmd)
 {
 	t_redirect	*redir;
-	int			index;
+	// int			index;
 
-	index = 0;
+	// index = 0;
 	redir = cmd->red;
 	while (redir)
 	{
 		if (redir->type == HEREDOC)
 		{
-			if (!process_heredoc(redir, index++))
+			// if (!process_heredoc(redir, index++))
 				return (0);
 		}
 		redir = redir->next;

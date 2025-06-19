@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:44:17 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/17 22:33:48 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:56:43 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ int	count_heredocs(t_cmd *cmd)
 
 int	process_heredoc(t_redirect *redir, int index)
 {
-	char	*content;
+	char	*content = NULL;
 	char	*filename;
 	// t_token	*herdoc_content;
-	t_env	*env;
+	// t_env	*env;
 
-	env = ft_init_env_list(*get_env());
-	content = read_input(redir->val, env, 0);
+	// env = ft_init_env_list(*get_env());
+	// content = read_input(redir->val, env, 0);
 	// herdoc_content = tokenizing(content);
 	// ft_expand_tokens(herdoc_content, env, 0);
 	filename = generate_tmp_filename(index);

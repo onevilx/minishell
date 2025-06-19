@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/16 01:37:48 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:51:03 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	handle_redirection(t_cmd *cmd, t_token **cur, t_token **args, int *i)
 	if (!(*cur)->next || (*cur)->next->type != WORD)
 		return (0);
 	cmd->red = add_redirect(cmd->red, (*cur)->type,
-			strdup((*cur)->next->value));
+			ft_strdup((*cur)->next->value));
 	*cur = (*cur)->next->next;
 	return (1);
 }

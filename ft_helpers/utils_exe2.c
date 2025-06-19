@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/17 23:01:35 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:39:26 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*join_token_values(t_token *tokens)
 }
 
 
-char	*read_input(const char *delimiter, t_env *env, int exit_status)
+char	*read_input(const char *delimiter, t_env *env, char quote_type, int exit_status)
 {
 	char	*line;
 	char	*buffer;
@@ -48,16 +48,16 @@ char	*read_input(const char *delimiter, t_env *env, int exit_status)
 		line = readline("> ");
 		if (!line || ft_strcmp(line, delimiter) == 0)
 			break ;
-		if (ft_strchr(delimiter, '\'') && ft_strchr(delimiter, '"'))
-			j_line = ft_strdup(line);
-		else
+		if (!quote_type)
 		{
 			token = tokenizing(line);
 			ft_expand_tokens(token, env, exit_status);
 			merge_tokens(token);
 			j_line = join_token_values(token);
-			free_tokens(token); 
+			free_tokens(token);
 		}
+		else
+			j_line = ft_strdup(line);
 		tmp = ft_strjoin(buffer, j_line);
 		free(buffer);
 		buffer = tmp;

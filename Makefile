@@ -8,7 +8,7 @@ OBJS_MINISHELL = $(SRCS_MINISHELL:.c=.o)
 CC = cc
 AR = ar r
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -I$(HOME)/.local/include
+CFLAGS = -Wall -Wextra -Werror -g -I$(HOME)/.local/include
 LDFLAGS = -L$(HOME)/.local/lib
 INCLUDE = includes/minishell.h includes/protos.h
 NAME_MINISHELL = minishell
