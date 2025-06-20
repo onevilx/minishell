@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/19 20:25:42 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 14:09:44 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,19 @@ void	merge_tokens(t_token *head)
 		cur = cur->next;
 	}
 }
+void	free_env_list(t_env *env)
+{
+	t_env	*tmp;
 
+	while (env)
+	{
+		tmp = env->next;
+		free(env->key);
+		free(env->value);
+		free(env);
+		env = tmp;
+	}
+}
 t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 {
 	t_token	*tokens;
@@ -264,6 +276,7 @@ t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 	merge_tokens(tokens);
 	// ft_print_tokens(tokens);
 	cmd = ft_parse_commands(tokens);
+	free_env_list(env);
 	// ft_print_cmd(cmd);
 	return(cmd);
 }

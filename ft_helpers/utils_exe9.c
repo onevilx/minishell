@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe9.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:45:02 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 15:43:44 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_arg	*token_to_args(t_token *start, t_token *end)
 			new_arg = malloc(sizeof(t_arg));
 			if (!new_arg)
 				return (NULL);
+			printf("%p\n", new_arg);
 			new_arg->value = ft_strdup(start->value);
 			new_arg->quote_type = start->quote_type;
 			new_arg->next = NULL;

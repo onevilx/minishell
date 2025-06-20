@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:35:15 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 15:29:41 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ void	free_cmd(t_cmd *cmd)
 		if (cmd->token)
 			free_tokensexe(cmd->token);
 		if (cmd->args)
+		{
 			free_args_list(cmd->args);
+			free(cmd->args);
+		}
 		free_redirections(cmd->red);
 		free(cmd);
 		cmd = tmp;
