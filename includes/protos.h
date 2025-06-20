@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:45:47 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:15:01 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 void		ft_bzero(void *s, size_t n);
 int			ft_isalpha(int x);
+void		*g_malloc(size_t size);
 int			ft_isalnum(int x);
 void		ft_expand_tokens(t_token *tokens, t_env *env, int exit_status);
 t_env		*ft_init_env_list(char **env);

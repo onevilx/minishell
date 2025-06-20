@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:47:14 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 16:09:52 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:11:35 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	init_env(char **envp)
 		{
 			pwd_var = ft_strjoin("PWD=", cwd);
 			update_or_add_env("PWD", pwd_var);
-			free(pwd_var);
+			// free(pwd_var);
 		}
 	}
 	update_shlvl();

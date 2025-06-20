@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe7.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:58:58 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:40:22 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:00:54 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	add_env_var(char *arg)
 	i = 0;
 	while (env[i])
 		i++;
-	new_env = malloc(sizeof(char *) * (i + 2));
+	new_env = g_malloc(sizeof(char *) * (i + 2));
 	if (!new_env)
 		return ;
 	i = -1;
@@ -95,6 +95,6 @@ void	add_env_var(char *arg)
 		new_env[i] = env[i];
 	new_env[i++] = ft_strdup(arg);
 	new_env[i] = NULL;
-	free(env);
+	// free(env);
 	*get_env() = new_env;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:28:29 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:06:13 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	child_exec(t_cmd *cmd)
 		}
 	}
 	try_exec_paths(cmd);
-	free(args_array);
+	// free(args_array);
 	exit(1);
 }
 

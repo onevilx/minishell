@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:57:06 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/20 15:42:32 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:05:43 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_token	*get_next_command_tokens(t_token *cur)
 /* Initialize command structure */
 static void	init_command(t_cmd **cmd)
 {
-	*cmd = malloc(sizeof(t_cmd));
+	*cmd = g_malloc(sizeof(t_cmd));
 	if (!*cmd)
 		return ;
 	(*cmd)->pipe_count = 0;
@@ -43,7 +43,7 @@ int	fill_command_data(t_cmd *cmd, t_token *start, t_token *end)
 
 	i = 0;
 	cur = start;
-	args = malloc(sizeof(t_token *) * 1024);
+	args = g_malloc(sizeof(t_token *) * 1024);
 	if (!args)
 		return (0);
 	while (cur && cur != end)

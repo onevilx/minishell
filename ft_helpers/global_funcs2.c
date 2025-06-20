@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:57:55 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 00:56:49 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:56:41 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*strndup(const char *s, size_t n)
 	size_t	i;
 	char	*dup;
 
-	dup = malloc(n + 1);
+	dup = g_malloc(n + 1);
 	if (!dup)
 		return (NULL);
 	i = 0;
@@ -85,7 +85,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
-	res = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	res = (char *) g_malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
 	while (s1[i])

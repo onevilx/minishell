@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 15:43:44 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:25:15 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**args_to_array(t_arg *args)
 		count++;
 		current = current->next;
 	}
-	arr = malloc(sizeof(char *) * (count + 1));
+	arr = g_malloc(sizeof(char *) * (count + 1));
 	if (!arr)
 		return (free(arr), NULL);
 	current = args;
@@ -83,10 +83,9 @@ t_arg	*token_to_args(t_token *start, t_token *end)
 	{
 		if (start->type == WORD)
 		{
-			new_arg = malloc(sizeof(t_arg));
+			new_arg = g_malloc(sizeof(t_arg));
 			if (!new_arg)
 				return (NULL);
-			printf("%p\n", new_arg);
 			new_arg->value = ft_strdup(start->value);
 			new_arg->quote_type = start->quote_type;
 			new_arg->next = NULL;
@@ -98,7 +97,6 @@ t_arg	*token_to_args(t_token *start, t_token *end)
 		}
 		start = start->next;
 	}
-	free_args_list(new_arg);
 	return (head);
 }
 
@@ -107,7 +105,7 @@ char	**extract_args(t_token *tok)
 	char	**args;
 	int		i;
 
-	args = malloc(sizeof(char *) * 100);
+	args = g_malloc(sizeof(char *) * 100);
 	if (!args)
 		return (NULL);
 	i = 0;

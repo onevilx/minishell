@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 15:29:41 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:58:17 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**copy_env(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	env_copy = malloc(sizeof(char *) * (i + 1));
+	env_copy = g_malloc(sizeof(char *) * (i + 1));
 	if (!env_copy)
 		return (NULL);
 	i = -1;
@@ -56,7 +56,7 @@ static char	**copy_env_and_add(char **env, const char *full_var, int count)
 	char	**new_env;
 	int		i;
 
-	new_env = malloc(sizeof(char *) * (count + 2));
+	new_env = g_malloc(sizeof(char *) * (count + 2));
 	if (!new_env)
 		return (NULL);
 	i = 0;

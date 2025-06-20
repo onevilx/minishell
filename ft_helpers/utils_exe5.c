@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:28:06 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:59:47 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_arg	*char_array_to_args_list(char **array)
 	current = NULL;
 	while (array && array[i])
 	{
-		new = malloc(sizeof(t_arg));
+		new = g_malloc(sizeof(t_arg));
 		if (!new)
 			return (NULL);
 		new->value = ft_strdup(array[i]);

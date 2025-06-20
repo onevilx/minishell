@@ -6,11 +6,26 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/20 15:27:19 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:29:42 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/protos.h"
+
+void	gc_free_all(void)
+{
+	static t_gc	*list = NULL;
+	t_gc		*tmp;
+
+	while (list)
+	{
+		free(list->ptr);
+		tmp = list;
+		list = list->next;
+		free(tmp);
+	}
+}
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -33,11 +48,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			cmd = ft_input_proces(input, *get_env(), get_exit_status());
-			// printf("------------------------------------------\n");
 			if (cmd)
 				exit_status = execute_command(cmd);
 			
-			free_cmd(cmd);
+			// free_cmd(cmd);
 		}
 		free(input);
 	}

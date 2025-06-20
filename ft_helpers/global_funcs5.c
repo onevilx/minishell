@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:30:43 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 20:07:13 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:57:16 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	if (!tmp)
 		return (NULL);
 	res = ft_strjoin(tmp, s3);
-	free(tmp);
+	// free(tmp);
 	return (res);
 }
 

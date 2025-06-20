@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:09:21 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 02:30:44 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:24:38 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ char	*find_command_path(char *cmd, char **env)
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(tmp, cmd);
-		free(tmp);
+		// free(tmp);
 		if (access(path, X_OK) == 0)
-			return (ft_free_split(paths), path);
-		free(path);
+			return (path);
+		// free(path);
 	}
-	return (ft_free_split(paths), NULL);
+	return (NULL);
 }
 
 char	**convert_args(t_arg *args)
@@ -67,7 +67,7 @@ char	**convert_args(t_arg *args)
 		count++;
 		tmp = tmp->next;
 	}
-	argv = malloc(sizeof(char *) * (count + 1));
+	argv = g_malloc(sizeof(char *) * (count + 1));
 	if (!argv)
 		return (NULL);
 	tmp = args;

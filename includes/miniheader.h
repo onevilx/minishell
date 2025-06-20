@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/18 13:53:23 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:53:32 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ typedef enum s_code
 	APPEND,
 	WORD,
 }			t_code;
+
+typedef struct s_gc
+{
+	void			*ptr;
+	struct s_gc		*next;
+}	t_gc;
 
 typedef struct s_redirect
 {

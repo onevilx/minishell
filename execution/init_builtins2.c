@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:53:54 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 18:38:29 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:07:31 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	handle_export_arg(t_arg *arg)
 	key = ft_substr(arg->value, 0, pos);
 	add_to_export_list(key);
 	handle_export_logic(arg, key, append, pos);
-	free(key);
+	// free(key);
 	return (1);
 }
 

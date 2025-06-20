@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/08 17:03:10 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:24:00 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	handle_execve_or_exit(char **argv, char *cmd_path)
 	if (!cmd_path)
 	{
 		perror("execve");
-		ft_free_split(argv);
+		// ft_free_split(argv);
 		exit(127);
 	}
 	execve(cmd_path, argv, *get_env());
 	perror("execve");
 	free(cmd_path);
-	ft_free_split(argv);
+	// ft_free_split(argv);
 	exit(127);
 }
 

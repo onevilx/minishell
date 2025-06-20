@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 16:30:25 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:12:57 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*read_input(const char *delimiter, t_env *env, char quote_type, int exit_st
 			ft_expand_tokens(token, env, exit_status);
 			merge_tokens(token);
 			j_line = join_token_values(token);
-			free_tokens(token);
+			// free_tokens(token);
 		}
 		else
 			j_line = ft_strdup(line);

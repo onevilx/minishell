@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/05/16 01:13:38 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:02:46 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_redirect	*add_redirect(t_redirect *head, t_code type, char *val)
 	t_redirect	*new;
 	t_redirect	*cur;
 
-	new = malloc(sizeof(t_redirect));
+	new = g_malloc(sizeof(t_redirect));
 	if (!new)
 		return (NULL);
 	new->type = type;

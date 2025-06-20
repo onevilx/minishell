@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_costum_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:53:01 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 20:10:22 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:14:12 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*ft_substr1(const char *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (start + len > slen)
 		len = slen - start;
-	s1 = malloc((len + 1));
+	s1 = g_malloc((len + 1));
 	if (s1 == NULL)
 		return (NULL);
 	while (i < len)
@@ -42,7 +42,7 @@ static void	*ft_calloc1(size_t count, size_t size)
 {
 	unsigned char	*tmp;
 
-	tmp = malloc(count * size);
+	tmp = g_malloc(count * size);
 	if (!tmp)
 		return (0);
 	ft_bzero(tmp, count * size);
@@ -118,7 +118,7 @@ char	**ft_split(char const *s, char c)
 			len = get_len(s, c);
 			arr[i] = ft_substr(s, 0, len);
 			if (arr[i] == NULL)
-				return (ft_free(arr, i));
+				return (NULL);
 			s = s + len;
 			i++;
 		}

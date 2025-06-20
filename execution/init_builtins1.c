@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 14:59:03 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:07:21 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int	builtin_cd(t_arg *args)
 	{
 		home = get_env_value("HOME");
 		if (!home || chdir(home) != 0)
-			return (free(oldpwd), perror("cd"), 1);
+			return (perror("cd"), 1);
 	}
 	else if (current && current->next)
-		return (free(oldpwd), write(2, "cd: too many arguments\n", 24), 1);
+		return (write(2, "cd: too many arguments\n", 24), 1);
 	else if (chdir(current->value) != 0)
-		return (free(oldpwd), perror("cd"), 1);
+		return (perror("cd"), 1);
 	update_pwd_vars(oldpwd);
-	free(oldpwd);
+	// free(oldpwd);
 	return (0);
 }
 
@@ -65,7 +65,7 @@ int	builtin_pwd(t_arg *args)
 	{
 		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
 		write(STDOUT_FILENO, "\n", 1);
-		free(cwd);
+		// free(cwd);
 		return (0);
 	}
 	perror("pwd");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe8.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:46:01 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/23 19:43:53 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:01:08 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	add_to_array(char ***arr_ptr, char *str)
 	arr = *arr_ptr;
 	while (arr && arr[i])
 		i++;
-	new_arr = malloc(sizeof(char *) * (i + 2));
+	new_arr = g_malloc(sizeof(char *) * (i + 2));
 	if (!new_arr)
 		return ;
 	j = 0;

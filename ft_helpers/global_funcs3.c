@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:59:36 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/05/31 17:35:19 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:23:02 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	if (nb == -2147483648)
 		return (ft_strdup("-2147483648"));
 	len = int_len(nb) + 1;
-	str = malloc(len);
+	str = g_malloc(len);
 	if (!str)
 		return (NULL);
 	str[len - 1] = '\0';
@@ -61,14 +61,7 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-// void	print_welcome(void)
-// {
-// 	printf("🟢 Welcome to \033[1;32mminishell\033[0m, ");
-// 	printf("this project built by pinky and the brain!\n");
-// }
-
 void	ft_launching(void)
 {
 	init_terminal();
-	// print_welcome();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:55:46 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:34:41 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:56:16 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*ft_calloc(size_t count, size_t size)
 	i = 0;
 	if (count != 0 && size > SIZE_MAX / count)
 		return (NULL);
-	tmp = malloc(count * size);
+	tmp = g_malloc(count * size);
 	if (!tmp)
 		return (NULL);
 	while (i < count * size)
@@ -68,7 +68,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (start + len > slen)
 		len = slen - start;
-	s1 = malloc((len + 1));
+	s1 = g_malloc((len + 1));
 	if (s1 == NULL)
 		return (NULL);
 	while (i < len)
@@ -86,7 +86,7 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 
 	i = 0;
-	tmp = (char *)malloc(ft_strlen(s1) + 1);
+	tmp = (char *)g_malloc(ft_strlen(s1) + 1);
 	if (tmp == NULL)
 		return (NULL);
 	while (s1[i])

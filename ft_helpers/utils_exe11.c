@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:33:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 15:45:47 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:27:08 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_args_list(t_arg *args)
 	while (args)
 	{
 		tmp = args->next;
-		printf("%p\n", args);
 		free(args->value);
 		free(args);
 		args = tmp;

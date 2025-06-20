@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:03:35 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/05 03:45:48 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:02:23 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_token	*new_token(t_code type, char *val, char quote_type)
 {
 	t_token	*tok;
 
-	tok = malloc(sizeof(t_token));
+	tok = g_malloc(sizeof(t_token));
 	if (!tok)
 		return (NULL);
 	tok->type = type;

@@ -56,7 +56,7 @@ char	*ft_expand_value(char *input, t_env *env, int status)
 			tmp = extract_plain(input, &i);
 		if (!tmp)
 		{
-			free(result);
+			// free(result);
 			return (ft_strdup(""));
 		}
 		result = ft_strjoin_free(result, tmp);
@@ -91,8 +91,7 @@ void	replace_token_with_multiple(t_token *old, t_token *new_tokens)
 	old->quote_type = first->quote_type;
 	old->space_after = first->space_after;
 	old->next = first->next;
-
-	free(first);
+	// free(first);
 }
 
 
@@ -110,7 +109,7 @@ t_token	*split_expanded_token(char *expanded)
 		add_token(&head, new);
 		i++;
 	}
-	free_split(parts);
+	// free_split(parts);
 	return (head);
 }
 
@@ -135,10 +134,10 @@ static void	expand_token(t_token *tok, t_env *env, int status)
 	{
 		new_tokens = split_expanded_token(expanded);
 		replace_token_with_multiple(tok, new_tokens);
-		free(expanded);
+		// free(expanded);
 		return ;
 	}
-	free(tok->value);
+	// free(tok->value);
 	tok->value = expanded;
 }
 
