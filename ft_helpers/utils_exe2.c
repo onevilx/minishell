@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:32:02 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:12:57 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:11:57 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,26 @@ char	*read_input(const char *delimiter, t_env *env, char quote_type, int exit_st
 	char	*j_line;
 
 	buffer = ft_strdup("");
+	signal(SIGINT, heredoc_sig);
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strcmp(line, delimiter) == 0)
-			break ;
+		if (!line)
+		{
+			if (g_signal == 1)
+			{
+				open("/dev/tty", O_RDONLY);
+				signal(SIGINT, sigint_handler);
+				free(buffer);
+				return (NULL);
+			}
+			break;
+		}
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break;
+		}
 		if (!quote_type)
 		{
 			token = tokenizing(line);
@@ -60,11 +75,12 @@ char	*read_input(const char *delimiter, t_env *env, char quote_type, int exit_st
 			j_line = ft_strdup(line);
 		tmp = ft_strjoin(buffer, j_line);
 		free(buffer);
+		free(j_line);
 		buffer = tmp;
 		buffer = ft_strjoin(buffer, "\n");
 		free(line);
 	}
-	free(line);
+	signal(SIGINT, sigint_handler);
 	return (buffer);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:50:10 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/21 17:13:02 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:13:17 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ static bool	check_pipe_sequence(t_token *cur, int *exit_status)
 	return (true);
 }
 
+void heredoc_sig(int signal)
+{
+	if (signal == SIGINT)
+	{
+		g_signal = 1;
+		close(STDIN_FILENO);
+	}
+}
+
 static bool	check_redirections(t_token *cur, int *exit_status)
 {
 	t_token	*next;
@@ -65,7 +74,7 @@ static bool	check_redirections(t_token *cur, int *exit_status)
 	char	*content;
 	static int	heredoc_index = 0;
 	int exit_code;
-
+	g_signal = 0;
 	exit_code = *exit_status;
 	if (cur->type == REDIR_IN || cur->type == REDIR_OUT
 		|| cur->type == APPEND || cur->type == HEREDOC)
@@ -79,10 +88,14 @@ static bool	check_redirections(t_token *cur, int *exit_status)
 		}
 		if (cur->type == HEREDOC)
 		{
+			signal(SIGINT, heredoc_sig);
 			env = ft_init_env_list(*get_env());
 			content = read_input(next->value, env, next->quote_type ,exit_code);
-			if (!content)
+			if (!content || g_signal == 1)
+			{
+				// update exit status if heredoc was interrupted
 				return (false);
+			}
 			filename = generate_tmp_filename(heredoc_index++);
 			if (!filename || write_heredoc_tmp(filename, content) == -1)
 			{
@@ -94,6 +107,7 @@ static bool	check_redirections(t_token *cur, int *exit_status)
 			free(next->value);
 			next->value = filename;
 			cur->type = REDIR_IN; // convert HEREDOC to normal redirection
+			signal(SIGINT, sigint_handler);
 		}
 	}
 	if (!cur->next && (cur->type == PIPE || cur->type == REDIR_IN

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 22:16:07 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:14:21 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void		disable_echoctl(void);
 void		sigterm_handler(int signum);
 void		sigquit_handler(int signum);
 void		sigint_handler(int signum);
+void		heredoc_sig(int signal);
 void		print_env_vars(char **env);
 int			str_in_array(char **arr, char *str);
 int			builtin_exit(t_arg *args);
