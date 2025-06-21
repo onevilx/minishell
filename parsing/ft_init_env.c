@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:50:50 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 16:03:36 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/21 22:15:23 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,27 @@ t_env	*ft_init_env_list(char **env)
 		i++;
 	}
 	return (head);
+}
+
+bool	check_ambg(t_token *tokens, int *exit_status)
+{
+	t_token *cur = tokens;
+	while (cur)
+	{
+		if ((cur->type == REDIR_OUT || cur->type == REDIR_IN ||
+			cur->type == APPEND || cur->type == HEREDOC)
+			&& cur->next && cur->next->type == WORD)
+		{
+			t_token *target = cur->next;
+			if (!target->value || target->value[0] == '\0')
+			{
+				fprintf(stderr, "minishell: %s: ambiguous redirect\n",
+					target->value ? target->value : "");
+				*exit_status = 1;
+				return false;
+			}
+		}
+		cur = cur->next;
+	}
+	return true;
 }
