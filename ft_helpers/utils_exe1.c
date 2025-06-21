@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:47:14 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:11:35 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 22:58:18 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,25 @@ void	init_env(char **envp)
 {
 	char	**env_copy;
 	char	cwd[PATH_MAX];
-	char	*pwd_var;
 
 	ft_launching();
-	env_copy = copy_env(envp);
+	if (!envp || !envp[0])
+	{
+		env_copy = ft_calloc(5, sizeof(char *));
+		if (!env_copy)
+			return ;
+		if (getcwd(cwd, sizeof(cwd)))
+		{
+			env_copy[0] = ft_strjoin("PWD=", cwd);
+			env_copy[1] = ft_strdup("SHLVL=1");
+			env_copy[2] = ft_strdup("_=/usr/bin/env");
+			env_copy[3] = ft_strdup("PATH=/.local/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
+		}
+	}
+	else
+		env_copy = copy_env(envp);
 	if (!env_copy)
 		return ;
 	*get_env() = env_copy;
-	if (!get_env_value("_"))
-	update_or_add_env("_", "/usr/bin/env");
-	if (!get_env_value("PWD"))
-	{
-		if (getcwd(cwd, sizeof(cwd)))
-		{
-			pwd_var = ft_strjoin("PWD=", cwd);
-			update_or_add_env("PWD", pwd_var);
-			// free(pwd_var);
-		}
-	}
 	update_shlvl();
 }

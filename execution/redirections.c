@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/18 20:08:00 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:07:36 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,28 @@
 
 static int	handle_redir_in(t_redirect *redir)
 {
-	int	fd;
-	int	devnull;
-
-	fd = open(redir->val, O_RDONLY);
+	int	fd = open(redir->val, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("open (REDIR_IN)");
-		devnull = open("/dev/null", O_RDONLY);
-		if (devnull >= 0)
-			dup2(devnull, STDIN_FILENO);
-		close(devnull);
-		return (1);
+		return (-1);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	return (1);
+	return (0);
 }
 
 static int	handle_redir_out(t_redirect *redir)
 {
-	int	fd;
-
-	fd = open(redir->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	int	fd = open(redir->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		perror("open (REDIR_OUT)");
-		return (0);
+		return (-1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	return (1);
+	return (0);
 }
 
 int	handle_redirections(t_cmd *cmd)
@@ -56,12 +47,12 @@ int	handle_redirections(t_cmd *cmd)
 	{
 		if (redir->type == REDIR_IN)
 		{
-			if (!handle_redir_in(redir))
+			if (handle_redir_in(redir) == -1)
 				return (0);
 		}
 		else if (redir->type == REDIR_OUT)
 		{
-			if (!handle_redir_out(redir))
+			if (handle_redir_out(redir) == -1)
 				return (0);
 		}
 		redir = redir->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe8.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:46:01 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:01:08 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 22:55:19 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,23 @@ void	print_env_vars(char **env)
 	i = 0;
 	while (env && env[i])
 	{
+		if (ft_strncmp(env[i], "_=", 2) == 0)
+		{
+			i++;
+			continue ;
+		}
 		equal_pos = ft_strchr(env[i], '=');
 		write(1, "declare -x ", 11);
-		write(1, env[i], equal_pos - env[i] + 1);
-		write(1, "\"", 1);
-		write(1, equal_pos + 1, ft_strlen(equal_pos + 1));
-		write(1, "\"\n", 2);
+		if (equal_pos)
+		{
+			write(1, env[i], equal_pos - env[i]);
+			write(1, "=\"", 2);
+			write(1, equal_pos + 1, ft_strlen(equal_pos + 1));
+			write(1, "\"", 1);
+		}
+		else
+			write(1, env[i], ft_strlen(env[i]));
+		write(1, "\n", 1);
 		i++;
 	}
 }
