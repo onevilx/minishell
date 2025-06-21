@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/18 17:51:03 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:54:35 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	parse_commands_loop(t_token *tokens, t_cmd **head,
 	start = tokens;
 	while (start)
 	{
+		if (start->type == PIPE)
+			start = start->next;
 		end = start;
 		while (end && end->type != PIPE)
 			end = end->next;
