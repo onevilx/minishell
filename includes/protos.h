@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:15:01 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:58:09 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <signal.h>
 # include <stdbool.h>
 
+void		ft_remove_empty(t_token **tokens);
 void		ft_bzero(void *s, size_t n);
 int			ft_isalpha(int x);
 void		*g_malloc(size_t size);

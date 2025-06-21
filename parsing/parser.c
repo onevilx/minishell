@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/21 17:16:55 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:59:20 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,12 +272,12 @@ t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 		return (NULL);
 	}
 	env = ft_init_env_list(envp);
-	ft_expand_tokens(tokens, env, *exit_status); // to do
+	ft_expand_tokens(tokens, env, *exit_status);
 	merge_tokens(tokens);
-	// ft_print_tokens(tokens);
+	ft_remove_empty(&tokens);
 	cmd = ft_parse_commands(tokens);
 	// free_env_list(env);
 	// ft_print_cmd(cmd);
-	// ft_remove_empty_
+	// ft_print_tokens(tokens);
 	return(cmd);
 }
