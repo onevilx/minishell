@@ -1,0 +1,50 @@
+minishell$ $L $L
+minishell: command not found: 
+-------------------------------
+minishell$ export x="  "
+minishell$ $x
+minishell: command not found: $x
+-------------------------------
+minishell$ exit 2  | exit 100
+exit
+-------------------------------
+minishell$ exit yassine 212 23 
+exit
+exit: too many arguments
+-------------------------------
+minishell$ exit 9223372036854775810  2 2 22 
+exit
+exit: too many arguments
+minishell$ 
+-------------------------------
+yaboukir@e3r1p13 minishell % env -i ./minishell 
+minishell$ ls
+Makefile        execution       includes        minishell
+TODO            folder          ls              parsing
+ab              ft_helpers      main.c          signals
+minishell$ env
+/usr/bin/env
+PWD=/mnt/homes/yaboukir/Desktop/ms3/minishell
+SHLVL=1
+minishell$ unset PWD SHLVL 
+minishell$ export < l
+open (REDIR_IN): No such file or directory
+declare -x "zsh: segmentation fault  env -i ./minishell
+-------------------------------
+export < 'file not found'
+-------------------------------
+minishell$ echo "yassine" < f
+yassine
+minishell$ pwd <  f
+/mnt/homes/yaboukir/Desktop/ms3/minishell
+minishell$ 
+-------------------------------
+minishell$ >> f
+-------------------------------
+memory leak :
+minishell$ mkdir -p 1/2/3/4/5
+minishell$ cd 1/2/3/4/5
+minishell$ ls
+minishell$ pwd
+/mnt/homes/yaboukir/Desktop/ms3/minishell/1/2/3/4/5
+-------------------------------
