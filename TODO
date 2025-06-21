@@ -48,3 +48,60 @@ minishell$ ls
 minishell$ pwd
 /mnt/homes/yaboukir/Desktop/ms3/minishell/1/2/3/4/5
 -------------------------------
+
+
+minishell$ touch ls
+minishell$ ls
+minishell: ls: Permission denied
+minishell$ echo $?
+126
+minishell$ ./ls
+minishell: ./ls: Permission denied
+minishell$ echo $?
+126
+minishell$ chmod 777 ls
+minishell$ ./ls
+Makefile        includes        parsing
+TODO            ls              signals
+execution       main.c
+ft_helpers      minishell
+minishell$ ./ls
+Makefile        includes        parsing
+TODO            ls              signals
+execution       main.c
+ft_helpers      minishell
+minishell$ 
+-----------------------------------
+
+minishell$ dfghj
+minishell: command not found: dfghj
+minishell$ echo $?
+127
+minishell$ unset PATH
+minishell$ ./minishell 
+minishell$ ls
+PATH: Exec format error
+minishell$ exit
+minishell$ exit 
+
+----------------------------------------
+
+➜  minishell git:(master) ✗ env -i ./minishell 
+minishell$ ls
+PATH: Exec format error
+minishell$ ls
+PATH: Exec format error
+minishell$ ls
+PATH: Exec format error
+minishell$ ls
+PATH: Exec format error
+minishell$ ls
+PATH: Exec format error
+minishell$ ls
+PATH: Exec format error
+minishell$ ls
+PATH: Exec format error
+minishell$ ls
+PATH: Exec format error
+minishell$ 
+

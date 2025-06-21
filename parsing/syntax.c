@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:50:10 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/19 16:47:40 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:13:02 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	check_semicolon(t_token *token, int *exit_status)
 
 			if (token->type == WORD && strchr(token->value, ';'))
 			{
-				*exit_status = 101010;
+				*exit_status = 258;
 				printf("minishell: syntax error near unexpected token `;'\n");
 				return (false);
 			}
@@ -36,7 +36,7 @@ static bool	check_start_token(t_token *token, int *exit_status)
 	if (token->type == PIPE)
 	{
 		printf("Syntax error: unexpected token '%s'\n", token->value);
-		*exit_status = 127;
+		*exit_status = 258;
 		return (false);
 	}
 	return (true);
