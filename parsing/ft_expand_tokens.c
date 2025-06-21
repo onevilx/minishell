@@ -114,6 +114,43 @@ t_token	*split_expanded_token(char *expanded)
 }
 
 
+#include <ctype.h>  // for isspace()
+
+char	*normalize_whitespace(char *str)
+{
+	char	*res;
+	int		i, j;
+	int		in_space;
+
+	if (!str)
+		return (NULL);
+
+	res = g_malloc(ft_strlen(str) + 1); // max size = original
+	if (!res)
+		return (NULL);
+
+	i = 0;
+	j = 0;
+	in_space = 0;
+	while (str[i])
+	{
+		if (ft_isspace((unsigned char)str[i]))
+		{
+			if (!in_space && j > 0) // add a single space between words
+				res[j++] = ' ';
+			in_space = 1;
+		}
+		else
+		{
+			res[j++] = str[i];
+			in_space = 0;
+		}
+		i++;
+	}
+	res[j] = '\0';
+	return (res);
+}
+
 
 static void	expand_token(t_token *tok, t_env *env, int status)
 {
@@ -130,14 +167,18 @@ static void	expand_token(t_token *tok, t_env *env, int status)
 		tok->value = ft_strdup("");
 		return ;
 	}
+	if (tok->quote_type == '\0')
+	{
+		char *normalized = normalize_whitespace(expanded);
+		free(expanded);
+		expanded = normalized;
+	}
 	if (tok->quote_type == '\0' && ft_strchr(expanded, ' '))
 	{
 		new_tokens = split_expanded_token(expanded);
 		replace_token_with_multiple(tok, new_tokens);
-		// free(expanded);
 		return ;
 	}
-	// free(tok->value);
 	tok->value = expanded;
 }
 
@@ -164,9 +205,7 @@ void	ft_expand_tokens(t_token *tokens, t_env *env, int status)
 		}
 		if (ft_strchr(tokens->value, '$') &&
 			(tokens->quote_type == '\0' || tokens->quote_type == '"'))
-		{
 			expand_token(tokens, env, status);
-		}
 		prev = tokens;
 		tokens = tokens->next;
 	}

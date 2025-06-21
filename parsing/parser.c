@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/21 22:15:41 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:48:47 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_token	*parse_quoted_word(const char *input, int *i)
 	if (input[*i] == quote)
 		(*i)++;
 	buffer[buf_i] = '\0';
-	return (new_token(WORD, strdup(buffer), quote));
+	return (new_token(WORD, ft_strdup(buffer), quote));
 }
 
 
