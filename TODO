@@ -1,72 +1,72 @@
-minishell$ $L $L
-minishell: command not found:
-obouftou : FIXED ✅
--------------------------------
-minishell$ export x="  "
-minishell$ $x
-minishell: command not found: $x
-obouftou : FIXED ✅
--------------------------------
-minishell$ exit 2  | exit 100
-exit
-yaboukir : FIXED ✅
--------------------------------
-minishell$ exit yassine 212 23 
-exit
-exit: too many arguments
-yaboukir : FIXED ✅
--------------------------------
-minishell$ exit 9223372036854775810  2 2 22 
-exit
-exit: too many arguments
+minishell$ ""
 minishell$ 
-yaboukir : FIXED ✅
--------------------------------
-yaboukir@e3r1p13 minishell % env -i ./minishell 
-minishell$ ls
-Makefile        execution       includes        minishell
-TODO            folder          ls              parsing
-ab              ft_helpers      main.c          signals
-minishell$ env
-/usr/bin/env
-PWD=/mnt/homes/yaboukir/Desktop/ms3/minishell
-SHLVL=1
-minishell$ unset PWD SHLVL 
-minishell$ export < l
-open (REDIR_IN): No such file or directory
-declare -x "zsh: segmentation fault  env -i ./minishell
-yaboukir : FIXED ✅
--------------------------------
-export < 'file not found'
-yaboukir : FIXED ✅
--------------------------------
-minishell$ echo "yassine" < f
-yassine
-minishell$ pwd <  f
-/mnt/homes/yaboukir/Desktop/ms3/minishell
-minishell$ 
-yaboukir : FIXED ✅
--------------------------------
-minishell$ >> f
-yaboukir : NOT YET ❌
--------------------------------
-memory leak :
-minishell$ mkdir -p 1/2/3/4/5
-minishell$ cd 1/2/3/4/5
-minishell$ ls
-minishell$ pwd
-/mnt/homes/yaboukir/Desktop/ms3/minishell/1/2/3/4/5
-yaboukir : NOT YET ❌
------------------------------------
-minishell$ dfghj
-minishell: command not found: dfghj
+-----------------------------------------
+minishell$ echo -n "yassine d  dd d " > file
+yassine d  dd d minishell$ 
+-----------------------------------------
+minishell$ exit | exit 1 2  34
 minishell$ echo $?
-127
-minishell$ unset PATH
-minishell$ ./minishell 
+0
+-----------------------------------------
+minishell$ exit | exit 100
+minishell$ echo $?
+0
+-----------------------------------------
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ echo $?
+130
+-----------------------------------------
+ctrl quit
+minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ \minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ \\\\\minishell$ minishell$ minishell$
+-----------------------------------------
+minishell$ ./folder/ > f
+minishell$ 
+-----------------------------------------
+minishell$ ./a.out  > ff
+minishell$ cat f
+minishell: ./folder/: Is a directory
+minishell$ cat ff
+minishell: ./a.out: Permission denied
+minishell$ 
+-----------------------------------------
+1 (1.00K) ROOT LEAK: 0x7fbc8b010600 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
+1 (1.00K) ROOT LEAK: 0x7fbc8b808200 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
+1 (1.00K) ROOT LEAK: 0x7fbc8b808600 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
+1 (1.00K) ROOT LEAK: 0x7fbc8b80ea00 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
+1 (1.00K) ROOT LEAK: 0x7fbc8c038c00 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell
+  minishell git:(master) ✗ env -i ./minishell 
 minishell$ ls
-PATH: Exec format error
-minishell$ exit
-minishell$ exit 
-yaboukir : FIXED ✅
-----------------------------------------
+Makefile        a.out           folder          includes        minishell       signals
+TODO            execution       ft_helpers      main.c          parsing         t.c
+minishell$ 
+minishell$ ls
+Makefile        a.out           folder          includes        minishell       signals
+TODO            execution       ft_helpers      main.c          parsing         t.c
+minishell$ env
+PWD=/mnt/homes/obouftou/Desktop/minishell
+SHLVL=1
+_=/usr/bin/env
+PATH=/.local/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
+minishell$ unset PATH PWD SHLVL
+minishell$ env
+_=/usr/bin/env
+minishell$ unset _
+minishell$ cd 
+cd: Undefined error: 0
+minishell$ cd
+cd: Undefined error: 0
+minishell$ cd
+cd: Undefined error: 0
+minishell$ cd
+cd: Undefined error: 0
+minishell$ cd
+cd: Undefined error: 0
+minishell$ 
+-----------------------------------------
+leaks in minishell$ pwd
+/mnt/homes/obouftou/Desktop/minishell
+-----------------------------------------
+ls | cat > file | cat << l | cat | cat  > fil1
