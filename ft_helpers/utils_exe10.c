@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe10.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:44:17 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/19 20:35:01 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:14:23 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,20 @@ char	*generate_tmp_filename(int index)
 	return (filename);
 }
 
-int	count_heredocs(t_cmd *cmd)
+int    count_heredoc(t_token *token)
 {
-	t_cmd *cur = cmd;
-	t_redirect *redir;
-	int count = 0;
+    t_token *cur;
+    int count;
 
-	while (cur)
-	{
-		redir = cur->red;
-		while (redir)
-		{
-			if (redir->type == HEREDOC)
-				count++;
-			redir = redir->next;
-		}
-		cur = cur->next;
-	}
-	return (count);
+    count = 0;
+    cur = token;
+    while (cur)
+    {
+        if (cur->type == HEREDOC)
+            count++;
+        cur = cur->next;
+    }
+    return (count);
 }
 
 int	process_heredoc(t_redirect *redir, int index)

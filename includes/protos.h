@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 23:14:21 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:15:39 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char		*ft_strjoin_free(char *s1, const char *s2);
 int			ft_atoi(const char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		***get_env(void);
-int			count_heredocs(t_cmd *cmd);
+int			count_heredoc(t_token *tokens);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strdup(const char *s1);
 char		**ft_split(char const *s, char c);

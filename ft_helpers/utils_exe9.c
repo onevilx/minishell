@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:25:15 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:16:05 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,6 @@ int sanitize_all_args(t_cmd *cmd)
 {
 	t_cmd *cur;
 
-	if (count_heredocs(cmd) > 16)
-	{
-		write(2, "minishell: too many heredocs (max 16)\n", 39);
-		return (0);
-	}
 	cur = cmd;
 	while (cur)
 	{
