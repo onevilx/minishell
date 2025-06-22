@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 20:35:47 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:14:39 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	handle_redirections(t_cmd *cmd)
 	}
 	return (1);
 }
+
 
 int	handle_append(t_cmd *cmd)
 {

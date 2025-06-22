@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 20:27:12 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:13:25 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <signal.h>
 # include <stdbool.h>
 
+void		ft_print_cmd(t_cmd *cmd);
 void 		heredoc_sig(int signal);
 bool		handle_too_many_heredocs(t_token *cur, int *exit_status);
 bool		handle_redirection(t_token *cur, int *exit_status, int *heredoc_idx);
