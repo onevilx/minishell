@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe6.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:48:22 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 00:33:05 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 20:36:04 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,9 @@ int	do_append_fd(char *filename)
 	return (0);
 }
 
-int	do_append_redirection(t_token *curr)
+int	do_append_redirection(t_redirect *curr)
 {
-	if (!curr->next)
-	{
-		write(2,
-			"minishell: syntax error near unexpected token `newline'\n", 55);
-		return (0);
-	}
-	return (do_append_fd(curr->next->value) == 0);
+	return (do_append_fd(curr->val) == 0);
 }
 
 int	is_valid_n_flag(char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 19:22:17 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 20:35:47 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,9 @@ int	handle_redirections(t_cmd *cmd)
 
 int	handle_append(t_cmd *cmd)
 {
-	t_token	*curr;
+	t_redirect	*curr;
 
-	curr = *(cmd->token);
-	if (!curr)
-		do_append_fd(cmd->red->val);
+	curr = cmd->red;
 	while (curr)
 	{
 		if (curr->type == APPEND)

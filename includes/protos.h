@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 19:20:55 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 20:27:12 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int			builtin_env(t_arg *args);
 t_token		*get_next_command_tokens(t_token *cur);
 t_cmd		*parse_command_node(t_token *start, t_token *end);
 int			do_append_fd(char *filename);
-int			do_append_redirection(t_token *curr);
+int			do_append_redirection(t_redirect *curr);
 t_arg		*char_array_to_args_list(char **array);
 int			execute_command(t_cmd *cmd);
 int			builtin_unset(t_arg *args);
