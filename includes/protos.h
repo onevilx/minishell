@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 17:15:39 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:50:38 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 # include <signal.h>
 # include <stdbool.h>
 
+void 		heredoc_sig(int signal);
+bool		handle_too_many_heredocs(t_token *cur, int *exit_status);
+bool		handle_redirection(t_token *cur, int *exit_status, int *heredoc_idx);
+bool		is_redirection_without_target(t_token *cur, int *exit_status);
 bool		check_ambg(t_token *tokens, int *exit_status);
 void		ft_remove_empty(t_token **tokens);
 void		ft_bzero(void *s, size_t n);
@@ -42,7 +46,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			find_env_index(char **env, char *key);
 int			parse_commands_loop(t_token *tokens, t_cmd **head,
 				t_cmd **last, int total_pipes);
-int			handle_redirection(t_cmd *cmd, t_token **cur,
+int			handle_redirection1(t_cmd *cmd, t_token **cur,
 				t_token **args, int *i);
 void		init_for_norm(t_cmd	**head, t_cmd **last,
 				int *total_pipes, t_token *tokens);

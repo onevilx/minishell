@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:57:06 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/20 18:05:43 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:47:58 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	fill_command_data(t_cmd *cmd, t_token *start, t_token *end)
 	{
 		if (is_redirection(cur))
 		{
-			if (!handle_redirection(cmd, &cur, args, &i))
+			if (!handle_redirection1(cmd, &cur, args, &i))
 				return (free(args), 0);
 			continue ;
 		}

@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:50:10 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/22 17:15:29 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:50:46 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,80 +50,27 @@ static bool	check_pipe_sequence(t_token *cur, int *exit_status)
 		if (!cur->next || cur->next->type == PIPE)
 		{
 			printf("Syntax error: unexpected token after '|'\n");
-			*exit_status = 10000;
+			*exit_status = 258;
 			return (false);
 		}
 	}
 	return (true);
 }
 
-void heredoc_sig(int signal)
+bool	check_redirections(t_token *cur, int *exit_status)
 {
-	if (signal == SIGINT)
-	{
-		g_signal = 1;
-		close(STDIN_FILENO);
-	}
-}
+	static int	heredoc_index = 0;
 
-static bool    check_redirections(t_token *cur, int *exit_status)
-{
-    t_token    *next;
-    t_env    *env;
-    char    *filename;
-    char    *content;
-    static int    heredoc_index = 0;
-    int exit_code;
-    g_signal = 0;
-    exit_code = *exit_status;
-    if (count_heredoc(cur) > 16)
-    {
-        write(2, "minishell: too many heredocs (max 16)\n", 39);
-        *exit_status = 2;
-        exit(2);
-    }
-    if (cur->type == REDIR_IN || cur->type == REDIR_OUT
-        || cur->type == APPEND || cur->type == HEREDOC)
-    {
-        next = cur->next;
-        if (!next || next->type != WORD)
-        {
-            printf("Syntax error: redirection without target\n");
-            *exit_status = 1000;
-            return (false);
-        }
-        if (cur->type == HEREDOC)
-        {
-            signal(SIGINT, heredoc_sig);
-            env = ft_init_env_list(*get_env());
-            content = read_input(next->value, env, next->quote_type ,exit_code);
-            if (!content || g_signal == 1)
-            {
-                // update exit status if heredoc was interrupted
-                return (false);
-            }
-            filename = generate_tmp_filename(heredoc_index++);
-            if (!filename || write_heredoc_tmp(filename, content) == -1)
-            {
-                free(filename);
-                free(content);
-                return (false);
-            }
-            free(content);
-            free(next->value);
-            next->value = filename;
-            cur->type = REDIR_IN; // convert HEREDOC to normal redirection
-            signal(SIGINT, sigint_handler);
-        }
-    }
-    if (!cur->next && (cur->type == PIPE || cur->type == REDIR_IN
-            || cur->type == REDIR_OUT || cur->type == APPEND || cur->type == HEREDOC))
-    {
-        printf("Syntax error: unexpected end after '%s'\n", cur->value);
-        *exit_status = 44;
-        return (false);
-    }
-    return (true);
+	g_signal = 0;
+	if (!handle_too_many_heredocs(cur, exit_status))
+		return (false);
+	if (cur->type == REDIR_IN || cur->type == REDIR_OUT
+		|| cur->type == APPEND || cur->type == HEREDOC)
+	{
+		if (!handle_redirection(cur, exit_status, &heredoc_index))
+			return (false);
+	}
+	return (true);
 }
 
 bool	syntax_check(t_token *token, int *exit_status)
@@ -133,11 +80,13 @@ bool	syntax_check(t_token *token, int *exit_status)
 	cur = token;
 	if (!cur)
 		return (false);
-	if (!check_semicolon(token, exit_status) || !check_start_token(token, exit_status))
+	if (!check_semicolon(token, exit_status)
+		|| !check_start_token(token, exit_status))
 		return (false);
 	while (cur)
 	{
-		if (!check_pipe_sequence(cur, exit_status) || !check_redirections(cur, exit_status))
+		if (!check_pipe_sequence(cur, exit_status)
+			|| !check_redirections(cur, exit_status))
 			return (false);
 		cur = cur->next;
 	}

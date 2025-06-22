@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:54:42 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/21 20:54:35 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:47:20 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	is_redirection(t_token *tok)
 		|| tok->type == APPEND || tok->type == HEREDOC);
 }
 
-int	handle_redirection(t_cmd *cmd, t_token **cur, t_token **args, int *i)
+int	handle_redirection1(t_cmd *cmd, t_token **cur, t_token **args, int *i)
 {
 	(void) args;
 	(void) i;

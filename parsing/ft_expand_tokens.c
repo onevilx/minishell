@@ -32,7 +32,6 @@ static char	*handle_dollar(char *input, int *i, t_env *env, int status)
 		return (ft_itoa(((*i)++, status)));
 	if (!ft_isalpha(input[*i]) && input[*i] != '_')
 		return (ft_strdup(""));
-
 	start = *i;
 	while (ft_isalnum(input[*i]) || input[*i] == '_')
 		(*i)++;
@@ -56,7 +55,7 @@ char	*ft_expand_value(char *input, t_env *env, int status)
 			tmp = extract_plain(input, &i);
 		if (!tmp)
 		{
-			// free(result);
+			free(result);
 			return (ft_strdup(""));
 		}
 		result = ft_strjoin_free(result, tmp);
@@ -83,18 +82,13 @@ void	replace_token_with_multiple(t_token *old, t_token *new_tokens)
 	while (last->next)
 		last = last->next;
 
-	// Preserve the rest of the list
 	last->next = next;
-	// Overwrite the current token with the first new token
 	old->type = first->type;
 	old->value = first->value;
 	old->quote_type = first->quote_type;
 	old->space_after = first->space_after;
 	old->next = first->next;
-	// free(first);
 }
-
-
 
 t_token	*split_expanded_token(char *expanded)
 {
