@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:20:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:07:47 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:14:39 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	remove_env_var(char *key)
 	i = 0;
 	while (env[i])
 		i++;
-	new_env = g_malloc(sizeof(char *) * i);
+	new_env = g_malloc(sizeof(char *) * (i + 1));
 	if (!new_env)
 		return ;
 	i = -1;
@@ -52,11 +52,11 @@ static void	remove_env_var(char *key)
 		if (ft_strncmp(env[i], key, ft_strlen(key))
 			|| env[i][ft_strlen(key)] != '=')
 			new_env[j++] = env[i];
-		// else
-			// free(env[i]);
+		else
+			free(env[i]);
 	}
 	new_env[j] = NULL;
-	// free(env);
+	free(env);
 	*get_env() = new_env;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 18:50:38 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:20:55 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ void		reset_init_signals(void);
 void		reset_signal(void);
 void		ignore_signal(void);
 void			handle_pipe(t_cmd *cmd);
-int			handle_heredoc(t_cmd *cmd);
 char		**convert_args(t_arg *args);
 void		free_cmd(t_cmd *cmd);
 int			handle_redirections(t_cmd *cmd);

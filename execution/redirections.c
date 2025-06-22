@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 01:02:54 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:22:17 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	handle_append(t_cmd *cmd)
 	t_token	*curr;
 
 	curr = *(cmd->token);
+	if (!curr)
+		do_append_fd(cmd->red->val);
 	while (curr)
 	{
 		if (curr->type == APPEND)
@@ -73,25 +75,6 @@ int	handle_append(t_cmd *cmd)
 				return (0);
 		}
 		curr = curr->next;
-	}
-	return (1);
-}
-
-int	handle_heredoc(t_cmd *cmd)
-{
-	t_redirect	*redir;
-	// int			index;
-
-	// index = 0;
-	redir = cmd->red;
-	while (redir)
-	{
-		if (redir->type == HEREDOC)
-		{
-			// if (!process_heredoc(redir, index++))
-				return (0);
-		}
-		redir = redir->next;
 	}
 	return (1);
 }

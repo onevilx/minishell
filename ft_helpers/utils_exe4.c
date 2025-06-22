@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 23:49:39 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:20:24 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void	handle_parent_process(t_cmd *cmd, int *prev_fd, int pipe_fd[2])
 
 int	handling_cmdops(t_cmd *cmd)
 {
-	// if (!handle_heredoc(cmd))
-	// 	return (0);
 	if (!handle_redirections(cmd))
 		return (0);
 	if (!handle_append(cmd))
