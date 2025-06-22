@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 23:07:18 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:49:39 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,13 @@ void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 	}
 	if (is_builtin(cmd))
 	{
-		if (execute_builtin(cmd))
+		if (ft_strcmp(argv[0], "exit") == 0)
+		{
 			ft_free_split(argv);
+			exit(EXIT_SUCCESS);
+		}
+		execute_builtin(cmd);
+		ft_free_split(argv);
 		exit(EXIT_SUCCESS);
 	}
 	cmd_path = find_command_path(argv[0], *get_env());

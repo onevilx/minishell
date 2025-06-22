@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 23:07:49 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/22 00:29:59 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,28 @@ static void	child_exec(t_cmd *cmd)
 	args_array = args_to_array(cmd->args);
 	if (!args_array)
 		exit(1);
-	if (access(cmd->args->value, F_OK) == 0)
+	if (ft_strchr(cmd->args->value, '/'))
 	{
-		if (is_directory(cmd->args->value))
+		if (access(cmd->args->value, F_OK) == 0)
 		{
-			printf("minishell: %s: Is a directory\n", cmd->args->value);
-			exit(126);
+			if (is_directory(cmd->args->value))
+			{
+				printf("minishell: %s: Is a directory\n", cmd->args->value);
+				exit(126);
+			}
+			if (access(cmd->args->value, X_OK) == 0)
+				execve(cmd->args->value, args_array, *get_env());
+			else
+			{
+				printf("minishell: %s: Permission denied\n", cmd->args->value);
+				exit(126);
+			}
 		}
-		if (access(cmd->args->value, X_OK) == 0)
-			execve(cmd->args->value, args_array, *get_env());
-		else
-		{
-			printf("minishell: %s: Permission denied\n", cmd->args->value);
-			exit(126);
-		}
+		printf("minishell: %s: No such file or directory\n", cmd->args->value);
+		exit(127);
 	}
 	try_exec_paths(cmd);
-	// free(args_array);
-	exit(1);
+	exit(127);
 }
 
 static void	parent_wait(pid_t pid)

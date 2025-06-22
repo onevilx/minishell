@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/21 23:46:13 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 01:08:10 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	main(int argc, char **argv, char **envp)
 	t_cmd	*cmd;
 	int		exit_status;
 
-	// if (!isatty(1) || !isatty(0))
-		// return (1);
+	if (!isatty(1) || !isatty(0))
+		return (1);
 	exit_status = 0;
 	(void)argc;
 	(void)argv;
@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 			cmd = ft_input_proces(input, *get_env(), get_exit_status());
 			if (cmd)
 				exit_status = execute_command(cmd);
-			gc_free_all();		
+			gc_free_all();
 		}
 		free(input);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:09:21 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:24:38 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/22 01:03:07 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,42 @@ void	ft_free_split(char **arr)
 
 char	*find_command_path(char *cmd, char **env)
 {
-	char	*path;
 	char	**paths;
 	char	*tmp;
+	char	*path;
 	int		i;
 
+	if (!cmd || !env)
+		return (NULL);
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		return (NULL);
+	}
 	i = 0;
-	path = NULL;
-	if (!cmd || !env || access(cmd, X_OK) == 0)
-		return (strdup(cmd));
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
 		i++;
 	if (!env[i])
 		return (NULL);
 	paths = ft_split(env[i] + 5, ':');
+	if (!paths)
+		return (NULL);
 	i = 0;
-	while (paths && paths[i++])
+	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(tmp, cmd);
-		// free(tmp);
+		free(tmp);
 		if (access(path, X_OK) == 0)
+		{
+			ft_free_split(paths);
 			return (path);
-		// free(path);
+		}
+		free(path);
+		i++;
 	}
+	ft_free_split(paths);
 	return (NULL);
 }
 

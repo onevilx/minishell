@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:07:21 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:56:26 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,31 @@ int	builtin_pwd(t_arg *args)
 
 static int	is_numeric(const char *str)
 {
-	int	i;
+	int					i;
+	int					sign;
+	unsigned long long	result;
 
 	i = 0;
+	result = 0;
+	sign = 1;
+
 	if (!str || !str[0])
 		return (0);
-	if (str[0] == '+' || str[0] == '-')
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
 		i++;
+	}
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		result = result * 10 + (str[i] - '0');
+		if ((sign == 1 && result > LLONG_MAX) ||
+			(sign == -1 && result > (unsigned long long)LLONG_MAX + 1))
 			return (0);
 		i++;
 	}
@@ -92,26 +107,23 @@ static int	is_numeric(const char *str)
 
 int	builtin_exit(t_arg *args)
 {
-	t_arg	*current;
+	t_arg	*arg;
 	int		exit_status;
 
-	current = args->next;
+	arg = args->next;
 	write(1, "exit\n", 5);
-	if (!current)
+	if (!arg)
 		exit(0);
-	if (current && !current->next)
+	if (!is_numeric(arg->value))
 	{
-		if (is_numeric(current->value))
-		{
-			exit_status = ft_atoi(current->value);
-			exit(exit_status);
-		}
-		else
-		{
-			write(2, "exit: numeric argument required\n", 32);
-			exit(2);
-		}
+		write(2, "exit: numeric argument required\n", 32);
+		exit(255);
 	}
-	write(2, "exit: too many arguments\n", 25);
-	return (1);
+	if (arg->next)
+	{
+		write(2, "exit: too many arguments\n", 25);
+		return (1);
+	}
+	exit_status = ft_atoi(arg->value);
+	exit(exit_status);
 }

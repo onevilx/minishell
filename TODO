@@ -1,21 +1,26 @@
 minishell$ $L $L
-minishell: command not found: 
+minishell: command not found:
+obouftou : FIXED ✅
 -------------------------------
 minishell$ export x="  "
 minishell$ $x
 minishell: command not found: $x
+obouftou : FIXED ✅
 -------------------------------
 minishell$ exit 2  | exit 100
 exit
+yaboukir : FIXED ✅
 -------------------------------
 minishell$ exit yassine 212 23 
 exit
 exit: too many arguments
+yaboukir : FIXED ✅
 -------------------------------
 minishell$ exit 9223372036854775810  2 2 22 
 exit
 exit: too many arguments
 minishell$ 
+yaboukir : FIXED ✅
 -------------------------------
 yaboukir@e3r1p13 minishell % env -i ./minishell 
 minishell$ ls
@@ -30,16 +35,20 @@ minishell$ unset PWD SHLVL
 minishell$ export < l
 open (REDIR_IN): No such file or directory
 declare -x "zsh: segmentation fault  env -i ./minishell
+yaboukir : FIXED ✅
 -------------------------------
 export < 'file not found'
+yaboukir : FIXED ✅
 -------------------------------
 minishell$ echo "yassine" < f
 yassine
 minishell$ pwd <  f
 /mnt/homes/yaboukir/Desktop/ms3/minishell
 minishell$ 
+yaboukir : FIXED ✅
 -------------------------------
 minishell$ >> f
+yaboukir : NOT YET ❌
 -------------------------------
 memory leak :
 minishell$ mkdir -p 1/2/3/4/5
@@ -47,32 +56,8 @@ minishell$ cd 1/2/3/4/5
 minishell$ ls
 minishell$ pwd
 /mnt/homes/yaboukir/Desktop/ms3/minishell/1/2/3/4/5
--------------------------------
-
-
-minishell$ touch ls
-minishell$ ls
-minishell: ls: Permission denied
-minishell$ echo $?
-126
-minishell$ ./ls
-minishell: ./ls: Permission denied
-minishell$ echo $?
-126
-minishell$ chmod 777 ls
-minishell$ ./ls
-Makefile        includes        parsing
-TODO            ls              signals
-execution       main.c
-ft_helpers      minishell
-minishell$ ./ls
-Makefile        includes        parsing
-TODO            ls              signals
-execution       main.c
-ft_helpers      minishell
-minishell$ 
+yaboukir : NOT YET ❌
 -----------------------------------
-
 minishell$ dfghj
 minishell: command not found: dfghj
 minishell$ echo $?
@@ -83,24 +68,5 @@ minishell$ ls
 PATH: Exec format error
 minishell$ exit
 minishell$ exit 
-
+yaboukir : FIXED ✅
 ----------------------------------------
-
-➜  minishell git:(master) ✗ env -i ./minishell 
-minishell$ ls
-PATH: Exec format error
-minishell$ ls
-PATH: Exec format error
-minishell$ ls
-PATH: Exec format error
-minishell$ ls
-PATH: Exec format error
-minishell$ ls
-PATH: Exec format error
-minishell$ ls
-PATH: Exec format error
-minishell$ ls
-PATH: Exec format error
-minishell$ ls
-PATH: Exec format error
-minishell$ 
