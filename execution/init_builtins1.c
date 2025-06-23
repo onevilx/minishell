@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 23:56:26 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:13:08 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	builtin_cd(t_arg *args)
 	else if (chdir(current->value) != 0)
 		return (perror("cd"), 1);
 	update_pwd_vars(oldpwd);
-	// free(oldpwd);
+	free(oldpwd);
 	return (0);
 }
 
@@ -65,7 +65,7 @@ int	builtin_pwd(t_arg *args)
 	{
 		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
 		write(STDOUT_FILENO, "\n", 1);
-		// free(cwd);
+		free(cwd);
 		return (0);
 	}
 	perror("pwd");
