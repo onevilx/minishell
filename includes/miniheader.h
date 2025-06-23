@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniheader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 23:49:56 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:39:19 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_token
 	char			quote_type;
 	char			*value;
 	bool			space_after;
+	bool			not_hide;
 	struct s_token	*next;
 }				t_token;
 

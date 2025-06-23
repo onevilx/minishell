@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:25:48 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/21 20:53:43 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:45:31 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_remove_empty(t_token **tokens)
 	while (cur)
 	{
 		next = cur->next;
-		if (cur->type == WORD && (!cur->value || cur->value[0] == '\0'))
+		if (cur->type == WORD && (!cur->value || cur->value[0] == '\0') && !cur->not_hide)
 		{
 			if (!prev)
 				*tokens = next;

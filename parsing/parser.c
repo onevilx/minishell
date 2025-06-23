@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/22 20:58:25 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:24:27 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ static bool	has_space_after(const char *input, int i)
 static t_token	*parse_dollar_quote_case(const char *input, int *i, t_token **tokens)
 {
 	t_token	*new;
-
+	
+	
 	new = new_token(WORD, strdup("$"), '"');
+	if (new->value == NULL)
+		new->not_hide = true;
 	add_token(tokens, new);
 	(*i)++;
 	return (parse_quoted_word(input, i));
@@ -88,13 +91,17 @@ static t_token	*parse_and_classify(const char *input, int *i, t_token **tokens)
 
 	new = NULL;
 	if (is_operator_start(input[*i]))
-	new = parse_operator(input, i);
+		new = parse_operator(input, i);
 	else if (input[*i] == '$' && input[*i + 1] == '"')
-	new = parse_dollar_quote_case(input, i, tokens);
+		new = parse_dollar_quote_case(input, i, tokens);
 	else if (input[*i] == '"' || input[*i] == '\'')
-	new = parse_quoted_word(input, i);
+	{
+		new = parse_quoted_word(input, i);
+		if(new->value[0] == '\0')
+			new->not_hide = true;
+	}
 	else
-	new = parse_non_empty_word(input, i);
+		new = parse_non_empty_word(input, i);
 	return (new);
 }
 
@@ -264,6 +271,7 @@ t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 		return (NULL);
 	}
 	tokens = tokenizing(input);
+	// ft_print_tokens(tokens);
 	if (!tokens)
 		return(NULL);
 	if(!syntax_check(tokens, exit_status))
@@ -277,6 +285,5 @@ t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 	cmd = ft_parse_commands(tokens);
 	// free_env_list(env);
 	// ft_print_cmd(cmd);
-	// ft_print_tokens(tokens);
 	return(cmd);
 }

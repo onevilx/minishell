@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:03:35 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/20 18:02:23 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:25:08 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_token	*new_token(t_code type, char *val, char quote_type)
 	if (!tok)
 		return (NULL);
 	tok->type = type;
+	tok->not_hide = false;
 	tok->value = val;
 	tok->quote_type = quote_type;
 	tok->next = NULL;
