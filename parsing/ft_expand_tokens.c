@@ -6,49 +6,21 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:42:07 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 15:42:09 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:13:18 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-static char	*get_env_val_list(t_env *env, const char *key)
+char	*get_env_val_list(t_env *env, const char *key)
 {
-	while(env)
+	while (env)
 	{
 		if (ft_strcmp(env->key, key) == 0)
 			return (env->value);
 		env = env->next;
 	}
 	return ("");
-}
-
-static char	*extract_plain(char *input, int *i)
-{
-	int	start;
-
-	start = *i;
-	while (input[*i] && input[*i] != '$')
-		(*i)++;
-	return (ft_substr(input, start, *i - start));
-}
-
-
-static char	*handle_dollar(char *input, int *i, t_env *env, int status)
-{
-	int		start;
-	char	*name;
-
-	(*i)++;
-	if (input[*i] == '?')
-		return (ft_itoa(((*i)++, status)));
-	if (!ft_isalpha(input[*i]) && input[*i] != '_')
-		return (ft_strdup(""));
-	start = *i;
-	while (ft_isalnum(input[*i]) || input[*i] == '_')
-		(*i)++;
-	name = ft_substr(input, start, *i - start);
-	return (ft_strdup(get_env_val_list(env, name)));
 }
 
 char	*ft_expand_value(char *input, t_env *env, int status)
@@ -75,97 +47,13 @@ char	*ft_expand_value(char *input, t_env *env, int status)
 	return (result);
 }
 
-static bool	is_localized_string(t_token *prev)
-{
-	return (prev && prev->quote_type == '"'
-		&& ft_strcmp(prev->value, "$") == 0);
-}
-
-void	replace_token_with_multiple(t_token *old, t_token *new_tokens)
-{
-	t_token	*next = old->next;
-	t_token	*first = new_tokens;
-	t_token	*last;
-
-	if (!first)
-		return ;
-
-	last = first;
-	while (last->next)
-		last = last->next;
-
-	last->next = next;
-	old->type = first->type;
-	old->value = first->value;
-	old->quote_type = first->quote_type;
-	old->space_after = first->space_after;
-	old->next = first->next;
-}
-
-t_token	*split_expanded_token(char *expanded)
-{
-	char	**parts = ft_split(expanded, ' ');
-	t_token	*head = NULL;
-	t_token	*new;
-	int		i = 0;
-
-	while (parts[i])
-	{
-		new = new_token(WORD, ft_strdup(parts[i]), '\0');
-		add_token(&head, new);
-		i++;
-	}
-	// free_split(parts);
-	return (head);
-}
-
-
-#include <ctype.h>  // for isspace()
-
-char	*normalize_whitespace(char *str)
-{
-	char	*res;
-	int		i, j;
-	int		in_space;
-
-	if (!str)
-		return (NULL);
-
-	res = g_malloc(ft_strlen(str) + 1); // max size = original
-	if (!res)
-		return (NULL);
-
-	i = 0;
-	j = 0;
-	in_space = 0;
-	while (str[i])
-	{
-		if (ft_isspace((unsigned char)str[i]))
-		{
-			if (!in_space && j > 0) // add a single space between words
-				res[j++] = ' ';
-			in_space = 1;
-		}
-		else
-		{
-			res[j++] = str[i];
-			in_space = 0;
-		}
-		i++;
-	}
-	res[j] = '\0';
-	return (res);
-}
-
-
 static void	expand_token(t_token *tok, t_env *env, int status)
 {
-	char		*expanded;
-	t_token		*new_tokens;
+	char	*expanded;
+	char	*normalized;
 
 	if (ft_strcmp(tok->value, "$") == 0)
 		return ;
-
 	expanded = ft_expand_value(tok->value, env, status);
 	if (!expanded)
 	{
@@ -175,26 +63,20 @@ static void	expand_token(t_token *tok, t_env *env, int status)
 	}
 	if (tok->quote_type == '\0')
 	{
-		char *normalized = normalize_whitespace(expanded);
+		normalized = normalize_whitespace(expanded);
 		free(expanded);
-		expanded = normalized;
-	}
-	if (tok->quote_type == '\0' && ft_strchr(expanded, ' '))
-	{
-		new_tokens = split_expanded_token(expanded);
-		replace_token_with_multiple(tok, new_tokens);
+		handle_normalized_expansion(tok, normalized);
 		return ;
 	}
 	tok->value = expanded;
 }
 
-
-
 void	ft_expand_tokens(t_token *tokens, t_env *env, int status)
 {
-	t_token	*prev = NULL;
+	t_token	*prev;
 	t_token	*next;
 
+	prev = NULL;
 	while (tokens)
 	{
 		next = tokens->next;
@@ -209,8 +91,8 @@ void	ft_expand_tokens(t_token *tokens, t_env *env, int status)
 			free(tokens->value);
 			tokens->value = ft_strdup("$HOME");
 		}
-		if (ft_strchr(tokens->value, '$') &&
-			(tokens->quote_type == '\0' || tokens->quote_type == '"'))
+		if (ft_strchr(tokens->value, '$')
+			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
 			expand_token(tokens, env, status);
 		prev = tokens;
 		tokens = tokens->next;

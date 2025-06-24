@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:50:50 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 22:15:23 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:51:10 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,35 @@ t_env	*ft_init_env_list(char **env)
 	return (head);
 }
 
+static void	print_ambiguous_error(const char *val)
+{
+	write(2, "minishell: ", 11);
+	if (val)
+		write(2, val, ft_strlen(val));
+	write(2, ": ambiguous redirect\n", 22);
+}
+
 bool	check_ambg(t_token *tokens, int *exit_status)
 {
-	t_token *cur = tokens;
+	t_token	*cur;
+	t_token	*target;
+
+	cur = tokens;
 	while (cur)
 	{
-		if ((cur->type == REDIR_OUT || cur->type == REDIR_IN ||
-			cur->type == APPEND || cur->type == HEREDOC)
+		if ((cur->type == REDIR_OUT || cur->type == REDIR_IN
+				|| cur->type == APPEND || cur->type == HEREDOC)
 			&& cur->next && cur->next->type == WORD)
 		{
-			t_token *target = cur->next;
+			target = cur->next;
 			if (!target->value || target->value[0] == '\0')
 			{
-				fprintf(stderr, "minishell: %s: ambiguous redirect\n",
-					target->value ? target->value : "");
+				print_ambiguous_error(target->value);
 				*exit_status = 1;
-				return false;
+				return (false);
 			}
 		}
 		cur = cur->next;
 	}
-	return true;
+	return (true);
 }

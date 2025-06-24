@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:50:10 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/22 18:50:46 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:44:13 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static bool	check_semicolon(t_token *token, int *exit_status)
 	{
 		if (token->quote_type == '\0')
 		{
-
 			if (token->type == WORD && strchr(token->value, ';'))
 			{
 				*exit_status = 258;
@@ -41,7 +40,6 @@ static bool	check_start_token(t_token *token, int *exit_status)
 	}
 	return (true);
 }
-
 
 static bool	check_pipe_sequence(t_token *cur, int *exit_status)
 {

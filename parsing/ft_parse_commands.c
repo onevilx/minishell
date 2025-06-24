@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:57:06 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/23 23:41:45 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:44:46 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-// Helper to move to next command tokens after a pipe
 t_token	*get_next_command_tokens(t_token *cur)
 {
 	while (cur && cur->type != PIPE)
@@ -22,7 +21,6 @@ t_token	*get_next_command_tokens(t_token *cur)
 	return (NULL);
 }
 
-/* Initialize command structure */
 static void	init_command(t_cmd **cmd)
 {
 	*cmd = g_malloc(sizeof(t_cmd));
@@ -34,7 +32,6 @@ static void	init_command(t_cmd **cmd)
 	(*cmd)->next = NULL;
 }
 
-/* Fill command with tokens and redirections */
 int	fill_command_data(t_cmd *cmd, t_token *start, t_token *end)
 {
 	t_token	**args;
@@ -62,7 +59,6 @@ int	fill_command_data(t_cmd *cmd, t_token *start, t_token *end)
 	return (1);
 }
 
-/* Parse one command node */
 t_cmd	*parse_command_node(t_token *start, t_token *end)
 {
 	t_cmd	*cmd;
@@ -82,8 +78,6 @@ t_cmd	*parse_command_node(t_token *start, t_token *end)
 	}
 	return (cmd);
 }
-
-/* Main function: split tokens and build command list */
 
 t_cmd	*ft_parse_commands(t_token *tokens)
 {
