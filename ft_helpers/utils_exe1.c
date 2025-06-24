@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:47:14 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 00:49:42 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:22:23 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	init_env(char **envp)
 			env_copy[0] = ft_strjoin("PWD=", cwd);
 			env_copy[1] = ft_strdup("SHLVL=1");
 			env_copy[2] = ft_strdup("_=/usr/bin/env");
-			env_copy[3] = ft_strdup("PATH=/.local/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
+			env_copy[3] = ft_strdup(
+					"PATH=/.local/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
+					":.");
 		}
 	}
 	else

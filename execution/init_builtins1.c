@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 01:35:30 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:04:43 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	builtin_cd(t_arg *args)
 	{
 		home = get_env_value("HOME");
 		if (!home || chdir(home) != 0)
-			return (free(oldpwd), perror("cd"), 1);                  
+			return (free(oldpwd), perror("cd"), 1);
 	}
 	else if (current && current->next)
 		return (write(2, "cd: too many arguments\n", 24), 1);
@@ -77,14 +77,11 @@ int	builtin_pwd(t_arg *args)
 
 static int	is_numeric(const char *str)
 {
-	int					i;
-	int					sign;
-	unsigned long long	result;
+	int	i;
+	int	sign;
 
 	i = 0;
-	result = 0;
 	sign = 1;
-
 	if (!str || !str[0])
 		return (0);
 	if (str[i] == '+' || str[i] == '-')
@@ -95,17 +92,7 @@ static int	is_numeric(const char *str)
 	}
 	if (!str[i])
 		return (0);
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		result = result * 10 + (str[i] - '0');
-		if ((sign == 1 && result > LLONG_MAX) ||
-			(sign == -1 && result > (unsigned long long)LLONG_MAX + 1))
-			return (0);
-		i++;
-	}
-	return (1);
+	return (is_digit_str(str, i, sign));
 }
 
 int	builtin_exit(t_arg *args)

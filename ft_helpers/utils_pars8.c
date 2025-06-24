@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars8.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:40:30 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 17:26:44 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:04:45 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	copy_to_buffer(char *dst, int buf_i, const char *src)
 	}
 	return (buf_i);
 }
+
 bool	are_quotes_closed(const char *input)
 {
 	int		i;
@@ -53,4 +54,34 @@ int	handle_quoted_part(const char *input, int *i, t_parse_ctx *ctx)
 	ctx->buf_i = copy_token_part(ctx->buf, ctx->buf_i, quoted);
 	free(quoted);
 	return (ctx->buf_i);
+}
+
+char	*process_line(const char *line, t_env *env,
+			char quote_type, int exit_status)
+{
+	t_token	*token;
+	char	*j_line;
+
+	if (!quote_type)
+	{
+		token = tokenizing((char *)line);
+		ft_expand_tokens(token, env, exit_status);
+		merge_tokens(token);
+		j_line = join_token_values(token);
+	}
+	else
+		j_line = ft_strdup(line);
+	return (j_line);
+}
+
+char	*append_line(char *buffer, char *line)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(buffer, line);
+	free(buffer);
+	buffer = tmp;
+	tmp = ft_strjoin(buffer, "\n");
+	free(buffer);
+	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:45:18 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 01:12:07 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:32:43 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@ void	sigint_handler(int signum)
 	rl_on_new_line();
 	rl_redisplay();
 	*get_exit_status() = 1;
-}
-
-void	sigquit_handler(int signum)
-{
-	(void)signum;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
 }
 
 void	sigterm_handler(int signum)
@@ -47,7 +39,7 @@ void	sigterm_handler(int signum)
 void	init_signals(void)
 {
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTERM, sigterm_handler);
 }
 

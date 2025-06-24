@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/23 23:53:03 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:50:01 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	handle_redir_in(t_redirect *redir)
 {
-	int	fd = open(redir->val, O_RDONLY);
+	int	fd;
+
+	fd = open(redir->val, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("open (REDIR_IN)");
@@ -27,7 +29,9 @@ static int	handle_redir_in(t_redirect *redir)
 
 static int	handle_redir_out(t_redirect *redir)
 {
-	int	fd = open(redir->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	int	fd;
+
+	fd = open(redir->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		perror("open (REDIR_OUT)");
@@ -59,7 +63,6 @@ int	handle_redirections(t_cmd *cmd)
 	}
 	return (1);
 }
-
 
 int	handle_append(t_cmd *cmd)
 {

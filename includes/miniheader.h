@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   miniheader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 17:26:02 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:10:46 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHEADER_H
 # define MINIHEADER_H
 
-#include <stdbool.h>
+# include <stdbool.h>
 
-extern int g_signal;
+extern int	g_signal;
 
 typedef enum s_code
 {

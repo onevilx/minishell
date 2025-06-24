@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:09:21 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 02:12:53 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:23:01 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	ft_free_split(char **arr)
 char	*find_command_path(char *cmd, char **env)
 {
 	char	**paths;
-	char	*tmp;
-	char	*path;
 	int		i;
 
 	if (!cmd || !env)
@@ -47,22 +45,7 @@ char	*find_command_path(char *cmd, char **env)
 	paths = ft_split(env[i] + 5, ':');
 	if (!paths)
 		return (NULL);
-	i = 0;
-	while (paths[i])
-	{
-		tmp = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(path, X_OK) == 0)
-		{
-			ft_free_split(paths);
-			return (path);
-		}
-		free(path);
-		i++;
-	}
-	ft_free_split(paths);
-	return (NULL);
+	return (find_in_paths(paths, cmd));
 }
 
 char	**convert_args(t_arg *args)
@@ -96,35 +79,5 @@ char	**convert_args(t_arg *args)
 
 void	handle_pipe(t_cmd *cmd)
 {
-	int		pipe_fd[2];
-	int		prev_fd;
-	pid_t	pid;
-	t_cmd	*current;
-	pid_t	last_pid;
-	int		status;
-
-	prev_fd = -1;
-	current = cmd;
-	while (current)
-	{
-		if (current->next && pipe(pipe_fd) == -1)
-			return (perror("pipe"), (void)0);
-		pid = fork();
-		if (pid == -1)
-			return (perror("fork"), (void)0);
-		else if (pid == 0)
-			handle_child_process(current, prev_fd, pipe_fd);
-		else
-		{
-			if (!current->next)
-				last_pid = pid;
-			handle_parent_process(current, &prev_fd, pipe_fd);
-		}
-		current = current->next;
-	}
-	while (waitpid(-1, &status, 0) > 0)
-	{
-		if (WIFEXITED(status) && last_pid != 0)
-			*get_exit_status() = WEXITSTATUS(status);
-	}
+	pipe_loop(cmd);
 }

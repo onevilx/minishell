@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe10.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:44:17 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 17:14:23 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:09:33 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,43 +43,54 @@ char	*generate_tmp_filename(int index)
 	return (filename);
 }
 
-int    count_heredoc(t_token *token)
+int	count_heredoc(t_token *token)
 {
-    t_token *cur;
-    int count;
+	t_token	*cur;
+	int		count;
 
-    count = 0;
-    cur = token;
-    while (cur)
-    {
-        if (cur->type == HEREDOC)
-            count++;
-        cur = cur->next;
-    }
-    return (count);
+	count = 0;
+	cur = token;
+	while (cur)
+	{
+		if (cur->type == HEREDOC)
+			count++;
+		cur = cur->next;
+	}
+	return (count);
 }
 
-int	process_heredoc(t_redirect *redir, int index)
+int	is_digit_str(const char *str, int i, int sign)
 {
-	char	*content = NULL;
-	char	*filename;
-	// t_token	*herdoc_content;
-	// t_env	*env;
+	unsigned long long	result;
 
-	// env = ft_init_env_list(*get_env());
-	// content = read_input(redir->val, env, 0);
-	// herdoc_content = tokenizing(content);
-	// ft_expand_tokens(herdoc_content, env, 0);
-	filename = generate_tmp_filename(index);
-	if (!content || !filename || write_heredoc_tmp(filename, content) == -1)
+	result = 0;
+	while (str[i])
 	{
-		free(content);
-		free(filename);
-		return (0);
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		result = result * 10 + (str[i] - '0');
+		if ((sign == 1 && result > LLONG_MAX)
+			|| (sign == -1 && result > (unsigned long long)LLONG_MAX + 1))
+			return (0);
+		i++;
 	}
-	free(content);
-	free(redir->val);
-	redir->val = filename;
-	redir->type = REDIR_IN;
 	return (1);
+}
+
+void	exec_direct_path(t_cmd *cmd, char **args_array)
+{
+	if (access(cmd->args->value, F_OK) == 0)
+	{
+		if (is_directory(cmd->args->value))
+		{
+			printf("minishell: %s: Is a directory\n", cmd->args->value);
+			exit(126);
+		}
+		if (access(cmd->args->value, X_OK) == 0)
+			execve(cmd->args->value, args_array, *get_env());
+		printf("minishell: %s: Permission denied\n", cmd->args->value);
+		exit(126);
+	}
+	printf("minishell: %s: No such file or directory\n", cmd->args->value);
+	exit(127);
 }

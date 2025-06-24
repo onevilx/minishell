@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 02:23:25 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:50:57 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	handle_execve_or_exit(char **argv, char *cmd_path)
 	exit(127);
 }
 
-static void setup_child_fds(t_cmd *cmd, int prev_fd, int *pipe_fd)
+static void	setup_child_fds(t_cmd *cmd, int prev_fd, int *pipe_fd)
 {
 	if (prev_fd != -1)
 	{

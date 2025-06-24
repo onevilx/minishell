@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/23 23:42:14 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:08:04 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,16 @@ void	update_or_add_env(const char *key, const char *full_var)
 		return ;
 	free_env(env);
 	*get_env() = new_env;
+}
+
+void	free_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	if (!env)
+		return ;
+	while (env[i])
+		free(env[i++]);
+	free(env);
 }

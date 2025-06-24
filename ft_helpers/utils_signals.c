@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:38:21 by onevil_x          #+#    #+#             */
-/*   Updated: 2025/06/05 03:50:53 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:33:07 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,13 @@ void	ignore_signal(void)
 void	reset_init_signals(void)
 {
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+char	*handle_ctrl_c(char *buffer)
+{
+	open("/dev/tty", O_RDONLY);
+	signal(SIGINT, sigint_handler);
+	free(buffer);
+	return (NULL);
 }

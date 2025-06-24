@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe7.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:58:58 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:00:54 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:51:12 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	free_tokensexe(t_token **tokens)
 
 int	is_append_mode(char *arg, int *pos)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (arg[i] && arg[i] != '=')
 	{
 		if (arg[i] == '+' && arg[i + 1] == '=')
@@ -95,6 +96,5 @@ void	add_env_var(char *arg)
 		new_env[i] = env[i];
 	new_env[i++] = ft_strdup(arg);
 	new_env[i] = NULL;
-	// free(env);
 	*get_env() = new_env;
 }

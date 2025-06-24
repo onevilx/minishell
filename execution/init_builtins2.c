@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:53:54 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 18:07:31 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:56:23 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	***get_export_list(void)
 	return (&export_list);
 }
 
-// Main print_export_vars function
 static void	print_export_vars(void)
 {
 	char	**env;
@@ -55,12 +54,9 @@ int	handle_export_arg(t_arg *arg)
 	key = ft_substr(arg->value, 0, pos);
 	add_to_export_list(key);
 	handle_export_logic(arg, key, append, pos);
-	// free(key);
 	return (1);
 }
 
-
-// Builtin export command
 int	builtin_export(t_arg *args)
 {
 	t_arg	*current;

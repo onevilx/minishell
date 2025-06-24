@@ -6,24 +6,11 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 01:34:35 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:09:47 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
-
-static int	is_directory(const char *path)
-{
-	int	fd;
-
-	fd = open(path, O_DIRECTORY);
-	if (fd >= 0)
-	{
-		close(fd);
-		return (1);
-	}
-	return (0);
-}
 
 static void	child_exec(t_cmd *cmd)
 {
@@ -34,25 +21,7 @@ static void	child_exec(t_cmd *cmd)
 	if (!args_array)
 		exit(1);
 	if (ft_strchr(cmd->args->value, '/'))
-	{
-		if (access(cmd->args->value, F_OK) == 0)
-		{
-			if (is_directory(cmd->args->value))
-			{
-				printf("minishell: %s: Is a directory\n", cmd->args->value);
-				exit(126);
-			}
-			if (access(cmd->args->value, X_OK) == 0)
-				execve(cmd->args->value, args_array, *get_env());
-			else
-			{
-				printf("minishell: %s: Permission denied\n", cmd->args->value);
-				exit(126);
-			}
-		}
-		printf("minishell: %s: No such file or directory\n", cmd->args->value);
-		exit(127);
-	}
+		exec_direct_path(cmd, args_array);
 	try_exec_paths(cmd);
 	exit(127);
 }
@@ -82,7 +51,7 @@ int	execute_external(t_cmd *cmd)
 	if (pid < 0)
 		return (perror("fork"), 0);
 	else if (pid == 0)
-			child_exec(cmd);
+		child_exec(cmd);
 	else
 		parent_wait(pid);
 	return (1);

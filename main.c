@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/22 21:09:57 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:34:17 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/protos.h"
 
-int g_signal = 0;
+int	g_signal = 0;
 
 void	gc_free_all(void)
 {
@@ -28,19 +28,16 @@ void	gc_free_all(void)
 	}
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_cmd	*cmd;
 	int		exit_status;
 
-	// if (!isatty(1) || !isatty(0))
-	// 	return (1);
+	if (!isatty(1) || !isatty(0))
+		return (1);
 	exit_status = 0;
-	(void)argc;
-	(void)argv;
-	init_env(envp);
+	((void) argc, (void) argv, init_env(envp));
 	while (1)
 	{
 		input = readline("minishell$ ");
