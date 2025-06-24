@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_remove_empty.c                                  :+:      :+:    :+:   */
+/*   utils_pars10.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/21 17:25:48 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 20:53:40 by obouftou         ###   ########.fr       */
+/*   Created: 2025/06/24 20:43:34 by obouftou          #+#    #+#             */
+/*   Updated: 2025/06/24 20:51:54 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-void	ft_remove_empty(t_token **tokens)
+void	merge_tokens(t_token *head)
 {
 	t_token	*cur;
-	t_token	*prev;
 	t_token	*next;
+	char	*joined;
 
-	prev = NULL;
-	cur = *tokens;
-	while (cur)
+	cur = head;
+	while (cur && cur->next)
 	{
 		next = cur->next;
-		if (cur->type == WORD
-			&& (!cur->value || cur->value[0] == '\0') && !cur->not_hide)
+		if (cur->type == WORD && next->type == WORD
+			&& !cur->space_after && (cur->quote_type == '\''
+				|| cur->quote_type == '"'))
 		{
-			if (!prev)
-				*tokens = next;
-			else
-				prev->next = next;
+			joined = ft_strjoin(cur->value, next->value);
 			free(cur->value);
-			free(cur);
-			cur = next;
+			cur->value = joined;
+			cur->space_after = next->space_after;
+			cur->next = next->next;
+			free(next->value);
+			free(next);
 			continue ;
 		}
-		prev = cur;
-		cur = next;
+		cur = cur->next;
 	}
 }

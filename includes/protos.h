@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 19:12:22 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 20:44:24 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@
 # include <stdbool.h>
 
 // void		ft_print_cmd(t_cmd *cmd);
+int			is_operator_start(char c);
+bool		has_space_after(const char *input, int i);
+int			is_meta(char c);
+void		merge_tokens(t_token *head);
+void		skip_spaces(const char *input, int *i);
+t_token		*parse_quoted_word(const char *input, int *i);
 void		pipe_loop(t_cmd *cmd);
 int			copy_token_part(char *dst, int buf_i, const char *src);
 char		*collect_quoted_content(const char *input, int *i,
