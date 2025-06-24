@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/25 00:13:08 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/25 00:18:42 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 static t_token	*parse_dollar_quote_case(const char *input, int *i)
 {
-	(*i)++; 
-	return parse_quoted_word(input, i);
+	(*i)++;
+	return (parse_quoted_word(input, i));
 }
-
 
 static t_token	*parse_non_empty_word(const char *input, int *i)
 {
