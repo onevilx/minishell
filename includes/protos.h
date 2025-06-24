@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 20:44:24 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/25 00:09:14 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <stdbool.h>
 
 // void		ft_print_cmd(t_cmd *cmd);
+void		normalize_odd_dollars(t_token *tokens);
 int			is_operator_start(char c);
 bool		has_space_after(const char *input, int i);
 int			is_meta(char c);
@@ -151,7 +152,6 @@ void		handle_parent_process(t_cmd *cmd, int *prev_fd, int pipe_fd[2]);
 char		*find_command_path(char *cmd, char **env);
 void		add_token(t_token **head, t_token *new);
 int			is_redirection(t_token *tok);
-void		ft_print_tokens(t_token *tokens);
 void		save_word(t_token *cur, t_token **args, int *i);
 void		*ft_calloc(size_t count, size_t size);
 int			builtin_cd(t_arg *args);

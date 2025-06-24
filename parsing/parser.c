@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 23:34:33 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/25 00:13:08 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ t_token	*tokenizing(const char *input)
 	{
 		skip_spaces(input, &i);
 		new = parse_and_classify(input, &i);
-		if (new->value[0] == '\0')
-			new->not_hide = true;
 		if (new)
 		{
+			if (new->value && new->value[0] == '\0')
+				new->not_hide = true;
 			new->space_after = has_space_after(input, i);
 			add_token(&tokens, new);
 		}
 	}
 	return (tokens);
 }
+
 t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 {
 	t_token	*tokens;
@@ -92,7 +93,7 @@ t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 		return (NULL);
 	if (!syntax_check(tokens, exit_status))
 		return (NULL);
-	
+	normalize_odd_dollars(tokens);
 	env = ft_init_env_list(envp);
 	ft_expand_tokens(tokens, env, *exit_status);
 	merge_tokens(tokens);
