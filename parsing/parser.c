@@ -6,24 +6,18 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:34:57 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 20:49:25 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 23:02:38 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-static t_token	*parse_dollar_quote_case(const char *input
-					, int *i, t_token **tokens)
+static t_token	*parse_dollar_quote_case(const char *input, int *i)
 {
-	t_token	*new;
-
-	new = new_token(WORD, strdup("$"), '"');
-	if (new->value == NULL)
-		new->not_hide = true;
-	add_token(tokens, new);
-	(*i)++;
-	return (parse_quoted_word(input, i));
+	(*i)++; 
+	return parse_quoted_word(input, i);
 }
+
 
 static t_token	*parse_non_empty_word(const char *input, int *i)
 {
@@ -39,7 +33,7 @@ static t_token	*parse_non_empty_word(const char *input, int *i)
 	return (new);
 }
 
-static t_token	*parse_and_classify(const char *input, int *i, t_token **tokens)
+static t_token	*parse_and_classify(const char *input, int *i)
 {
 	t_token	*new;
 
@@ -47,7 +41,7 @@ static t_token	*parse_and_classify(const char *input, int *i, t_token **tokens)
 	if (is_operator_start(input[*i]))
 		new = parse_operator(input, i);
 	else if (input[*i] == '$' && input[*i + 1] == '"')
-		new = parse_dollar_quote_case(input, i, tokens);
+		new = parse_dollar_quote_case(input, i);
 	else if (input[*i] == '"' || input[*i] == '\'')
 	{
 		new = parse_quoted_word(input, i);
@@ -70,7 +64,7 @@ t_token	*tokenizing(const char *input)
 	while (input[i])
 	{
 		skip_spaces(input, &i);
-		new = parse_and_classify(input, &i, &tokens);
+		new = parse_and_classify(input, &i);
 		if (new)
 		{
 			new->space_after = has_space_after(input, i);
@@ -79,7 +73,6 @@ t_token	*tokenizing(const char *input)
 	}
 	return (tokens);
 }
-
 t_cmd	*ft_input_proces(char *input, char **envp, int *exit_status)
 {
 	t_token	*tokens;
