@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 18:40:16 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/22 18:50:29 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:39:38 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	handle_redirection(t_token *cur, int *exit_status, int *heredoc_idx)
 	return (true);
 }
 
-void heredoc_sig(int signal)
+void	heredoc_sig(int signal)
 {
 	if (signal == SIGINT)
 	{

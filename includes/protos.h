@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/23 23:42:48 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:28:19 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,18 @@
 # include <signal.h>
 # include <stdbool.h>
 
-void		ft_print_cmd(t_cmd *cmd);
+// void		ft_print_cmd(t_cmd *cmd);
+int			copy_token_part(char *dst, int buf_i, const char *src);
+char		*collect_quoted_content(const char *input, int *i, char *quote_type);
+char		*handle_dollar(char *input, int *i, t_env *env, int status);
+int			handle_quoted_part(const char *input, int *i, t_parse_ctx *ctx);
+char		*get_env_val_list(t_env *env, const char *key);
+char		*normalize_whitespace(char *str);
+void		handle_normalized_expansion(t_token *tok, char *expanded);
+t_token		*split_expanded_token(char *expanded);
+void		replace_token_with_multiple(t_token *old, t_token *new_tokens);
+char		*extract_plain(char *input, int *i);
+bool		is_localized_string(t_token *prev);
 void 		heredoc_sig(int signal);
 bool		handle_too_many_heredocs(t_token *cur, int *exit_status);
 bool		handle_redirection(t_token *cur, int *exit_status, int *heredoc_idx);

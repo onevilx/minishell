@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/23 13:39:19 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:26:02 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ typedef enum s_code
 	APPEND,
 	WORD,
 }			t_code;
+
+typedef struct s_parse_ctx
+{
+	char	buf[1000000];
+	int		buf_i;
+	char	qt;
+}	t_parse_ctx;
 
 typedef struct s_gc
 {
