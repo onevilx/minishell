@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:45:18 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/22 00:41:42 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 01:12:07 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sigint_handler(int signum)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
-	*get_exit_status() = 130;
+	*get_exit_status() = 1;
 }
 
 void	sigquit_handler(int signum)

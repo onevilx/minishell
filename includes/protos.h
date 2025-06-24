@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 21:13:25 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/23 23:42:48 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,8 @@ int			handle_append(t_cmd *cmd);
 void		reset_init_signals(void);
 void		reset_signal(void);
 void		ignore_signal(void);
-void			handle_pipe(t_cmd *cmd);
+void		handle_pipe(t_cmd *cmd);
 char		**convert_args(t_arg *args);
-void		free_cmd(t_cmd *cmd);
 int			handle_redirections(t_cmd *cmd);
 void		*ft_free(char **arr, int count);
 void		ft_free_split(char **arr);
@@ -163,7 +162,5 @@ int			is_operator_start(char c);
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val);
 t_cmd		*ft_parse_commands(t_token *tokens);
 int			count_pipes(t_token *tokens);
-void		cleanup_cmd(t_cmd *cmd);
-void		free_args_list(t_arg *args);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 00:29:59 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 01:34:35 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int	execute_command(t_cmd *cmd)
 	dup2(stdout_copy, STDOUT_FILENO);
 	close(stdin_copy);
 	close(stdout_copy);
-	cleanup_cmd(cmd);
 	cleanup_cmdops_files(cmd);
 	return (*get_exit_status());
 }

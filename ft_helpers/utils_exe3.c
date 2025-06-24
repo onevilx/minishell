@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:45:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 17:58:17 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/23 23:42:14 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,4 @@ void	update_or_add_env(const char *key, const char *full_var)
 		return ;
 	free_env(env);
 	*get_env() = new_env;
-}
-
-void	free_cmd(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-
-	while (cmd)
-	{
-		tmp = cmd->next;
-		if (cmd->token)
-			free_tokensexe(cmd->token);
-		if (cmd->args)
-		{
-			free_args_list(cmd->args);
-			free(cmd->args);
-		}
-		free_redirections(cmd->red);
-		free(cmd);
-		cmd = tmp;
-	}
 }

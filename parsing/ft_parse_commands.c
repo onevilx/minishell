@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:57:06 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/22 18:47:58 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/23 23:41:45 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_cmd	*parse_command_node(t_token *start, t_token *end)
 	}
 	if (!fill_command_data(cmd, start, end))
 	{
-		free_args_list(cmd->args);
 		return (NULL);
 	}
 	return (cmd);

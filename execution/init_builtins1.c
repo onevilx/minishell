@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/23 18:13:08 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/24 01:35:30 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@ int	builtin_echo(t_arg *args)
 {
 	int		no_newline;
 	t_arg	*current;
+	int		first;
 
+	first = 1;
 	current = check_n_flag(args, &no_newline);
 	while (current)
 	{
-		printf("%s", current->value);
-		if (current->next)
-			printf(" ");
+		if (!first)
+			write(STDOUT_FILENO, " ", 1);
+		write(STDOUT_FILENO, current->value, ft_strlen(current->value));
+		first = 0;
 		current = current->next;
 	}
 	if (!no_newline)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
 
@@ -44,7 +47,7 @@ int	builtin_cd(t_arg *args)
 	{
 		home = get_env_value("HOME");
 		if (!home || chdir(home) != 0)
-			return (perror("cd"), 1);
+			return (free(oldpwd), perror("cd"), 1);                  
 	}
 	else if (current && current->next)
 		return (write(2, "cd: too many arguments\n", 24), 1);

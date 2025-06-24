@@ -7,23 +7,28 @@ yassine d  dd d minishell$
 minishell$ exit | exit 1 2  34
 minishell$ echo $?
 0
+NOT YET ❌
 -----------------------------------------
 minishell$ exit | exit 100
 minishell$ echo $?
 0
+NOT YET ❌
 -----------------------------------------
 minishell$ 
 minishell$ 
 minishell$ 
 minishell$ 
 minishell$ echo $?
-130
+130 must be 1
+DONE ✅
 -----------------------------------------
 ctrl quit
-minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ \minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$ \\\\\minishell$ minishell$ minishell$
+minishell$ minishell$ minishell$ minishell$ minishell$ minishell$  minishell$ minishell$ minishell$ \\\\\minishell$ minishell$ minishell$
+NOT YET ❌
 -----------------------------------------
 minishell$ ./folder/ > f
 minishell$ 
+NOT YET ❌
 -----------------------------------------
 minishell$ ./a.out  > ff
 minishell$ cat f
@@ -31,6 +36,7 @@ minishell: ./folder/: Is a directory
 minishell$ cat ff
 minishell: ./a.out: Permission denied
 minishell$ 
+NOT YET ❌
 -----------------------------------------
 1 (1.00K) ROOT LEAK: 0x7fbc8b010600 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
 1 (1.00K) ROOT LEAK: 0x7fbc8b808200 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
@@ -65,8 +71,14 @@ cd: Undefined error: 0
 minishell$ cd
 cd: Undefined error: 0
 minishell$ 
+DONE ✅
 -----------------------------------------
 leaks in minishell$ pwd
 /mnt/homes/obouftou/Desktop/minishell
+DONE ✅
 -----------------------------------------
 ls | cat > file | cat << l | cat | cat  > fil1
+DONE ✅
+-----------------------------------------
+
+-----------------------------------------

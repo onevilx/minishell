@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 19:20:24 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/24 02:23:25 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ static void	handle_execve_or_exit(char **argv, char *cmd_path)
 	if (!cmd_path)
 	{
 		perror("execve");
-		// ft_free_split(argv);
 		exit(127);
 	}
 	execve(cmd_path, argv, *get_env());
 	perror("execve");
 	free(cmd_path);
-	// ft_free_split(argv);
 	exit(127);
 }
 
@@ -48,6 +46,8 @@ void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 	char	*cmd_path;
 
 	setup_child_fds(cmd, prev_fd, pipe_fd);
+	if (!handling_cmdops(cmd))
+		exit(1);
 	argv = convert_args(cmd->args);
 	if (!argv || !argv[0])
 	{
