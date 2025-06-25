@@ -1,92 +1,28 @@
-minishell$ ""
-minishell$
-DONE ✅
+minishell$ export x="a b"
+minishell$ >> $x
 -----------------------------------------
-minishell$ echo -n "yassine d  dd d " > file
-yassine d  dd d minishell$
-DONE ✅
------------------------------------------
-minishell$ exit | exit 1 2  34
+send ctrl C :
+minishell$ cat << l
+> 
 minishell$ echo $?
 0
-DONE ✅
+minishell$ 
 -----------------------------------------
-minishell$ exit | exit 100
-minishell$ echo $?
-0
-DONE ✅
+minishell$ cat < minishell.h | ls
+open (REDIR_IN): No such file or directory
 -----------------------------------------
-minishell$
-minishell$
-minishell$
-minishell$
-minishell$ echo $?
-130 must be 1
-DONE ✅
+ctrl quit :
+minishell$ cat |  gdfgk
+execve: No such file or directory
 -----------------------------------------
-ctrl quit
-minishell$ minishell$ minishell$ minishell$ minishell$ minishell$  minishell$ minishell$ minishell$ \\\\\minishell$ minishell$ minishell$
-NOT YET ❌
------------------------------------------
-minishell$ ./folder/ > f
-minishell$
-DONE ✅
------------------------------------------
-minishell$ ./a.out  > ff
-minishell$ cat f
-minishell: ./folder/: Is a directory
-minishell$ cat ff
-minishell: ./a.out: Permission denied
-minishell$
-DONE ✅
------------------------------------------
-1 (1.00K) ROOT LEAK: 0x7fbc8b010600 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
-1 (1.00K) ROOT LEAK: 0x7fbc8b808200 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
-1 (1.00K) ROOT LEAK: 0x7fbc8b808600 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
-1 (1.00K) ROOT LEAK: 0x7fbc8b80ea00 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
-1 (1.00K) ROOT LEAK: 0x7fbc8c038c00 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell
-  minishell git:(master) ✗ env -i ./minishell
-minishell$ ls
-Makefile        a.out           folder          includes        minishell       signals
-TODO            execution       ft_helpers      main.c          parsing         t.c
-minishell$
-minishell$ ls
-Makefile        a.out           folder          includes        minishell       signals
-TODO            execution       ft_helpers      main.c          parsing         t.c
-minishell$ env
-PWD=/mnt/homes/obouftou/Desktop/minishell
-SHLVL=1
-_=/usr/bin/env
-PATH=/.local/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
-minishell$ unset PATH PWD SHLVL
-minishell$ env
-_=/usr/bin/env
-minishell$ unset _
-minishell$ cd
-cd: Undefined error: 0
-minishell$ cd
-cd: Undefined error: 0
-minishell$ cd
-cd: Undefined error: 0
-minishell$ cd
-cd: Undefined error: 0
-minishell$ cd
-cd: Undefined error: 0
-minishell$
-DONE ✅
------------------------------------------
-leaks in minishell$ pwd
-/mnt/homes/obouftou/Desktop/minishell
-DONE ✅
------------------------------------------
-ls | cat > file | cat << l | cat | cat  > fil1
-DONE ✅
------------------------------------------
-yaboukir@e3r1p13 minishell % ./minishell
-minishell$ cd $PWD hi
-cd: too many arguments
-minishell$ echo $?
-1
-minishell$
-NOT YET ❌
------------------------------------------
+minishell$ pwd
+/bin
+minishell$ /bin/ls
+[               dash            expr            ln              pwd             sync            zsh
+bash            date            hostname        ls              rm              syslog.py
+cat             dd              kill            mkdir           rmdir           tcsh
+chmod           df              ksh             mv              sh              test
+cp              echo            launchctl       pax             sleep           unlink
+csh             ed              link            ps              stty            wait4path
+minishell$ 
+---------------------------------------------------------------------------------------------------------------------------
