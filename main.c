@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:30:28 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/25 01:18:20 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:46:26 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ int	main(int argc, char **argv, char **envp)
 	t_cmd	*cmd;
 	int		exit_status;
 
-	if (!isatty(1) || !isatty(0))
-		return (1);
+	struct termios	term;
+	// if (!isatty(1) || !isatty(0))
+	// 	return (1);
 	exit_status = 0;
 	((void) argc, (void) argv, init_env(envp));
 	while (1)
 	{
+		tcgetattr(STDIN_FILENO, &term);
 		input = readline("minishell$ ");
 		if (!input)
 			sigterm_handler(*get_exit_status());
@@ -51,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 				exit_status = execute_command(cmd);
 			gc_free_all();
 		}
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 		free(input);
 	}
 	return (exit_status);

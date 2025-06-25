@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars5.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 18:40:16 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 16:39:38 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:29:31 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	heredoc_sig(int signal)
 	if (signal == SIGINT)
 	{
 		g_signal = 1;
+		*get_exit_status() = 1;
 		close(STDIN_FILENO);
 	}
 }

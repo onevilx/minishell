@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 01:06:38 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:31:39 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,15 @@ int	execute_command(t_cmd *cmd)
 
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
-	if (!sanitize_all_args(cmd))
-	{
-		*get_exit_status() = 1;
-		dup2(stdin_copy, STDIN_FILENO);
-		dup2(stdout_copy, STDOUT_FILENO);
-		close(stdin_copy);
-		close(stdout_copy);
-		cleanup_cmdops_files(cmd);
-		return (*get_exit_status());
-	}
 	if (cmd->next)
 		handle_pipe(cmd);
 	else
-		execute_single_cmd(cmd);
+	{
+		if (!sanitize_all_args(cmd))
+			*get_exit_status() = 1;
+		else
+			execute_single_cmd(cmd);
+	}
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
 	close(stdin_copy);

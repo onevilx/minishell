@@ -1,19 +1,23 @@
 minishell$ export x="a b"
 minishell$ >> $x
+NOT YET ❌
 -----------------------------------------
 send ctrl C :
 minishell$ cat << l
-> 
+>
 minishell$ echo $?
 0
-minishell$ 
+minishell$
+DONE ✅
 -----------------------------------------
 minishell$ cat < minishell.h | ls
 open (REDIR_IN): No such file or directory
+DONE ✅
 -----------------------------------------
 ctrl quit :
 minishell$ cat |  gdfgk
 execve: No such file or directory
+NOT YET ❌
 -----------------------------------------
 minishell$ pwd
 /bin
@@ -24,5 +28,6 @@ cat             dd              kill            mkdir           rmdir           
 chmod           df              ksh             mv              sh              test
 cp              echo            launchctl       pax             sleep           unlink
 csh             ed              link            ps              stty            wait4path
-minishell$ 
+minishell$
+DONE ✅
 ---------------------------------------------------------------------------------------------------------------------------
