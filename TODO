@@ -1,23 +1,25 @@
 minishell$ ""
-minishell$ 
+minishell$
+DONE ✅
 -----------------------------------------
 minishell$ echo -n "yassine d  dd d " > file
-yassine d  dd d minishell$ 
+yassine d  dd d minishell$
+DONE ✅
 -----------------------------------------
 minishell$ exit | exit 1 2  34
 minishell$ echo $?
 0
-NOT YET ❌
+DONE ✅
 -----------------------------------------
 minishell$ exit | exit 100
 minishell$ echo $?
 0
-NOT YET ❌
+DONE ✅
 -----------------------------------------
-minishell$ 
-minishell$ 
-minishell$ 
-minishell$ 
+minishell$
+minishell$
+minishell$
+minishell$
 minishell$ echo $?
 130 must be 1
 DONE ✅
@@ -27,27 +29,27 @@ minishell$ minishell$ minishell$ minishell$ minishell$ minishell$  minishell$ mi
 NOT YET ❌
 -----------------------------------------
 minishell$ ./folder/ > f
-minishell$ 
-NOT YET ❌
+minishell$
+DONE ✅
 -----------------------------------------
 minishell$ ./a.out  > ff
 minishell$ cat f
 minishell: ./folder/: Is a directory
 minishell$ cat ff
 minishell: ./a.out: Permission denied
-minishell$ 
-NOT YET ❌
+minishell$
+DONE ✅
 -----------------------------------------
 1 (1.00K) ROOT LEAK: 0x7fbc8b010600 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
 1 (1.00K) ROOT LEAK: 0x7fbc8b808200 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
 1 (1.00K) ROOT LEAK: 0x7fbc8b808600 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
 1 (1.00K) ROOT LEAK: 0x7fbc8b80ea00 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell"
 1 (1.00K) ROOT LEAK: 0x7fbc8c038c00 [1024]  length: 37  "/mnt/homes/obouftou/Desktop/minishell
-  minishell git:(master) ✗ env -i ./minishell 
+  minishell git:(master) ✗ env -i ./minishell
 minishell$ ls
 Makefile        a.out           folder          includes        minishell       signals
 TODO            execution       ft_helpers      main.c          parsing         t.c
-minishell$ 
+minishell$
 minishell$ ls
 Makefile        a.out           folder          includes        minishell       signals
 TODO            execution       ft_helpers      main.c          parsing         t.c
@@ -60,8 +62,6 @@ minishell$ unset PATH PWD SHLVL
 minishell$ env
 _=/usr/bin/env
 minishell$ unset _
-minishell$ cd 
-cd: Undefined error: 0
 minishell$ cd
 cd: Undefined error: 0
 minishell$ cd
@@ -70,7 +70,9 @@ minishell$ cd
 cd: Undefined error: 0
 minishell$ cd
 cd: Undefined error: 0
-minishell$ 
+minishell$ cd
+cd: Undefined error: 0
+minishell$
 DONE ✅
 -----------------------------------------
 leaks in minishell$ pwd
@@ -80,5 +82,11 @@ DONE ✅
 ls | cat > file | cat << l | cat | cat  > fil1
 DONE ✅
 -----------------------------------------
-
+yaboukir@e3r1p13 minishell % ./minishell
+minishell$ cd $PWD hi
+cd: too many arguments
+minishell$ echo $?
+1
+minishell$
+NOT YET ❌
 -----------------------------------------

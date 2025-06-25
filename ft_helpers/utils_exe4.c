@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 17:50:57 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/25 01:17:48 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 {
 	char	**argv;
 	char	*cmd_path;
+	int		ret;
 
 	setup_child_fds(cmd, prev_fd, pipe_fd);
 	if (!handling_cmdops(cmd))
@@ -57,13 +58,11 @@ void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 	if (is_builtin(cmd))
 	{
 		if (ft_strcmp(argv[0], "exit") == 0)
-		{
-			ft_free_split(argv);
-			exit(EXIT_SUCCESS);
-		}
-		execute_builtin(cmd);
+			ret = builtin_exit(cmd->args, 0);
+		else
+			ret = execute_builtin(cmd);
 		ft_free_split(argv);
-		exit(EXIT_SUCCESS);
+		exit(ret);
 	}
 	cmd_path = find_command_path(argv[0], *get_env());
 	handle_execve_or_exit(argv, cmd_path);

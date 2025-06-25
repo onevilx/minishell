@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:14:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 00:19:08 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/25 01:01:13 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	handle_builtin(t_cmd *cmd)
 	else if (ft_strcmp(cmd->args->value, "env") == 0)
 		return (builtin_env(cmd->args));
 	else if (ft_strcmp(cmd->args->value, "exit") == 0)
-		return (builtin_exit(cmd->args));
+		return (builtin_exit(cmd->args, 1));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:44:17 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 18:09:33 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/25 00:37:37 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,20 @@ void	exec_direct_path(t_cmd *cmd, char **args_array)
 	{
 		if (is_directory(cmd->args->value))
 		{
-			printf("minishell: %s: Is a directory\n", cmd->args->value);
+			errno = EISDIR;
+			perror(cmd->args->value);
 			exit(126);
 		}
 		if (access(cmd->args->value, X_OK) == 0)
 			execve(cmd->args->value, args_array, *get_env());
-		printf("minishell: %s: Permission denied\n", cmd->args->value);
-		exit(126);
+		else
+		{
+			errno = EACCES;
+			perror(cmd->args->value);
+			exit(126);
+		}
 	}
-	printf("minishell: %s: No such file or directory\n", cmd->args->value);
+	errno = ENOENT;
+	perror(cmd->args->value);
 	exit(127);
 }

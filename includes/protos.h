@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 00:09:14 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/25 01:03:14 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <termios.h>
 # include <unistd.h>
+# include <errno.h>
 # include <stdint.h>
 # include <sys/wait.h>
 # include <fcntl.h>
@@ -121,7 +122,7 @@ void		sigint_handler(int signum);
 void		heredoc_sig(int signal);
 void		print_env_vars(char **env);
 int			str_in_array(char **arr, char *str);
-int			builtin_exit(t_arg *args);
+int			builtin_exit(t_arg *args, int print_exit);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int			sanitize_all_args(t_cmd *cmd);
 char		**extract_args(t_token *tok);

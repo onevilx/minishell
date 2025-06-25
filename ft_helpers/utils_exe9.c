@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 17:51:30 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/25 01:18:59 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,15 @@ char	**extract_args(t_token *tok)
 int	sanitize_all_args(t_cmd *cmd)
 {
 	t_cmd	*cur;
+	int		ret;
 
 	cur = cmd;
+	if (cmd && cmd->args && ft_strcmp(cmd->args->value,
+			"exit") == 0 && cmd->next == NULL)
+	{
+		ret = builtin_exit(cmd->args, 1);
+		exit(ret);
+	}
 	while (cur)
 	{
 		if (!sanitize_args(cur))
