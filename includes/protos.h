@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 01:03:14 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:23:43 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@
 
 // void		ft_print_cmd(t_cmd *cmd);
 void		normalize_odd_dollars(t_token *tokens);
+void		expand_token(t_token *tok, t_env *env, int status);
+void		handle_export_assignment(t_token *prev, t_token **cur,
+				t_env *env, int status);
+void		handle_tilde_and_skip(t_token **cur, t_token *prev, t_token *next);
+void		handle_regular_expansion(t_token *cur,
+				t_env *env, int status);
+bool		is_unquoted_export_assignment(t_token *prev, t_token *cur);
 int			is_operator_start(char c);
 bool		has_space_after(const char *input, int i);
 int			is_meta(char c);

@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:42:07 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 16:13:18 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:24:37 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_expand_value(char *input, t_env *env, int status)
 	return (result);
 }
 
-static void	expand_token(t_token *tok, t_env *env, int status)
+void	expand_token(t_token *tok, t_env *env, int status)
 {
 	char	*expanded;
 	char	*normalized;
@@ -80,20 +80,13 @@ void	ft_expand_tokens(t_token *tokens, t_env *env, int status)
 	while (tokens)
 	{
 		next = tokens->next;
-		if (is_localized_string(prev) || tokens->quote_type == '\'')
-		{
-			prev = tokens;
-			tokens = next;
-			continue ;
-		}
-		if (ft_strcmp(tokens->value, "~") == 0)
-		{
-			free(tokens->value);
-			tokens->value = ft_strdup("$HOME");
-		}
-		if (ft_strchr(tokens->value, '$')
-			&& (tokens->quote_type == '\0' || tokens->quote_type == '"'))
-			expand_token(tokens, env, status);
+		handle_export_assignment(prev, &tokens, env, status);
+		if (!tokens)
+			break ;
+		handle_tilde_and_skip(&tokens, prev, next);
+		if (!tokens)
+			break ;
+		handle_regular_expansion(tokens, env, status);
 		prev = tokens;
 		tokens = tokens->next;
 	}
