@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:50:50 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 15:51:10 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/25 22:11:28 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ bool	check_ambg(t_token *tokens, int *exit_status)
 			&& cur->next && cur->next->type == WORD)
 		{
 			target = cur->next;
-			if (!target->value || target->value[0] == '\0')
+			if (!target->value || target->value[0] == '\0'
+				|| (target->value && target->next
+					&& target->next->type == WORD)
+				|| ft_strchr(target->value, ' '))
 			{
 				print_ambiguous_error(target->value);
 				*exit_status = 1;
