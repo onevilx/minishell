@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 23:23:43 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/26 22:29:30 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ bool		is_redirection_without_target(t_token *cur, int *exit_status);
 char		*handle_read_loop(char *delimiter, t_env *env,
 				char quote_type, int exit_status);
 char		*handle_ctrl_c(char *buffer);
+t_mode		*get_shell_mode(void);
 bool		check_ambg(t_token *tokens, int *exit_status);
 void		ft_remove_empty(t_token **tokens);
 void		ft_bzero(void *s, size_t n);

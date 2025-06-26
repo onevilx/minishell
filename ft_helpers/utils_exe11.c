@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:33:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 21:32:45 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/26 23:26:15 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,22 @@ char	*find_in_paths(char **paths, char *cmd)
 
 static void	wait_for_children(pid_t last_pid)
 {
-	int	status;
+	int		status;
+	pid_t	pid;
 
-	while (waitpid(-1, &status, 0) > 0)
+	while ((pid = waitpid(-1, &status, 0)) > 0)
 	{
-		if (WIFEXITED(status) && last_pid != 0)
+		if (WIFEXITED(status) && pid == last_pid)
 			*get_exit_status() = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status) && pid == last_pid)
+		{
+			int sig = WTERMSIG(status);
+			if (sig == SIGINT)
+				write(1, "\n", 1);
+			else if (sig == SIGQUIT)
+				write(1, "Quit 3\n", 8);
+			*get_exit_status() = 128 + sig;
+		}
 	}
 }
 

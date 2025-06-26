@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:50:50 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 22:11:28 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/26 23:14:45 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ static void	print_ambiguous_error(const char *val)
 
 bool	check_ambg(t_token *tokens, int *exit_status)
 {
-	t_token	*cur;
-	t_token	*target;
+	t_token		*cur;
+	t_token		*target;
 
 	cur = tokens;
 	while (cur)
@@ -89,8 +89,6 @@ bool	check_ambg(t_token *tokens, int *exit_status)
 		{
 			target = cur->next;
 			if (!target->value || target->value[0] == '\0'
-				|| (target->value && target->next
-					&& target->next->type == WORD)
 				|| ft_strchr(target->value, ' '))
 			{
 				print_ambiguous_error(target->value);

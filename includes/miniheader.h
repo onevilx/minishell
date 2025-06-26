@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 00:51:11 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/26 22:33:53 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef enum s_code
 	APPEND,
 	WORD,
 }			t_code;
+
+typedef enum e_mode
+{
+	NORMAL,
+	CHILD_RUNNING,
+}	t_mode;
 
 typedef struct s_parse_ctx
 {
