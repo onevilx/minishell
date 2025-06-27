@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe11.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:33:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/27 01:33:22 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/27 04:48:00 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void	pipe_loop(t_cmd *cmd)
 			return (perror("pipe"), (void)0);
 		pid = fork();
 		if (pid == -1)
-			return (perror("fork"), (void)0);
+		{
+			wait_for_children(last_pid);
+			return (perror("fork"), close(pipe_fd[0]),close(pipe_fd[1]),close(prev_fd), (void)0);
+		}
 		else if (pid == 0)
 			handle_child_process(current, prev_fd, pipe_fd);
 		if (!current->next)
