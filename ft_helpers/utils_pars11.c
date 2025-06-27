@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:20:47 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/25 23:22:50 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/27 01:44:48 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void	handle_regular_expansion(t_token *cur,
 
 bool	is_unquoted_export_assignment(t_token *prev, t_token *cur)
 {
+	int i;
+	int count;
+	
+	count = 0;
+	i = 0;
 	if (!prev || !cur)
 		return (false);
 	if (prev->type != WORD || ft_strcmp(prev->value, "export") != 0)
@@ -62,6 +67,14 @@ bool	is_unquoted_export_assignment(t_token *prev, t_token *cur)
 	if (!ft_strchr(cur->value, '='))
 		return (false);
 	if (cur->value[0] == '=')
+		return (false);
+	while(cur->value[i])
+	{
+		if(cur->value[i] == '$')
+			count++;
+		i++;
+	}
+	if (count > 1)
 		return (false);
 	return (true);
 }
