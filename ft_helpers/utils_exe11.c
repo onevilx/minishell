@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe11.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:33:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/26 23:26:15 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/27 01:03:19 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ static void	wait_for_children(pid_t last_pid)
 {
 	int		status;
 	pid_t	pid;
+	int		sig;
 
-	while ((pid = waitpid(-1, &status, 0)) > 0)
+	pid = waitpid(-1, &status, 0);
+	while (pid > 0)
 	{
 		if (WIFEXITED(status) && pid == last_pid)
 			*get_exit_status() = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status) && pid == last_pid)
 		{
-			int sig = WTERMSIG(status);
+			sig = WTERMSIG(status);
 			if (sig == SIGINT)
 				write(1, "\n", 1);
 			else if (sig == SIGQUIT)

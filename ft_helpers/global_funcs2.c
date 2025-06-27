@@ -6,13 +6,13 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:57:55 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/20 17:56:41 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/27 00:44:28 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-char	*strndup(const char *s, size_t n)
+char	*ft_strndup(const char *s, size_t n)
 {
 	size_t	i;
 	char	*dup;

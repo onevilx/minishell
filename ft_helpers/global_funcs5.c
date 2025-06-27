@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:30:43 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 17:50:40 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/27 00:38:17 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	*ft_free(char **arr, int count)
 
 size_t	get_len(char const *s, char c)
 {
-	if (strchr(s, c))
-		return (strchr(s, c) - s);
+	if (ft_strchr(s, c))
+		return (ft_strchr(s, c) - s);
 	return (ft_strlen(s));
 }

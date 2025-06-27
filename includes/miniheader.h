@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniheader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:34:48 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/26 22:33:53 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/27 01:00:46 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct s_env
 typedef struct s_cmd
 {
 	int				pipe_count;
-	int				is_pipe;
 	t_arg			*args;
 	t_redirect		*red;
 	t_token			**token;

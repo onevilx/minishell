@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/26 22:29:30 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/27 01:02:07 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <signal.h>
 # include <stdbool.h>
 
-// void		ft_print_cmd(t_cmd *cmd);
 void		normalize_odd_dollars(t_token *tokens);
 void		expand_token(t_token *tok, t_env *env, int status);
 void		handle_export_assignment(t_token *prev, t_token **cur,
@@ -39,10 +38,7 @@ void		handle_tilde_and_skip(t_token **cur, t_token *prev, t_token *next);
 void		handle_regular_expansion(t_token *cur,
 				t_env *env, int status);
 bool		is_unquoted_export_assignment(t_token *prev, t_token *cur);
-int			is_operator_start(char c);
 bool		has_space_after(const char *input, int i);
-int			is_meta(char c);
-void		merge_tokens(t_token *head);
 void		skip_spaces(const char *input, int *i);
 t_token		*parse_quoted_word(const char *input, int *i);
 void		pipe_loop(t_cmd *cmd);
@@ -60,11 +56,9 @@ t_token		*split_expanded_token(char *expanded);
 void		replace_token_with_multiple(t_token *old, t_token *new_tokens);
 char		*extract_plain(char *input, int *i);
 bool		is_localized_string(t_token *prev);
-void		heredoc_sig(int signal);
 bool		handle_too_many_heredocs(t_token *cur, int *exit_status);
 bool		handle_redirection(t_token *cur, int *exit_status,
 				int *heredoc_idx);
-bool		is_redirection_without_target(t_token *cur, int *exit_status);
 char		*handle_read_loop(char *delimiter, t_env *env,
 				char quote_type, int exit_status);
 char		*handle_ctrl_c(char *buffer);
@@ -90,10 +84,8 @@ void		init_for_norm(t_cmd	**head, t_cmd **last,
 int			execute_builtin(t_cmd *cmd);
 char		*find_in_paths(char **paths, char *cmd);
 void		exec_direct_path(t_cmd *cmd, char **args_array);
-int			execute_external(t_cmd *cmd);
 bool		ft_isspace(char c);
 t_cmd		*ft_input_proces(char *input, char **envp, int *exit_status);
-int			is_valid_n_flag(char *str);
 t_token		*new_token(t_code type, char *val, char qoute_type);
 t_token		*parse_operator(const char *input, int *i);
 char		*ft_itoa(int n);
@@ -101,9 +93,8 @@ char		**copy_env(char **envp);
 int			write_heredoc_tmp(char *filename, char *content);
 t_arg		*check_n_flag(t_arg *args, int *no_newline);
 void		update_shlvl(void);
-char		*strndup(const char *s, size_t n);
+char		*ft_strndup(const char *s, size_t n);
 char		*get_env_value(char *key);
-void		print_welcome(void);
 void		try_exec_paths(t_cmd *cmd);
 char		**args_to_array(t_arg *args);
 void		free_split(char **array);
@@ -120,18 +111,15 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strdup(const char *s1);
 char		**ft_split(char const *s, char c);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-void		init_signals(void);
 void		ft_launching(void);
 void		init_terminal(void);
 void		disable_echoctl(void);
 void		sigterm_handler(int signum);
-void		sigquit_handler(int signum);
 void		sigint_handler(int signum);
 void		heredoc_sig(int signal);
 void		print_env_vars(char **env);
 int			str_in_array(char **arr, char *str);
 int			builtin_exit(t_arg *args, int print_exit);
-char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int			sanitize_all_args(t_cmd *cmd);
 char		**extract_args(t_token *tok);
 void		print_export_only_vars(char **export);
@@ -143,7 +131,6 @@ void		append_to_env(char *key, char *value, int idx);
 void		handle_export_logic(t_arg *arg, char *key, int append, int pos);
 void		init_env(char **envp);
 void		add_env_var(char *arg);
-void		append_to_env(char *key, char *value, int idx);
 void		update_env_var(int idx, char *arg);
 char		*generate_tmp_filename(int index);
 char		*read_input(const char *delimiter, t_env *env,
@@ -169,13 +156,10 @@ int			*get_exit_status(void);
 int			builtin_echo(t_arg *args);
 int			builtin_pwd(t_arg *args);
 int			sanitize_args(t_cmd *cmd);
-void		free_redirections(t_redirect *redir);
 int			builtin_env(t_arg *args);
 t_token		*get_next_command_tokens(t_token *cur);
 t_cmd		*parse_command_node(t_token *start, t_token *end);
-int			do_append_fd(char *filename);
 int			do_append_redirection(t_redirect *curr);
-t_arg		*char_array_to_args_list(char **array);
 int			execute_command(t_cmd *cmd);
 int			builtin_unset(t_arg *args);
 void		cleanup_cmdops_files(t_cmd *cmd);
@@ -192,16 +176,12 @@ size_t		get_len(char const *s, char c);
 int			builtin_export(t_arg *args);
 void		update_or_add_env(const char *key, const char *full_var);
 size_t		ft_strlen(const char *s);
-void		free_tokens(t_token *token);
-void		free_tokensexe(t_token **tokens);
 char		*join_token_values(t_token *tokens);
 bool		are_quotes_closed(const char *input);
 bool		syntax_check(t_token *token, int *exit_status);
 t_token		*parse_word(const char *input, int *i);
 int			is_operator_start(char c);
-char		*handle_eof(char *buffer);
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val);
 t_cmd		*ft_parse_commands(t_token *tokens);
-int			count_pipes(t_token *tokens);
 
 #endif

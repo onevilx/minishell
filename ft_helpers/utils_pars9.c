@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:38:46 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/24 20:42:48 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/27 00:58:45 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 int	is_operator_start(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
-}
-
-int	is_meta(char c)
-{
-	return (c == ' ' || c == '\t'
-		|| c == '|' || c == '<' || c == '>'
-		|| c == '\'' || c == '"');
 }
 
 t_token	*parse_quoted_word(const char *input, int *i)

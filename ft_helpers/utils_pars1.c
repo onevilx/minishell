@@ -6,7 +6,7 @@
 /*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:03:35 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/23 14:25:08 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/27 00:44:43 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,10 @@ t_token	*parse_operator(const char *input, int *i)
 		return (new_token(HEREDOC, strdup("<<"), '\0'));
 	}
 	if (input[*i] == '>')
-		return (new_token(REDIR_OUT, strndup(&input[(*i)++], 1), '\0'));
+		return (new_token(REDIR_OUT, ft_strndup(&input[(*i)++], 1), '\0'));
 	if (input[*i] == '<')
-		return (new_token(REDIR_IN, strndup(&input[(*i)++], 1), '\0'));
+		return (new_token(REDIR_IN, ft_strndup(&input[(*i)++], 1), '\0'));
 	if (input[*i] == '|')
-		return (new_token(PIPE, strndup(&input[(*i)++], 1), '\0'));
+		return (new_token(PIPE, ft_strndup(&input[(*i)++], 1), '\0'));
 	return (NULL);
-}
-
-void	free_tokens(t_token *token)
-{
-	t_token	*tmp;
-
-	while (token)
-	{
-		tmp = token->next;
-		if (token->value)
-			free(token->value);
-		free(token);
-		token = tmp;
-	}
 }
