@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/25 19:55:19 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/27 01:25:02 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 	char	*cmd_path;
 	int		ret;
 
+	reset_signal();
 	setup_child_fds(cmd, prev_fd, pipe_fd);
 	if (!handling_cmdops(cmd))
 		exit(1);

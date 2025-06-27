@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe11.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:33:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/27 01:03:19 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/27 01:33:22 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	wait_for_children(pid_t last_pid)
 	pid_t	pid;
 	int		sig;
 
+	sig = 0;
 	pid = waitpid(-1, &status, 0);
 	while (pid > 0)
 	{
@@ -69,6 +70,7 @@ static void	wait_for_children(pid_t last_pid)
 				write(1, "Quit 3\n", 8);
 			*get_exit_status() = 128 + sig;
 		}
+		pid = waitpid(-1, &status, 0);
 	}
 }
 
