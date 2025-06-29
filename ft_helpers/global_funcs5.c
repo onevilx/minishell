@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:30:43 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/27 00:38:17 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/29 02:55:32 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,30 @@ void	*ft_free(char **arr, int count)
 	return (NULL);
 }
 
-size_t	get_len(char const *s, char c)
+t_token	*skip_redirection(t_token *token, t_token *end)
 {
-	if (ft_strchr(s, c))
-		return (ft_strchr(s, c) - s);
-	return (ft_strlen(s));
+	if (!token)
+		return (NULL);
+	if (is_redirection(token))
+	{
+		token = token->next;
+		if (token && token != end && token->type == WORD)
+			token = token->next;
+	}
+	return (token);
+}
+
+t_arg	*create_arg(t_token *token)
+{
+	t_arg	*new_arg;
+
+	if (!token || token->type != WORD)
+		return (NULL);
+	new_arg = g_malloc(sizeof(t_arg));
+	if (!new_arg)
+		return (NULL);
+	new_arg->value = ft_strdup(token->value);
+	new_arg->quote_type = token->quote_type;
+	new_arg->next = NULL;
+	return (new_arg);
 }

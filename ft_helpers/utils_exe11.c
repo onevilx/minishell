@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exe11.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:33:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/27 04:48:00 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/29 03:02:07 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*find_in_paths(char **paths, char *cmd)
 	return (NULL);
 }
 
-static void	wait_for_children(pid_t last_pid)
+void	wait_for_children(pid_t last_pid)
 {
 	int		status;
 	pid_t	pid;
@@ -77,25 +77,22 @@ static void	wait_for_children(pid_t last_pid)
 void	pipe_loop(t_cmd *cmd)
 {
 	t_cmd	*current;
-	pid_t	pid;
 	pid_t	last_pid;
 	int		pipe_fd[2];
 	int		prev_fd;
+	pid_t	pid;
 
 	current = cmd;
 	prev_fd = -1;
 	last_pid = 0;
 	while (current)
 	{
-		if (current->next && pipe(pipe_fd) == -1)
-			return (perror("pipe"), (void)0);
-		pid = fork();
+		if (current->next && create_pipe(pipe_fd) == -1)
+			return ;
+		pid = do_fork(last_pid, pipe_fd, prev_fd);
 		if (pid == -1)
-		{
-			wait_for_children(last_pid);
-			return (perror("fork"), close(pipe_fd[0]),close(pipe_fd[1]),close(prev_fd), (void)0);
-		}
-		else if (pid == 0)
+			return ;
+		if (pid == 0)
 			handle_child_process(current, prev_fd, pipe_fd);
 		if (!current->next)
 			last_pid = pid;

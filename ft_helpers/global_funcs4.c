@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_funcs4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onevil_x <onevil_x@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:27 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/05 16:49:51 by onevil_x         ###   ########.fr       */
+/*   Updated: 2025/06/29 02:52:51 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	ft_bzero(void *s, size_t n)
 		p++;
 		n--;
 	}
+}
+
+size_t	get_len(char const *s, char c)
+{
+	if (ft_strchr(s, c))
+		return (ft_strchr(s, c) - s);
+	return (ft_strlen(s));
 }
 
 int	*get_exit_status(void)

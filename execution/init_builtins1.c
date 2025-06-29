@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_builtins1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:40:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/27 04:42:22 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/29 02:55:22 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	builtin_cd(t_arg *args)
 			return (free(oldpwd), perror("cd"), 1);
 	}
 	else if (current && current->next)
-		return (write(2, "cd: too many arguments\n", 24),free(oldpwd), 1);
+		return (write(2, "cd: too many arguments\n", 24), free(oldpwd), 1);
 	else if (chdir(current->value) != 0)
-		return (perror("cd"), free(oldpwd),1);
+		return (perror("cd"), free(oldpwd), 1);
 	update_pwd_vars(oldpwd);
 	free(oldpwd);
 	return (0);
