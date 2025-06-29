@@ -1,1 +1,68 @@
 I GUESS EVERYTHING IS WORKING 
+
+hhh ok
+---------------------------------------------------
+minishell$ exit 1  2 4
+exit
+exit: too many arguments
+---------------------------------------------------
+minishell$ echo "yassine" | cat < gkfsjkgf  | < file_not_exist
+minishell$ echo $?
+0
+minishell$ 
+---------------------------------------------------
+minishell$ > f
+minishell$ 
+---------------------------------------------------
+minishell$ < fdsf
+minishell$ 
+---------------------------------------------------
+minishell$ export x="a b"
+minishell$ >> $x
+minishell$ echo $?
+127
+---------------------------------------------------
+minishell$ cat << l | ls | ls | << l
+> 
+minishell$ echo $?
+echo $?
+1
+minishell$ 
+----------------------------------------------------
+minishell$ export x="a b"
+minishell$ export $x="yassine"
+export: not a valid identifier
+minishell$ 
+----------------------------------------------------
+minishell$ cd /bin/
+minishell$ ls
+[               dd              launchctl       pwd             tcsh
+bash            df              link            rm              test
+cat             echo            ln              rmdir           unlink
+chmod           ed              ls              sh              wait4path
+cp              expr            mkdir           sleep           zsh
+csh             hostname        mv              stty
+dash            kill            pax             sync
+date            ksh             ps              syslog.py
+minishell$ unset PATH
+minishell$ ls
+PATH: Invalid argument
+minishell$ 
+----------------------------------------------------
+minishell$ cp /bin/ls ls
+minishell$ unset PATH
+minishell$ ls
+PATH: Invalid argument
+minishell$ 
+----------------------------------------------------
+minishell$ >> $X | ls | cat
+minishell: : ambiguous redirect
+minishell$ echo $?
+1
+----------------------------------------------------
+minishell$ >> l >> l >> l | cat > l
+execve: No such file or directory
+minishell$ 
+----------------------------------------------------
+Execution mt9ooob !!!!
+.....
