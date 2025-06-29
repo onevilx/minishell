@@ -1,38 +1,45 @@
-I GUESS EVERYTHING IS WORKING 
+I GUESS EVERYTHING IS WORKING
 
 hhh ok
 ---------------------------------------------------
 minishell$ exit 1  2 4
 exit
 exit: too many arguments
+NOT YET ❌
 ---------------------------------------------------
 minishell$ echo "yassine" | cat < gkfsjkgf  | < file_not_exist
 minishell$ echo $?
 0
-minishell$ 
+minishell$
+FIXED ✅
 ---------------------------------------------------
 minishell$ > f
-minishell$ 
+minishell$
+FIXED ✅
 ---------------------------------------------------
 minishell$ < fdsf
-minishell$ 
+minishell$
+FIXED ✅
 ---------------------------------------------------
 minishell$ export x="a b"
 minishell$ >> $x
 minishell$ echo $?
 127
+NOT YET ❌
 ---------------------------------------------------
 minishell$ cat << l | ls | ls | << l
-> 
+>
 minishell$ echo $?
 echo $?
 1
-minishell$ 
+minishell$
+FIXED ✅
 ----------------------------------------------------
 minishell$ export x="a b"
 minishell$ export $x="yassine"
 export: not a valid identifier
-minishell$ 
+minishell$
+NOT YET ❌
 ----------------------------------------------------
 minishell$ cd /bin/
 minishell$ ls
@@ -47,22 +54,33 @@ date            ksh             ps              syslog.py
 minishell$ unset PATH
 minishell$ ls
 PATH: Invalid argument
-minishell$ 
+minishell$
+NOT YET ❌
 ----------------------------------------------------
 minishell$ cp /bin/ls ls
 minishell$ unset PATH
 minishell$ ls
 PATH: Invalid argument
-minishell$ 
+minishell$
+NOT YET ❌
 ----------------------------------------------------
 minishell$ >> $X | ls | cat
 minishell: : ambiguous redirect
 minishell$ echo $?
 1
+NOT YET ❌
 ----------------------------------------------------
-minishell$ >> l >> l >> l | cat > l
+minishell$ >> l >> l >> l | ls > l
 execve: No such file or directory
-minishell$ 
+minishell$ echo $?
+0
+minishell$
+NOT YET ❌
+----------------------------------------------------
+minishell$ < Makefile cat | cat < /dev/stdin
+execve: No such file or directory
+minishell$
+NOT YET ❌
 ----------------------------------------------------
 Execution mt9ooob !!!!
 .....
