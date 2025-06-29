@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:30:43 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 02:55:32 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:44:12 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,32 +60,4 @@ void	*ft_free(char **arr, int count)
 	}
 	free(arr);
 	return (NULL);
-}
-
-t_token	*skip_redirection(t_token *token, t_token *end)
-{
-	if (!token)
-		return (NULL);
-	if (is_redirection(token))
-	{
-		token = token->next;
-		if (token && token != end && token->type == WORD)
-			token = token->next;
-	}
-	return (token);
-}
-
-t_arg	*create_arg(t_token *token)
-{
-	t_arg	*new_arg;
-
-	if (!token || token->type != WORD)
-		return (NULL);
-	new_arg = g_malloc(sizeof(t_arg));
-	if (!new_arg)
-		return (NULL);
-	new_arg->value = ft_strdup(token->value);
-	new_arg->quote_type = token->quote_type;
-	new_arg->next = NULL;
-	return (new_arg);
 }

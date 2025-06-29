@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 02:52:12 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:44:18 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ t_arg	*token_to_args(t_token *start, t_token *end)
 	tail = NULL;
 	while (start && start != end)
 	{
-		start = skip_redirection(start, end);
-		if (!start || start == end)
-			break ;
 		if (start->type == WORD)
 		{
-			new_arg = create_arg(start);
+			new_arg = g_malloc(sizeof(t_arg));
 			if (!new_arg)
 				return (NULL);
+			new_arg->value = ft_strdup(start->value);
+			new_arg->quote_type = start->quote_type;
+			new_arg->next = NULL;
 			if (!head)
 				head = new_arg;
 			else

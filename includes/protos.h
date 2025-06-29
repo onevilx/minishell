@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 03:02:20 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:44:37 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,10 +181,8 @@ bool		are_quotes_closed(const char *input);
 bool		syntax_check(t_token *token, int *exit_status);
 t_token		*parse_word(const char *input, int *i);
 void		wait_for_children(pid_t last_pid);
-t_arg		*create_arg(t_token *token);
 int			create_pipe(int pipe_fd[2]);
 pid_t		do_fork(pid_t last_pid, int pipe_fd[2], int prev_fd);
-t_token		*skip_redirection(t_token *token, t_token *end);
 int			is_operator_start(char c);
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val);
 t_cmd		*ft_parse_commands(t_token *tokens);
