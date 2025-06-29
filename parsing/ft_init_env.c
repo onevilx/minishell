@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:50:50 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/26 23:14:45 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:54:50 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_env	*ft_init_env_list(char **env)
 	return (head);
 }
 
-static void	print_ambiguous_error(const char *val)
+void	print_ambiguous_error(const char *val)
 {
 	write(2, "minishell: ", 11);
 	if (val)
@@ -77,8 +77,8 @@ static void	print_ambiguous_error(const char *val)
 
 bool	check_ambg(t_token *tokens, int *exit_status)
 {
-	t_token		*cur;
-	t_token		*target;
+	t_token	*cur;
+	t_token	*target;
 
 	cur = tokens;
 	while (cur)
@@ -88,12 +88,10 @@ bool	check_ambg(t_token *tokens, int *exit_status)
 			&& cur->next && cur->next->type == WORD)
 		{
 			target = cur->next;
-			if (!target->value || target->value[0] == '\0'
-				|| ft_strchr(target->value, ' '))
+			if (is_ambiguous_target(target))
 			{
-				print_ambiguous_error(target->value);
-				*exit_status = 1;
-				return (false);
+				handle_ambiguous(cur, target, exit_status);
+				return (true);
 			}
 		}
 		cur = cur->next;

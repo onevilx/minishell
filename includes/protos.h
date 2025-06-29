@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 16:44:37 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:55:07 by obouftou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # include <signal.h>
 # include <stdbool.h>
 
+void		handle_ambiguous(t_token *cur, t_token *target, int *exit_status);
+void		print_ambiguous_error(const char *val);
+bool		is_ambiguous_target(t_token *target);
 void		normalize_odd_dollars(t_token *tokens);
 void		expand_token(t_token *tok, t_env *env, int status);
 void		handle_export_assignment(t_token *prev, t_token **cur,
