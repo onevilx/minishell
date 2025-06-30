@@ -1,7 +1,3 @@
-I GUESS EVERYTHING IS WORKING
-
-hhh ok
----------------------------------------------------
 minishell$ exit 1  2 4
 exit
 exit: too many arguments
@@ -17,7 +13,7 @@ minishell$ > f
 minishell$ echo $?
 1 should be 0
 minishell$
-NOT YET ❌
+FIXED ✅
 ---------------------------------------------------
 minishell$ < fdsf
 minishell$
