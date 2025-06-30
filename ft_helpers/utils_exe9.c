@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 16:44:18 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:27:17 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,9 @@ int	sanitize_all_args(t_cmd *cmd)
 			"exit") == 0 && cmd->next == NULL)
 	{
 		ret = builtin_exit(cmd->args, 1);
-		exit(ret);
+		if (ret != 1)
+			exit(ret);
+		return (0);
 	}
 	while (cur)
 	{
