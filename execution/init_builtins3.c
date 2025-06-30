@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:20:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/22 19:14:39 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:20:58 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	is_valid_key(char *key)
 	return (1);
 }
 
-// Remove an environment variable by its key
 static void	remove_env_var(char *key)
 {
 	int		i;
@@ -81,7 +80,6 @@ int	builtin_unset(t_arg *args)
 	return (status);
 }
 
-// Print all environment variables
 static void	print_env(void)
 {
 	int		i;

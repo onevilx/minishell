@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/30 18:28:13 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:02:15 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,9 +188,7 @@ t_token		*parse_word(const char *input, int *i);
 void		wait_for_children(pid_t last_pid);
 int			create_pipe(int pipe_fd[2]);
 char		**get_paths_array(void);
-int			handle_one_redirection(t_redirect *redir);
 void		try_exec_in_paths(char **paths, char **args_array, char **env);
-int			handle_redirections_in_order(t_cmd *cmd);
 pid_t		do_fork(pid_t last_pid, int pipe_fd[2], int prev_fd);
 int			is_operator_start(char c);
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val);

@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 02:59:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/30 18:24:31 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:00:11 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,6 @@ pid_t	do_fork(pid_t last_pid, int pipe_fd[2], int prev_fd)
 		return (-1);
 	}
 	return (pid);
-}
-
-int	handle_redirections_in_order(t_cmd *cmd)
-{
-	t_redirect	*curr;
-	int			ret;
-
-	curr = cmd->red;
-	while (curr)
-	{
-		ret = handle_one_redirection(curr);
-		if (ret == -1 || ret == 0)
-			return (0);
-		curr = curr->next;
-	}
-	return (1);
 }
 
 char	**get_paths_array(void)

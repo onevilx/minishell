@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:28:52 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/30 18:27:14 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:00:02 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,4 @@ int	write_heredoc_tmp(char *filename, char *content)
 	write(fd, content, ft_strlen(content));
 	close(fd);
 	return (0);
-}
-
-int	handle_one_redirection(t_redirect *redir)
-{
-	int	ret;
-
-	if (redir->type == REDIR_IN)
-		ret = handle_redir_in(redir);
-	else if (redir->type == REDIR_OUT)
-		ret = handle_redir_out(redir);
-	else if (redir->type == APPEND)
-		ret = do_append_redirection(redir);
-	else
-		ret = 1;
-	return (ret);
 }

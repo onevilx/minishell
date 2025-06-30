@@ -82,7 +82,7 @@ yaboukir@e3r10p16 minishell % ./minishell
 minishell$ ls > f | cat f
 minishell$ cat f
 minishell$
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
 minishell$ ls > "$ASD"
 minishell: : ambiguous redirect
@@ -117,6 +117,5 @@ minishell$ cat << l
 > ahsda
 > asda
 > l
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
-

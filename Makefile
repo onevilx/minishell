@@ -18,7 +18,7 @@ NAME_MINISHELL = minishell
 all: $(NAME_MINISHELL)
 
 $(NAME_MINISHELL): $(OBJS_MINISHELL)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS_MINISHELL) -lreadline -lncurses -o $(NAME_MINISHELL)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS_MINISHELL) -lreadline -o $(NAME_MINISHELL)
 
 %.o: %.c $(INCLUDE)
 	$(CC) $(CFLAGS) -c $< -o $@

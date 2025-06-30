@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:46:01 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/21 22:55:19 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:22:12 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	add_to_array(char ***arr_ptr, char *str)
 	*arr_ptr = new_arr;
 }
 
-// Check if the export argument is valid (contains a key-value pair)
 int	is_valid_export(char *arg)
 {
 	int	i;
@@ -71,7 +70,6 @@ int	is_valid_export(char *arg)
 	return (1);
 }
 
-// Print all exported variables in the format 'declare -x key=value'
 void	print_export_only_vars(char **export)
 {
 	int		i;
@@ -89,7 +87,6 @@ void	print_export_only_vars(char **export)
 	}
 }
 
-// Prints variables from env in the format: declare -x key="value"
 void	print_env_vars(char **env)
 {
 	int		i;

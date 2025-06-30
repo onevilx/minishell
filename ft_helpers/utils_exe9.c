@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/30 21:33:00 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:22:22 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	**args_to_array(t_arg *args)
 	return (arr);
 }
 
-// Try executing the command using paths in $PATH
 void	try_exec_paths(t_cmd *cmd)
 {
 	char	**paths;
