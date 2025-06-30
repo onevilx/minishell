@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/30 18:17:39 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 21:33:00 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	try_exec_paths(t_cmd *cmd)
 	paths = get_paths_array();
 	try_exec_in_paths(paths, args_array, *get_env());
 	if (paths != NULL && paths != (char *[]){"/bin", "/usr/bin", NULL})
-		free_split(paths);
-	printf("minishell: command not found: %s\n", args_array[0]);
-	free_split(args_array);
+		printf("minishell: command not found: %s\n", args_array[0]);
 	exit(127);
 }
 

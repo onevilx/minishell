@@ -14,18 +14,14 @@ minishell$
 FIXED ✅
 ---------------------------------------------------
 minishell$ > f
+minishell$ echo $?
+1 should be 0
 minishell$
-FIXED ✅
+NOT YET ❌
 ---------------------------------------------------
 minishell$ < fdsf
 minishell$
 FIXED ✅
----------------------------------------------------
-minishell$ export x="a b"
-minishell$ >> $x
-minishell$ echo $?
-127
-NOT YET ❌
 ---------------------------------------------------
 minishell$ cat << l | ls | ls | << l
 >
@@ -39,7 +35,7 @@ minishell$ export x="a b"
 minishell$ export $x="yassine"
 export: not a valid identifier
 minishell$
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
 minishell$ cd /bin/
 minishell$ ls
@@ -82,5 +78,36 @@ execve: No such file or directory
 minishell$
 FIXED ✅
 ----------------------------------------------------
-Execution mt9ooob !!!!
-.....
+yaboukir@e3r10p16 minishell % ./minishell
+minishell$ ls > f | cat f
+minishell$ cat f
+minishell$
+----------------------------------------------------
+minishell$ ls > "$ASD"
+minishell: : ambiguous redirect
+ASD             TODO            f               includes        main.o parsing
+Makefile        execution       ft_helpers      main.c          minishell signals
+----------------------------------------------------
+bash-3.2$ export x="a b"
+bash-3.2$ export $x=$x
+bash-3.2$ export "x"=$x
+The output should be like this :
+declare -x a
+declare -x b="a"
+declare -x x="a"
+----------------------------------------------------
+minishell$ unset PATH
+minishell$ akjsd
+minishell(90736,0x118603dc0) malloc: *** error for object 0x10bf54f14: pointer being freed was not allocated
+minishell(90736,0x118603dc0) malloc: *** set a breakpoint in malloc_error_break to debug
+----------------------------------------------------
+bash-3.2$ export x$=
+bash: export: `x$=': not a valid identifier
+----------------------------------------------------
+minishell$ "$AJSD"
+minishell$
+----------------------------------------------------
+minishell$ cat << l
+> ahsda
+> asda
+> l
