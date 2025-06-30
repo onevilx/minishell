@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:41:05 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/30 16:27:17 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:17:39 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,15 @@ char	**args_to_array(t_arg *args)
 void	try_exec_paths(t_cmd *cmd)
 {
 	char	**paths;
-	char	*path;
-	int		i;
 	char	**args_array;
 
-	paths = ft_split(get_env_value("PATH"), ':');
-	if (!paths)
-		return (perror("PATH"), exit(127));
 	args_array = args_to_array(cmd->args);
 	if (!args_array)
 		exit(1);
-	i = 0;
-	while (paths[i])
-	{
-		path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin_free(path, args_array[0]);
-		if (access(path, X_OK) == 0)
-			execve(path, args_array, *get_env());
-		free(path);
-		i++;
-	}
-	free_split(paths);
+	paths = get_paths_array();
+	try_exec_in_paths(paths, args_array, *get_env());
+	if (paths != NULL && paths != (char *[]){"/bin", "/usr/bin", NULL})
+		free_split(paths);
 	printf("minishell: command not found: %s\n", args_array[0]);
 	free_split(args_array);
 	exit(127);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_tokens.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:42:07 by obouftou          #+#    #+#             */
-/*   Updated: 2025/06/25 23:24:37 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:26:09 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	expand_token(t_token *tok, t_env *env, int status)
 		tok->value = ft_strdup("");
 		return ;
 	}
-	if (tok->quote_type == '\0')
+	if (tok->quote_type == '\0' || tok->quote_type == '"')
 	{
 		normalized = normalize_whitespace(expanded);
 		free(expanded);

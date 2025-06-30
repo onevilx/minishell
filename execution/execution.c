@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 22:43:23 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 21:15:30 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:09:59 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	child_exec(t_cmd *cmd)
 	char	**args_array;
 
 	reset_signal();
+	if (!handling_cmdops(cmd))
+		exit(1);
 	args_array = args_to_array(cmd->args);
 	if (!args_array)
 		exit(1);
@@ -59,8 +61,25 @@ int	execute_external(t_cmd *cmd)
 
 static void	execute_single_cmd(t_cmd *cmd)
 {
+	if (cmd->args == NULL && cmd->red != NULL)
+	{
+		if (!handling_cmdops(cmd))
+		{
+			*get_exit_status() = 1;
+			return ;
+		}
+		*get_exit_status() = 0;
+		return ;
+	}
 	if (is_builtin(cmd))
+	{
+		if (!handling_cmdops(cmd))
+		{
+			*get_exit_status() = 1;
+			return ;
+		}
 		*get_exit_status() = execute_builtin(cmd);
+	}
 	else
 		execute_external(cmd);
 }

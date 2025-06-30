@@ -5,7 +5,7 @@ hhh ok
 minishell$ exit 1  2 4
 exit
 exit: too many arguments
-NOT YET ❌
+FIXED ✅
 ---------------------------------------------------
 minishell$ echo "yassine" | cat < gkfsjkgf  | < file_not_exist
 minishell$ echo $?
@@ -55,32 +55,32 @@ minishell$ unset PATH
 minishell$ ls
 PATH: Invalid argument
 minishell$
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
 minishell$ cp /bin/ls ls
 minishell$ unset PATH
 minishell$ ls
 PATH: Invalid argument
 minishell$
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
 minishell$ >> $X | ls | cat
 minishell: : ambiguous redirect
 minishell$ echo $?
 1
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
 minishell$ >> l >> l >> l | ls > l
 execve: No such file or directory
 minishell$ echo $?
 0
 minishell$
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
 minishell$ < Makefile cat | cat < /dev/stdin
 execve: No such file or directory
 minishell$
-NOT YET ❌
+FIXED ✅
 ----------------------------------------------------
 Execution mt9ooob !!!!
 .....

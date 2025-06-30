@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 02:59:00 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 03:00:18 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:24:31 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,55 @@ pid_t	do_fork(pid_t last_pid, int pipe_fd[2], int prev_fd)
 		return (-1);
 	}
 	return (pid);
+}
+
+int	handle_redirections_in_order(t_cmd *cmd)
+{
+	t_redirect	*curr;
+	int			ret;
+
+	curr = cmd->red;
+	while (curr)
+	{
+		ret = handle_one_redirection(curr);
+		if (ret == -1 || ret == 0)
+			return (0);
+		curr = curr->next;
+	}
+	return (1);
+}
+
+char	**get_paths_array(void)
+{
+	char		*path_env;
+	char		**paths;
+	static char	*fallback_paths[] = {"/bin", "/usr/bin", NULL};
+
+	path_env = get_env_value("PATH");
+	if (!path_env || path_env[0] == '\0')
+		return (fallback_paths);
+	paths = ft_split(path_env, ':');
+	if (!paths)
+	{
+		perror("PATH");
+		exit(127);
+	}
+	return (paths);
+}
+
+void	try_exec_in_paths(char **paths, char **args_array, char **env)
+{
+	int		i;
+	char	*full_path;
+
+	i = 0;
+	while (paths[i])
+	{
+		full_path = ft_strjoin(paths[i], "/");
+		full_path = ft_strjoin_free(full_path, args_array[0]);
+		if (access(full_path, X_OK) == 0)
+			execve(full_path, args_array, env);
+		free(full_path);
+		i++;
+	}
 }

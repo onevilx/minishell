@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouftou <obouftou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:33 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 17:55:07 by obouftou         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:28:13 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,12 +179,18 @@ size_t		get_len(char const *s, char c);
 int			builtin_export(t_arg *args);
 void		update_or_add_env(const char *key, const char *full_var);
 size_t		ft_strlen(const char *s);
+int			handle_redir_in(t_redirect *redir);
+int			handle_redir_out(t_redirect *redir);
 char		*join_token_values(t_token *tokens);
 bool		are_quotes_closed(const char *input);
 bool		syntax_check(t_token *token, int *exit_status);
 t_token		*parse_word(const char *input, int *i);
 void		wait_for_children(pid_t last_pid);
 int			create_pipe(int pipe_fd[2]);
+char		**get_paths_array(void);
+int			handle_one_redirection(t_redirect *redir);
+void		try_exec_in_paths(char **paths, char **args_array, char **env);
+int			handle_redirections_in_order(t_cmd *cmd);
 pid_t		do_fork(pid_t last_pid, int pipe_fd[2], int prev_fd);
 int			is_operator_start(char c);
 t_redirect	*add_redirect(t_redirect *head, t_code type, char *val);

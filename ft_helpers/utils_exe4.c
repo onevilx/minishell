@@ -6,7 +6,7 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 00:13:29 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/29 03:24:19 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:10:14 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	handle_child_process(t_cmd *cmd, int prev_fd, int *pipe_fd)
 	int		ret;
 
 	reset_signal();
-	setup_child_fds(cmd, prev_fd, pipe_fd);
 	if (!handling_cmdops(cmd))
 		exit(1);
+	setup_child_fds(cmd, prev_fd, pipe_fd);
 	argv = convert_args(cmd->args);
 	if (!argv || !argv[0])
 	{
@@ -85,9 +85,5 @@ void	handle_parent_process(t_cmd *cmd, int *prev_fd, int pipe_fd[2])
 
 int	handling_cmdops(t_cmd *cmd)
 {
-	if (!handle_redirections(cmd))
-		return (0);
-	if (!handle_append(cmd))
-		return (0);
-	return (1);
+	return (handle_redirections_in_order(cmd));
 }

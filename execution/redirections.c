@@ -6,13 +6,13 @@
 /*   By: yaboukir <yaboukir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:00:59 by yaboukir          #+#    #+#             */
-/*   Updated: 2025/06/24 17:50:01 by yaboukir         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:27:49 by yaboukir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/protos.h"
 
-static int	handle_redir_in(t_redirect *redir)
+int	handle_redir_in(t_redirect *redir)
 {
 	int	fd;
 
@@ -27,7 +27,7 @@ static int	handle_redir_in(t_redirect *redir)
 	return (0);
 }
 
-static int	handle_redir_out(t_redirect *redir)
+int	handle_redir_out(t_redirect *redir)
 {
 	int	fd;
 
