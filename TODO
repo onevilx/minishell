@@ -82,11 +82,13 @@ yaboukir@e3r10p16 minishell % ./minishell
 minishell$ ls > f | cat f
 minishell$ cat f
 minishell$
+NOT YET ❌
 ----------------------------------------------------
 minishell$ ls > "$ASD"
 minishell: : ambiguous redirect
 ASD             TODO            f               includes        main.o parsing
 Makefile        execution       ft_helpers      main.c          minishell signals
+NOT YET ❌
 ----------------------------------------------------
 bash-3.2$ export x="a b"
 bash-3.2$ export $x=$x
@@ -95,19 +97,26 @@ The output should be like this :
 declare -x a
 declare -x b="a"
 declare -x x="a"
+NOT YET ❌
 ----------------------------------------------------
 minishell$ unset PATH
 minishell$ akjsd
 minishell(90736,0x118603dc0) malloc: *** error for object 0x10bf54f14: pointer being freed was not allocated
 minishell(90736,0x118603dc0) malloc: *** set a breakpoint in malloc_error_break to debug
+FIXED ✅
 ----------------------------------------------------
 bash-3.2$ export x$=
-bash: export: `x$=': not a valid identifier
+bash: export: x$=: not a valid identifier
+NOT YET ❌
 ----------------------------------------------------
 minishell$ "$AJSD"
 minishell$
+NOT YET ❌
 ----------------------------------------------------
 minishell$ cat << l
 > ahsda
 > asda
 > l
+NOT YET ❌
+----------------------------------------------------
+
